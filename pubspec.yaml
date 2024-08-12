@@ -35,7 +35,9 @@ dependencies:
   http_parser: ^4.0.2
   mime: ^1.0.5
   flutter_html: ^3.0.0-beta.2
+  fl_country_code_picker: ^0.1.9+1
   cached_network_image: ^3.4.0
+  flutter_pin_code_fields: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -45,8 +47,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/icon/ic_change_password.png
+    - assets/icon/ic_forgot_password.png
     - assets/icon/ic_image_placeholder.png
     - assets/icon/ic_no_wifi.png
+    - assets/icon/ic_verify_otp.png
     - assets/lottie/empty_lottie.json
     - assets/lottie/error_lottie.json
     - assets/lottie/no_notification_lottie.json

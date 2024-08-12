@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/presentation/auth/forget_password_view.dart';
 import 'package:flutter_project/presentation/auth/login_view.dart';
+import 'package:flutter_project/presentation/auth/register_view.dart';
+import 'package:flutter_project/presentation/auth/verify_otp_view.dart';
 import 'package:flutter_project/routes/routes.dart';
 
 import '../presentation/home/home_view.dart';
@@ -17,6 +20,12 @@ class RouteGenerator {
         break;
       case Routes.loginScreen:
         widgetScreen = const LoginView();
+      case Routes.registerScreen:
+        widgetScreen = const RegisterView();
+      case Routes.forgetPasswordScreen:
+        widgetScreen = const ForgetPasswordView();
+      case Routes.verifyOtpScreen:
+        widgetScreen = const VerifyOtpView();
       case Routes.homeScreen:
         widgetScreen = const HomeView();
         break;

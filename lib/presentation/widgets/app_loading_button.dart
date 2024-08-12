@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/base/extensions/context_extension.dart';
+import 'package:flutter_project/base/base.dart';
 
-class AppButton extends StatelessWidget {
+class AppLoadingButton extends StatelessWidget {
   final String? title;
   final VoidCallback? onTap;
   final double? height;
@@ -11,7 +12,7 @@ class AppButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? tittleColor;
 
-  const AppButton(
+  const AppLoadingButton(
       {super.key,
       this.title,
       this.onTap,
@@ -25,7 +26,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onTap,
+      onPressed: () {},
       style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? context.theme.primaryColor,
           textStyle: textStyle ??
@@ -34,7 +35,9 @@ class AppButton extends StatelessWidget {
           foregroundColor: tittleColor ?? Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      child: Text(title ?? ''),
+      child: const Center(
+        child: CupertinoActivityIndicator(),
+      ),
     );
   }
 }

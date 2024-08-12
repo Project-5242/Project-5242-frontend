@@ -93,7 +93,7 @@ class AppTextFieldWidget extends StatelessWidget {
       children: [
         Text(
           title ?? '',
-          style: context.titleSmall,
+          style: context.titleMedium,
         ),
         const SizedBox(
           height: 06,
@@ -102,17 +102,9 @@ class AppTextFieldWidget extends StatelessWidget {
           alignment: Alignment.center,
           width: width ?? MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5), // Shadow color
-                spreadRadius: 2, // Spread radius
-                blurRadius: 5, // Blur radius
-                offset: const Offset(0, 5), // Offset from the top
-              ),
-            ],
-          ),
+              color: const Color(0XFFD9D9D9),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey)),
           padding:
               const EdgeInsets.symmetric(horizontal: 10.0), // Adjusted padding
           child: TextFormField(
