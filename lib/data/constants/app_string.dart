@@ -15,8 +15,11 @@ class AppStrings {
   static String hintPhone = 'Enter Your Phone Number';
 
   static String password = 'Password';
+  static String newPassword = 'New Password';
+  static String confirmPassword = 'Confirm Password';
   static String hintPassword = 'Enter Your Password';
   static String forgetPassword = 'Forget Password';
+  static String createNewPassword = 'Create New Password';
 
   static String dontHaveAccount = 'Don’t have an account? ';
   static String alreadyHaveAccount = 'Already have an account? ';
@@ -25,7 +28,10 @@ class AppStrings {
   static String changePassword = 'Change Password';
   static String hintForgotPassword =
       'Please enter your email address to\nreceive a verification code';
+  static String hintNewPassword =
+      'New password must be different from\npreviously used password';
   static String sendEmail = 'Send Email';
+  static String resetPassword = 'Reset Password';
   static String verifyOTP = 'Verify OTP';
   static String hintOTP = 'Please enter 4 digit code sent to\nyour email';
   static String dontHaveCode = 'If you don’t receive the code? ';

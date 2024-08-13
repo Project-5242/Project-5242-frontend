@@ -5,7 +5,7 @@ import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:gap/gap.dart';
 
-import '../../base/text_formatters/text_formatters.dart';
+import '../../routes/routes.dart';
 import '../widgets/app_button.dart';
 import '../widgets/app_text_field_widget.dart';
 
@@ -70,7 +70,9 @@ class RegisterView extends StatelessWidget {
           ),
           const Gap(20),
           AppButton(
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(Routes.mainScreen);
+            },
             title: AppStrings.signUp,
           ),
           const Gap(20),

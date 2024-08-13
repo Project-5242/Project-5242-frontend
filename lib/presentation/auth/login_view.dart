@@ -63,7 +63,9 @@ class LoginView extends StatelessWidget {
           ),
           const Gap(20),
           AppButton(
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(Routes.mainScreen);
+            },
             title: AppStrings.signIn,
           ),
           const Gap(20),

@@ -2,10 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:flutter_project/base/extensions/context_extension.dart';
+import 'package:flutter_project/base/extensions/navigation_extension.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
-import 'package:flutter_project/presentation/widgets/app_timer_widget.dart';
-import 'package:flutter_project/presentation/widgets/image_view_widget.dart';
 import 'package:flutter_project/res/assets_res.dart';
+import 'package:flutter_project/routes/routes.dart';
 import 'package:gap/gap.dart';
 
 import '../../data/constants/app_string.dart';
@@ -50,7 +50,9 @@ class VerifyOtpView extends StatelessWidget {
           ),
           Gap(30),
           AppButton(
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(Routes.changePasswordScreen);
+            },
             title: AppStrings.verify,
           ),
           Gap(30),

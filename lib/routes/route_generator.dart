@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/presentation/auth/change_password.dart';
 import 'package:flutter_project/presentation/auth/forget_password_view.dart';
 import 'package:flutter_project/presentation/auth/login_view.dart';
 import 'package:flutter_project/presentation/auth/register_view.dart';
 import 'package:flutter_project/presentation/auth/verify_otp_view.dart';
+import 'package:flutter_project/presentation/main/main_view.dart';
 import 'package:flutter_project/routes/routes.dart';
 
-import '../presentation/home/home_view.dart';
 import '../presentation/splash/splash_view.dart';
 
 class RouteGenerator {
@@ -26,8 +27,10 @@ class RouteGenerator {
         widgetScreen = const ForgetPasswordView();
       case Routes.verifyOtpScreen:
         widgetScreen = const VerifyOtpView();
-      case Routes.homeScreen:
-        widgetScreen = const HomeView();
+      case Routes.changePasswordScreen:
+        widgetScreen = const ChangePassword();
+      case Routes.mainScreen:
+        widgetScreen = const MainView();
         break;
       default:
         widgetScreen = _errorRoute();
