@@ -15,6 +15,10 @@ class AssetsRes {
   static const String ERROR_LOTTIE = 'assets/lottie/error_lottie.json';
   static const String NO_NOTIFICATION_LOTTIE =
       'assets/lottie/no_notification_lottie.json';
+  static const String MENU_ICON = 'assets/icon/menu.png';
+  static const String ARROW = 'assets/icon/arrow.png';
+  static const String DASHBOARD = 'assets/icon/dashboard.png';
+  static const String PROFILE = 'assets/icon/profile.png';
   static const String PAGE_NOT_FOUND = 'assets/lottie/page_not_found.json';
   static const String WELCOME_LOTTIE = 'assets/lottie/welcome_lottie.json';
   static const String DOTENV = 'assets/secrets/dotenv.env';

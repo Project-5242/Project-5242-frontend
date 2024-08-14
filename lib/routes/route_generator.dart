@@ -3,6 +3,7 @@ import 'package:flutter_project/presentation/auth/login_view.dart';
 import 'package:flutter_project/routes/routes.dart';
 
 import '../presentation/home/home_view.dart';
+import '../presentation/providers/provider_menu_page.dart';
 import '../presentation/splash/splash_view.dart';
 
 class RouteGenerator {
@@ -17,6 +18,8 @@ class RouteGenerator {
         break;
       case Routes.loginScreen:
         widgetScreen = const LoginView();
+      case Routes.providerHomeScreen:
+        widgetScreen = const ProviderMenuPage();
       case Routes.homeScreen:
         widgetScreen = const HomeView();
         break;
