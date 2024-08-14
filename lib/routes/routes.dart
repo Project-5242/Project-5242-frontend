@@ -10,4 +10,5 @@ class Routes {
   static const String registerScreen = "/registerScreen";
   static const String homeScreen = "/homeScreen";
   static const String errorScreen = "/errorScreen";
+  static const String messages = "/messages";
 }

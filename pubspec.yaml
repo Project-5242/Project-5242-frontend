@@ -55,4 +55,5 @@ flutter:
     - assets/lottie/page_not_found.json
     - assets/lottie/welcome_lottie.json
     - assets/secrets/dotenv.env
+    - assets/images/
 

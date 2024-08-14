@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/presentation/auth/login_view.dart';
 import 'package:flutter_project/presentation/message/chat.dart';
+import 'package:flutter_project/presentation/message/messages.dart';
 import 'package:flutter_project/routes/routes.dart';
 
 import '../presentation/home/home_view.dart';
@@ -22,6 +23,9 @@ class RouteGenerator {
         widgetScreen = const HomeView();
       case Routes.chatscreen:
         widgetScreen = const ChatScreen();
+        break;
+      case Routes.messages:
+        widgetScreen = const MessageScreen();
         break;
       default:
         widgetScreen = _errorRoute();

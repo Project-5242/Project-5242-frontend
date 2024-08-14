@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/res/assets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -15,19 +12,19 @@ class _ChatScreenState extends State<ChatScreen> {
   List<Message> messages = [
     Message(
       text:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text ever since the 1500s, when an unknown.",
       isSentByMe: false,
       time: '1:30 PM',
     ),
     Message(
       text:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
       isSentByMe: true,
       time: '1:30 PM',
     ),
     Message(
       text:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text ever since the 1500s, when an unknown.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the text ever since the 1500s, when an unknown.",
       isSentByMe: false,
       time: '1:30 PM',
     ),
@@ -35,62 +32,73 @@ class _ChatScreenState extends State<ChatScreen> {
 
   TextEditingController messageController = TextEditingController();
 
-  void _sendMessage() {
-    if (messageController.text.isNotEmpty) {
-      setState(() {
-        String formattedTime = DateFormat('hh:mm a').format(DateTime.now());
-        messages.add(Message(
-          text: messageController.text,
-          isSentByMe: true,
-          time: formattedTime,
-        ));
-        messageController
-            .clear(); // Clear the text field after sending a message
-      });
-    }
+  void _handlePopUpItem(String value, BuildContext context) {
+    // Handle popup menu actions (Block, Report, Remove)
   }
 
   @override
   Widget build(BuildContext context) {
+    // MediaQuery data for screen dimensions
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final screenWidth = mediaQuery.size.width;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
           leading: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.015,
+              vertical: screenHeight * 0.005,
+            ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: Image.asset('assets/images/girl2.png',
-                  height: 44, width: 44, fit: BoxFit.cover),
+              child: Image.asset(
+                'assets/images/person.png',
+                height: screenHeight * 0.05,
+                width: screenWidth * 0.1,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          title: Align(
-            alignment: Alignment.centerRight,
-            child: PopupMenuButton(
+          centerTitle: true,
+          title: Text(
+            'Jason Jones',
+            style: TextStyle(
+              fontSize: screenWidth * 0.05,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF0B8FAC),
+            ),
+          ),
+          actions: [
+            PopupMenuButton(
               onSelected: (value) =>
                   _handlePopUpItem(value.toString(), context),
               constraints: BoxConstraints(
-                maxWidth: 145,
+                maxWidth: screenWidth * 0.4,
               ),
               itemBuilder: (BuildContext context) {
                 return {"Block", 'Report', 'Remove'}.map((String choice) {
                   return PopupMenuItem(
-                    value:
-                        choice.toLowerCase(), // Correct usage of toLowerCase()
+                    value: choice.toLowerCase(),
                     child: Container(
-                      height: 40,
-                      width: 125,
+                      height: screenHeight * 0.05,
+                      width: screenWidth * 0.35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        color: Colors.blue.withOpacity(0.3),
+                        color: Color(0xFF0B8FAC),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.025,
+                          vertical: screenHeight * 0.006,
+                        ),
                         child: Text(
                           choice,
                           style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 14,
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -100,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 }).toList();
               },
             ),
-          ),
+          ],
         ),
         body: Column(
           children: [
@@ -115,57 +123,52 @@ class _ChatScreenState extends State<ChatScreen> {
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      child: InkWell(
-                        onTap: () {
-                          /* Get.to(MycontractScreen());*/
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            crossAxisAlignment: message.isSentByMe
-                                ? CrossAxisAlignment.end
-                                : CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                constraints: BoxConstraints(maxWidth: 200),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: message.isSentByMe
-                                      ? BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                          bottomLeft: Radius.circular(15),
-                                        )
-                                      : BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                          bottomRight: Radius.circular(15),
-                                        ),
-                                ),
-                                child: Text(
-                                    'hi'), /*TextWidget(
-                                  text: message.text,
-                                  color: Colors.white,
-                                  size: 12.sp,
-                                  fontweight: FontWeight.w400,
-                                ),*/
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.03,
+                        vertical: screenHeight * 0.007,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: message.isSentByMe
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            constraints:
+                            BoxConstraints(maxWidth: screenWidth * 0.7),
+                            padding: EdgeInsets.all(screenWidth * 0.03),
+                            decoration: BoxDecoration(
+                              color: message.isSentByMe
+                                  ? Color(0xFF0B8FAC)
+                                  : Color(0xFF0B8FAC),
+                              borderRadius: message.isSentByMe
+                                  ? BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                                bottomLeft: Radius.circular(15),
+                              )
+                                  : BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                                bottomRight: Radius.circular(15),
                               ),
-                              SizedBox(
-                                  height:
-                                      5), // Adjusts spacing between message and time
-                              Text(
-                                  'hi'), /*TextWidget(
-                                text: message.time,
-                                color: Colors.black.withOpacity(0.7),
-                                size: 10.sp,
-                              ),*/
-                            ],
+                            ),
+                            child: Text(
+                              message.text,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth * 0.04,
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(height: screenHeight * 0.006),
+                          Text(
+                            message.time,
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.03,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -173,193 +176,66 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.03,
+                vertical: screenHeight * 0.015,
+              ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      /*Get.to(MycontractScreen());*/
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: const Color(0xffF1F1F1),
-                      ),
-                      height: 50,
-                      width: 234,
-                      child: TextFormField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          fillColor: const Color(0xffF1F1F1),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: SvgPicture.asset(
-                              Assets.person,
-                              height: 18,
-                              width: 18,
-                              fit: BoxFit.contain,
+                  Expanded(
+                    child: TextField(
+                      controller: messageController,
+                      decoration: InputDecoration(
+                        hintText: 'Message',
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: screenHeight * 0.012,
+                          horizontal: screenWidth * 0.04,
+                        ),
+                        fillColor: Color(0xFF0B8FAC),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.emoji_emotions,
+                          color: Colors.white,
+                          size: screenWidth * 0.07,
+                        ),
+                        suffixIcon: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.attach_file,
+                                color: Colors.white,
+                                size: screenWidth * 0.07,
+                              ),
+                              onPressed: () {
+                                // Handle file attachment
+                              },
                             ),
-                          ),
-                          hintText: 'Type Something....',
-                          hintStyle: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                                size: screenWidth * 0.07,
+                              ),
+                              onPressed: () {
+                                // Handle camera action
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    height: 50,
-                    width: 71,
-                    child: IconButton(
-                      onPressed: () {
-                        _sendMessage();
-                      },
-                      icon: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 15,
-                        color: const Color(0xffB9B9B9),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xffF1F1F1),
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
-  }
-
-  void _handlePopUpItem(String value, context) {
-    switch (value) {
-      case 'block':
-        _showDialogBox(
-            context, 'Do you want to Block ', 'Joseph Aina ?', 'Yes', 'No');
-        break;
-      case 'report':
-        _showDialogBox(context, 'Do you want to Report ', 'Joseph Aina ?',
-            'Report', 'Cancel');
-        break;
-      case 'remove':
-        _showDialogBox(context, 'Do you want to Remove ', 'Joseph Aina ?',
-            'Remove', 'Cancel');
-        break;
-    }
-  }
-
-  void _showDialogBox(
-    BuildContext context,
-    String text,
-    String text1,
-    String btntext1,
-    String btntext2,
-  ) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Center(
-                child: Text(
-                    'hi'), /*TextWidget(
-                  text: 'Are you Sure?',
-                  color: Colors.blue,
-                  size: 20.sp,
-                  fontweight: FontWeight.w700,
-                ),*/
-              ),
-              content: RichText(
-                text: TextSpan(
-                  text: text,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15,
-                    color: Colors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      //recognizer: TapGestureRecognizer()
-
-                      text: text1,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // TextWidget(
-              //   text: text,
-              //   color: MyColors.black,
-              //   size: 12,
-              //   fontweight: FontWeight.w500,
-              // ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          backgroundColor: Colors.lightBlue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            side: BorderSide(color: Colors.lightBlue),
-                          )),
-                      onPressed: () {
-                        /*  Get.back();*/
-                      },
-                      child: Text(
-                          'hi'), /*TextWidget(
-                        text: btntext1,
-                        color: Colors.white,
-                        size: 12.sp,
-                        fontweight: FontWeight.w500,
-                      ),*/
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(100),
-                          )),
-                      onPressed: () {
-                        /*  Get.back();*/
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                            'hi'), /*TextWidget(
-                          text: btntext2,
-                          color: Colors.black,
-                          size: 12.sp,
-                          fontweight: FontWeight.w500,
-                        ),*/
-                      ),
-                    ),
-                  ],
-                )
-              ]);
-        });
   }
 }
 
@@ -368,5 +244,9 @@ class Message {
   final bool isSentByMe;
   final String time;
 
-  Message({required this.text, required this.isSentByMe, required this.time});
+  Message({
+    required this.text,
+    required this.isSentByMe,
+    required this.time,
+  });
 }
