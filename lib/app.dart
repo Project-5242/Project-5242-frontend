@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_project/presentation/message/chat.dart';
 import 'package:flutter_project/routes/route_generator.dart';
 import 'package:flutter_project/routes/routes.dart';
 import 'package:flutter_project/themes/dark_theme.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
             initialRoute: Routes.root,
             onGenerateRoute: RouteGenerator.generateRoute,
             navigatorObservers: [AppRouteObserver()],
+
           ),
         ),
       ),
