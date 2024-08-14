@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
+import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:gap/gap.dart';
@@ -39,24 +40,23 @@ class Dashboard1Page extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        children: const [
-          SizedBox(height: 60),
+        children: [
+          const SizedBox(height: 60),
           Row(
             children: [
-              SizedBox(
+               SizedBox(
                 height: 100,
-                width: 170,
-                child: Card(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: const Card(
                   elevation: 5,
-                  color: Colors.cyan,
                 ),
               ),
+              const Gap(5),
               SizedBox(
                 height: 100,
-                width: 170,
-                child: Card(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: const Card(
                   elevation: 5,
-                  color: Colors.cyan,
                 ),
               )
             ],
