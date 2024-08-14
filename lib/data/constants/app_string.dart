@@ -8,6 +8,9 @@ class AppStrings {
   static const String totalNode = 'Total Node';
   static const String savedNode = 'Saved Node';
   static const String newNode = 'New Node';
+  static const String previous = 'Previous';
+  static const String next = 'Next';
+
 
 
   static String loginSubTitle =

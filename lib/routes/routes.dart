@@ -11,6 +11,9 @@ class Routes {
   static const String errorScreen = "/errorScreen";
   static const String providerHomeScreen = "/providerHomeScreen";
   static const String dashboard1Page = "/dashboard1Page";
+  static const String dashboard2Page = "/dashboard2Page";
+  static const String dashboard3Page = "/dashboard3Page";
+
 
 
 }
