@@ -7,6 +7,8 @@ class Routes {
   static const String root = "/";
   static const String loginScreen = "/loginScreen";
   static const String registerScreen = "/registerScreen";
-  static const String homeScreen = "/homeScreen";
+  static const String homeScreen = "/dashbaordWidget";
   static const String errorScreen = "/errorScreen";
+  static const String allnotes = "/allNotes";
+
 }

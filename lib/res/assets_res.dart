@@ -18,4 +18,12 @@ class AssetsRes {
   static const String PAGE_NOT_FOUND = 'assets/lottie/page_not_found.json';
   static const String WELCOME_LOTTIE = 'assets/lottie/welcome_lottie.json';
   static const String DOTENV = 'assets/secrets/dotenv.env';
+  static String ic_home = "assets/icon/ic_home.svg";
+  static String ic_heat = "assets/icon/ic_heat.svg";
+  static String ic_chat = "assets/icon/ic_chat.svg";
+  static String ic_user = "assets/icon/ic_user.svg";
+  static String ic_notification = "assets/icon/ic_notification.svg";
+  static String ic_search = "assets/icon/ic_search.svg";
+
+
 }
