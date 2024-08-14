@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/presentation/auth/login_view.dart';
+import 'package:flutter_project/presentation/profile/edit_profile_view.dart';
+import 'package:flutter_project/presentation/profile/profile_view.dart';
 import 'package:flutter_project/routes/routes.dart';
 
 import '../presentation/home/home_view.dart';
@@ -19,6 +21,12 @@ class RouteGenerator {
         widgetScreen = const LoginView();
       case Routes.homeScreen:
         widgetScreen = const HomeView();
+        break;
+      case Routes.profileView:
+        widgetScreen = const ProfileView();
+        break;
+      case Routes.editProfileView:
+        widgetScreen = const EditProfileView();
         break;
       default:
         widgetScreen = _errorRoute();

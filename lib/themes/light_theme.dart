@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/data/constants/app_colors.dart';
 
 ThemeData getLightTheme(BuildContext context) {
   return ThemeData(
@@ -8,6 +9,7 @@ ThemeData getLightTheme(BuildContext context) {
     brightness: Brightness.light,
     cardColor: const Color(0xFFEFEEEE),
     hintColor: const Color(0xFFbebebe),
+    scaffoldBackgroundColor: AppColors.white,
     primaryColorDark: const Color(0xFF020101),
     disabledColor: const Color(0x33FF9A62),
     shadowColor: Colors.black.withOpacity(0.4),
