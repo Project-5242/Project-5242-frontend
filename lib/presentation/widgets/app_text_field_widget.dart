@@ -25,6 +25,8 @@ class AppTextFieldWidget extends StatelessWidget {
   final Function(String)? onChanged;
   final bool? isMendotary;
   final double? width;
+  final double? height;
+
   final onSuffixTap;
   final bool? isDropDownShowing;
   final String? placeHolderText;
@@ -83,6 +85,7 @@ class AppTextFieldWidget extends StatelessWidget {
     this.titleColor,
     this.hintStyle,
     this.enableCopyPaste = true,
+    this.height,
   });
 
   @override
@@ -101,15 +104,16 @@ class AppTextFieldWidget extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           width: width ?? MediaQuery.of(context).size.width,
+          height: height ?? MediaQuery.of(context).size.height * 0.060,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5), // Shadow color
-                spreadRadius: 2, // Spread radius
+                spreadRadius: 1, // Spread radius
                 blurRadius: 5, // Blur radius
-                offset: const Offset(0, 5), // Offset from the top
+                offset: const Offset(0, 3), // Offset from the top
               ),
             ],
           ),

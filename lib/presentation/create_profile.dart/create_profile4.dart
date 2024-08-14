@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/res/assets_res.dart';
+
+import '../../data/constants/app_colors.dart';
+import '../../data/constants/app_string.dart';
+import '../home/home_view.dart';
+import '../widgets/app_button.dart';
+import 'ctreate_profile3.dart';
+
+class CreateProfile4 extends StatelessWidget {
+  const CreateProfile4({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.305,
+            ),
+            Image.asset(
+              AssetsRes.check,
+              fit: BoxFit.contain,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.053,
+            ),
+            Text(
+              AppStrings.profileCreated,
+              style: context.customFont(
+                  'Open Sans', 26.0, FontWeight.w700, AppColors.themeColor),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.037,
+            ),
+            AppButton(
+              onTap: () {},
+              height: MediaQuery.of(context).size.height * 0.060,
+              width: MediaQuery.of(context).size.width,
+              text: AppStrings.done,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.037,
+            ),
+            AppButton(
+              color: AppColors.white,
+              color1: AppColors.themeColor,
+              onTap: () {},
+              // Navigator.pus,h(
+              // context, MaterialPageRoute(builder: (context) => HomeView())
+              // ),
+              height: MediaQuery.of(context).size.height * 0.060,
+              width: MediaQuery.of(context).size.width,
+              text: AppStrings.editUpdate,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.037,
+            ),
+            AppButton(
+              color: AppColors.white,
+              color1: AppColors.themeColor,
+              onTap: () {},
+              height: MediaQuery.of(context).size.height * 0.060,
+              width: MediaQuery.of(context).size.width,
+              text: AppStrings.preview,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.148,
+            ),
+          ],
+        ),
+      ),
+    ));
+  }
+}

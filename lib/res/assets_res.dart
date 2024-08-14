@@ -18,4 +18,13 @@ class AssetsRes {
   static const String PAGE_NOT_FOUND = 'assets/lottie/page_not_found.json';
   static const String WELCOME_LOTTIE = 'assets/lottie/welcome_lottie.json';
   static const String DOTENV = 'assets/secrets/dotenv.env';
+  static const String HIDE_PASSWORD = 'assets/icon/Hide.svg';
+  static const String EYE_CLOSED = 'assets/icon/eye-closed.svg';
+  //images
+  static const String PASSWORD1 = 'assets/images/1 967.png';
+  static const String PASSWORD2 = 'assets/images/2 1.png';
+  static const String PASSWORD3 = 'assets/images/3 59417.png';
+
+  //provoder
+  static const String check = 'assets/icon/Vector.png';
 }
