@@ -40,7 +40,7 @@ class ProviderMenuPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         children: [
-          const SizedBox(height: 60),
+          const SizedBox(height: 36),
           Row(
             children: [
               Image.asset(
