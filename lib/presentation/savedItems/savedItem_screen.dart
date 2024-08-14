@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/presentation/savedItems/components/empty_comp.dart';
+import 'package:flutter_project/presentation/savedItems/components/saved_item_comp.dart';
 
 class SaveditemScreen extends StatefulWidget {
   const SaveditemScreen({super.key});
@@ -11,8 +12,6 @@ class SaveditemScreen extends StatefulWidget {
 class _SaveditemScreenState extends State<SaveditemScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: EmptyComp(),
-    );
+    return Scaffold(body: SavedItemComp());
   }
 }

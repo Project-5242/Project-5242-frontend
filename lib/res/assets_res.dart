@@ -18,4 +18,5 @@ class AssetsRes {
   static const String PAGE_NOT_FOUND = 'assets/lottie/page_not_found.json';
   static const String WELCOME_LOTTIE = 'assets/lottie/welcome_lottie.json';
   static const String DOTENV = 'assets/secrets/dotenv.env';
+  static const String FAV_ICON = 'assets/svg_icons/favIcon.svg';
 }
