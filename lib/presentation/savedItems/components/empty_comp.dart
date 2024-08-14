@@ -5,6 +5,19 @@ class EmptyComp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Column(
+        children: [
+          Text(
+            'No Saved Items!',
+            style: TextStyle(color: Colors.blue),
+          ),
+          Text(
+            'You don’t have any saved items. Go to home and add some.',
+            style: TextStyle(color: Colors.blue),
+          )
+        ],
+      ),
+    );
   }
 }
