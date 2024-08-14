@@ -9,6 +9,8 @@ class Routes {
   static const String registerScreen = "/registerScreen";
   static const String homeScreen = "/homeScreen";
   static const String errorScreen = "/errorScreen";
-  static const String providerHomeScreen = "/homeScreen";
+  static const String providerHomeScreen = "/providerHomeScreen";
+  static const String dashboard1Page = "/dashboard1Page";
+
 
 }

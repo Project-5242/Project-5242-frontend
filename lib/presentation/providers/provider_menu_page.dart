@@ -66,7 +66,7 @@ class ProviderMenuPage extends StatelessWidget {
               const Gap(10),
               Text(
                 AppStrings.createProfile,
-                style: context.titleMedium.copyWith(fontWeight: FontWeight.bold, color: Color(0xFF0B8FAC)),
+                style: context.titleMedium.copyWith(fontWeight: FontWeight.bold, color: const Color(0xFF0B8FAC)),
               ),
             ],
           ),
@@ -81,7 +81,7 @@ class ProviderMenuPage extends StatelessWidget {
               const Gap(10),
               Text(
                 AppStrings.profile,
-                style: context.titleMedium.copyWith(fontWeight: FontWeight.bold, color: Color(0xFF0B8FAC)),
+                style: context.titleMedium.copyWith(fontWeight: FontWeight.bold, color: const Color(0xFF0B8FAC)),
               ),
             ],
           )
