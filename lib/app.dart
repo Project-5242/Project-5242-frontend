@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             theme: getLightTheme(context),
             darkTheme: getDarkTheme(context),
             themeMode: ThemeMode.light,
-            initialRoute: Routes.profileView,
+            initialRoute: Routes.root,
             onGenerateRoute: RouteGenerator.generateRoute,
             navigatorObservers: [AppRouteObserver()],
           ),
