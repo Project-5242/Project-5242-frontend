@@ -16,8 +16,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 03), () {
-      if (context.mounted)
-        context.pushNamedAndRemoveUntil(Routes.selectCategoryView);
+      if (context.mounted) context.pushNamedAndRemoveUntil(Routes.root);
     });
     super.initState();
   }

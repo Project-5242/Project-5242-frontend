@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/presentation/auth/login_view.dart';
+import 'package:flutter_project/presentation/onboarding/mode_selection_screen.dart';
+import 'package:flutter_project/presentation/onboarding/onboarding_screen.dart';
+import 'package:flutter_project/presentation/onboarding/select_role_screen.dart';
+import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
+import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
+import 'package:flutter_project/routes/routes.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
@@ -19,6 +26,16 @@ class RouteGenerator {
         widgetScreen = const LoginView();
       case Routes.homeScreen:
         widgetScreen = const HomeView();
+      case Routes.savedItemsScreen:
+        widgetScreen = const SaveditemScreen();
+      case Routes.userDetailScreen:
+        widgetScreen = const UserDetailScreen();
+      case Routes.onboardingScreen:
+        widgetScreen = const OnboardingScreen();
+      case Routes.selectRoleScreen:
+        widgetScreen = SelectRoleScreen();
+      case Routes.modeSelectionScreen:
+        widgetScreen = ModeSelectionScreen();
         break;
       case Routes.profileView:
         widgetScreen = const ProfileView();
