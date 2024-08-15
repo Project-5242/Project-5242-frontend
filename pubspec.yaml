@@ -51,6 +51,7 @@ flutter:
     - assets/images/
     - assets/icon/ic_image_placeholder.png
     - assets/icon/Vector.png
+    - assets/icon/Edit.png
     - assets/icon/eye-closed.png
     - assets/icon/Hide.png
     - assets/icon/Hide.svg

@@ -2,7 +2,7 @@ class AppStrings {
   static const String welcome = 'Welcome';
   static const String signIn = 'Sign In';
   static const String createAccount = 'Create New Account';
-
+  static const String createAccountDes = 'Create New Account As a USER';
   static String loginSubTitle =
       'Korem ipsum dolor sit amet, consectetur \nadipiscing elit.';
 
@@ -64,9 +64,19 @@ class AppStrings {
   static const String allowCurrentloc = '+ Allow Access to Current Location';
   static const String addMannually = '+ Add Manually';
   static const String profileCreated = 'Profile Created';
+  static const String profileUpdated = 'Profile Updated';
+
   static const String done = 'Done';
   static const String editUpdate = 'Edit/Update';
   static const String preview = 'Preview';
+  static const String edittUpdateProfile = 'Edit/Update Your Profile';
+  static const String abc = 'Abc Xyz';
+  static const String pqr = 'Pqr Stu';
+  static const String lorem1 = 'Lorem Ipsum1';
+  static const String lorem2 = 'Lorem Ipsum2';
+
+  static const String loremtxt = 'Lorem ipsum dolor sit amet.';
+  static const String loctext = 'Lorem ipsum, dolor sit amet';
 
   // static const String emaiVerification = 'Email Verification';
 }

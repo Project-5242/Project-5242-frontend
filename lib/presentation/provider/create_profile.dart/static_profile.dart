@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../data/constants/app_string.dart';
+import '../../../data/constants/app_string.dart';
 
 class StaticProfileLayout extends StatefulWidget {
   final Widget Function() middleContentBuilder;
+  final int currentIndex;
+  final int totalSteps;
 
-  const StaticProfileLayout({Key? key, required this.middleContentBuilder})
+  const StaticProfileLayout(
+      {Key? key,
+      required this.middleContentBuilder,
+      required this.currentIndex,
+      required this.totalSteps})
       : super(key: key);
 
   @override
@@ -15,6 +21,24 @@ class StaticProfileLayout extends StatefulWidget {
 }
 
 class _StaticProfileLayoutState extends State<StaticProfileLayout> {
+  final int totalSteps = 3;
+
+  void _nextStep() {
+    if (currentIndex < totalSteps - 1) {
+      setState(() {
+        currentIndex++;
+      });
+    }
+  }
+
+  void _previousStep() {
+    if (currentIndex > 0) {
+      setState(() {
+        currentIndex--;
+      });
+    }
+  }
+
   int currentIndex = 0;
 
   @override
@@ -43,17 +67,16 @@ class _StaticProfileLayoutState extends State<StaticProfileLayout> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: IconButton(
-                              color: AppColors.themeColor,
-                              icon: Icon(Icons.arrow_back_ios),
-                              onPressed: () {},
-                            )),
+                        IconButton(
+                          color: AppColors.themeColor,
+                          icon: Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            _previousStep;
+                            Navigator.pop(context);
+                          },
+                        ),
                         Text(
-                          '${currentIndex + 1}/3',
+                          '${widget.currentIndex + 1}/${widget.totalSteps}',
                           style: TextStyle(
                             color: AppColors.black1,
                             fontSize: 14,
@@ -65,7 +88,7 @@ class _StaticProfileLayoutState extends State<StaticProfileLayout> {
                     SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025),
                     LinearProgressIndicator(
-                      value: (currentIndex + 1) / 3,
+                      value: (widget.currentIndex + 1) / widget.totalSteps,
                       color: AppColors.themeColor,
                       borderRadius: BorderRadius.circular(4),
                       minHeight: 5,

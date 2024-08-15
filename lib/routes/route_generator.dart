@@ -16,7 +16,7 @@ class RouteGenerator {
         widgetScreen = const SplashView();
         break;
       case Routes.loginScreen:
-        widgetScreen = const LoginView();
+        widgetScreen = LoginView();
       case Routes.homeScreen:
         widgetScreen = const HomeView();
         break;

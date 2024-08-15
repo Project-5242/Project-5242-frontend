@@ -27,4 +27,5 @@ class AssetsRes {
 
   //provoder
   static const String check = 'assets/icon/Vector.png';
+  static const String edit = 'assets/icon/Edit.png';
 }

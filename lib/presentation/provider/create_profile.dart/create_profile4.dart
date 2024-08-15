@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/presentation/provider/edit_update/edit_profile1.dart';
 import 'package:flutter_project/res/assets_res.dart';
 
-import '../../data/constants/app_colors.dart';
-import '../../data/constants/app_string.dart';
-import '../home/home_view.dart';
-import '../widgets/app_button.dart';
+import '../../../data/constants/app_colors.dart';
+import '../../../data/constants/app_string.dart';
+import '../../home/home_view.dart';
+import '../../widgets/app_button.dart';
 import 'ctreate_profile3.dart';
 
 class CreateProfile4 extends StatelessWidget {
@@ -32,7 +33,7 @@ class CreateProfile4 extends StatelessWidget {
             Text(
               AppStrings.profileCreated,
               style: context.customFont(
-                  'Open Sans', 26.0, FontWeight.w700, AppColors.themeColor),
+                  'Open Sans', 24.0, FontWeight.w700, AppColors.themeColor),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.037,
@@ -49,10 +50,10 @@ class CreateProfile4 extends StatelessWidget {
             AppButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
-              onTap: () {},
-              // Navigator.pus,h(
-              // context, MaterialPageRoute(builder: (context) => HomeView())
-              // ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EditProfile1()));
+              },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
               text: AppStrings.editUpdate,
