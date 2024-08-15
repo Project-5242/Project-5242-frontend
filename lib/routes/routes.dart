@@ -10,4 +10,8 @@ class Routes {
   static const String homeScreen = "/homeScreen";
   static const String errorScreen = "/errorScreen";
   static const String savedItemsScreen = "/savedItemsScreen";
+  static const String userDetailScreen = "/userDetailScreen";
+  static const String onboardingScreen = "/onboardingScreen";
+  static const String selectRoleScreen = "/selectRoleScreen";
+  static const String modeSelectionScreen = "/modeSelectionScreen";
 }

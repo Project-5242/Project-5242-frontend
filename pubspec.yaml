@@ -55,4 +55,5 @@ flutter:
     - assets/lottie/welcome_lottie.json
     - assets/secrets/dotenv.env
     - assets/svg_icons/
+    - assets/icon/
 

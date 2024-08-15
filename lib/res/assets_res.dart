@@ -19,4 +19,10 @@ class AssetsRes {
   static const String WELCOME_LOTTIE = 'assets/lottie/welcome_lottie.json';
   static const String DOTENV = 'assets/secrets/dotenv.env';
   static const String FAV_ICON = 'assets/svg_icons/favIcon.svg';
+  static const String OPT_ICON = 'assets/svg_icons/optIcon.svg';
+  static const String LOCATION_ICON = 'assets/svg_icons/locationIcon.svg';
+  static const String LIKE_ICON = 'assets/svg_icons/likeIcon.svg';
+  static const String ONBOARDING_IMG3 = 'assets/icon/onboardingImg3.png';
+  static const String NOTIFICATION_ICON =
+      'assets/svg_icons/notificationIcon.svg';
 }
