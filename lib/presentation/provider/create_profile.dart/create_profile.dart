@@ -5,6 +5,7 @@ import 'package:flutter_project/presentation/widgets/custom_button.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
+import '../../../routes/routes.dart';
 import '../../home/home_view.dart';
 import '../../widgets/app_button.dart';
 
@@ -33,10 +34,8 @@ class CreateProfile extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.335,
                 ),
                 CustomButton(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateProfile1())),
+                  onTap: () =>
+                      Navigator.pushNamed(context, Routes.createProfile1),
                   height: MediaQuery.of(context).size.height * 0.060,
                   width: MediaQuery.of(context).size.width,
                   text: AppStrings.continueText,

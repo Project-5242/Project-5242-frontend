@@ -166,11 +166,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                   CustomButton(
                     onTap: () {
-                      if (formKey.currentState!.validate())
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateProfile()));
+                      if (formKey.currentState!.validate()) {
+                        Navigator.pushNamed(context, Routes.homeScreen);
+                      }
                     },
                     height: isDesktop
                         ? MediaQuery.of(context).size.height * 0.070

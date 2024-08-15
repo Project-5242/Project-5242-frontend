@@ -10,7 +10,7 @@ class AppStrings {
   static const String email = 'Email';
   static const String enterPassword = 'Enter Your Password';
   static const String password = 'Password';
-  static const String forgetPassword = 'Forget Password';
+  static const String forgetPassword = 'Forget Password?';
   static const String donthaveAccount = 'Don’t have an account? ';
   static const String alreadyhaveAccount = 'Already have an account? ';
   static const String signUp = 'Sign up';
@@ -21,6 +21,8 @@ class AppStrings {
   static const String changePassword = 'Change Password';
   static const String enterEmailAddress =
       'Please enter your email address to \nreceive a verification code';
+  static const String enterEmailAddress1 =
+      'Please enter your email address to receive a verification code';
   static const String sendEmail = 'Send Email';
   static const String verifyOtp = 'Verify OTP';
   static const String enter4Digit =

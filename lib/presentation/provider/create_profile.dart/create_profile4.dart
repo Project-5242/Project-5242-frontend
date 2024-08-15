@@ -52,8 +52,7 @@ class CreateProfile4 extends StatelessWidget {
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditProfile1()));
+                Navigator.pushNamed(context, Routes.editProfile1);
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,

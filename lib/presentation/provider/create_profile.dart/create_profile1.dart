@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
+import '../../../routes/routes.dart';
 import '../../home/home_view.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_text_field_widget.dart';
@@ -164,9 +165,9 @@ class _CreateProfile1State extends State<CreateProfile1> {
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () {
-                if (formKey.currentState!.validate())
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeView()));
+                if (formKey.currentState!.validate()) {
+                  Navigator.pushNamed(context, Routes.homeScreen);
+                }
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
@@ -177,14 +178,9 @@ class _CreateProfile1State extends State<CreateProfile1> {
             ),
             CustomButton(
               onTap: () {
-                if (formKey.currentState!.validate())
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateProfile2(
-                                currentIndex: 1,
-                                totalSteps: 3,
-                              )));
+                if (formKey.currentState!.validate()) {
+                  Navigator.pushNamed(context, Routes.createProfile2);
+                }
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,

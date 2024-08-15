@@ -11,6 +11,7 @@ import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:gap/gap.dart';
 
 import '../../data/constants/app_colors.dart';
+import '../../routes/routes.dart';
 import 'change_password.dart';
 import 'sign_up.dart';
 
@@ -108,12 +109,6 @@ class _LoginViewState extends State<LoginView> {
                     color: AppColors.themeColor,
                   ),
                 ),
-                //  Image.asset(
-                //   'assets/icon/eye-closed.png',
-                //   height: MediaQuery.of(context).size.height * 0.024,
-                //   width: MediaQuery.of(context).size.width * 0.024,
-                //   fit: BoxFit.contain,
-                // ),
                 title: AppStrings.password,
                 borderSideColor: Color(0xff858585).withOpacity(0.3),
                 hint: AppStrings.enterPassword,
@@ -129,8 +124,9 @@ class _LoginViewState extends State<LoginView> {
                 height: MediaQuery.of(context).size.height * 0.016,
               ),
               InkWell(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChangePassword1())),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.forgetPassword);
+                },
                 child: Text(
                   textAlign: TextAlign.right,
                   AppStrings.forgetPassword,
@@ -142,9 +138,9 @@ class _LoginViewState extends State<LoginView> {
               ),
               CustomButton(
                 onTap: () {
-                  if (formKey.currentState!.validate())
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeView()));
+                  if (formKey.currentState!.validate()) {
+                    Navigator.pushNamed(context, Routes.homeScreen);
+                  }
                 },
                 height: MediaQuery.of(context).size.height * 0.060,
                 width: MediaQuery.of(context).size.width * 0.376,
@@ -158,9 +154,7 @@ class _LoginViewState extends State<LoginView> {
                   color: AppColors.black,
                   color1: AppColors.themeColor,
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignUp()));
-                    // Get.to(SignUp());
+                    Navigator.pushNamed(context, Routes.signUp);
                   },
                   text: AppStrings.donthaveAccount,
                   text1: AppStrings.signUp)

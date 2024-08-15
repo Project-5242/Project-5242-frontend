@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
+import '../../../routes/routes.dart';
 import '../../home/home_view.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_text_field_widget.dart';
@@ -61,8 +62,9 @@ class CreateProfile3 extends StatelessWidget {
           CustomButton(
             color: AppColors.white,
             color1: AppColors.themeColor,
-            onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeView())),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.homeScreen);
+            },
             height: MediaQuery.of(context).size.height * 0.060,
             width: MediaQuery.of(context).size.width,
             text: AppStrings.addMannually,
@@ -71,8 +73,9 @@ class CreateProfile3 extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.165,
           ),
           CustomButton(
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CreateProfile4())),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.createProfile4);
+            },
             height: MediaQuery.of(context).size.height * 0.060,
             width: MediaQuery.of(context).size.width,
             text: AppStrings.next,
