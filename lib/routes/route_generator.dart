@@ -6,7 +6,9 @@ import 'package:flutter_project/presentation/onboarding/select_role_screen.dart'
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
 import 'package:flutter_project/routes/routes.dart';
-
+import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/presentation/provider/select_category_view.dart';
+import 'package:flutter_project/presentation/settings/setting_view.dart';
 import '../presentation/home/home_view.dart';
 import '../presentation/splash/splash_view.dart';
 
@@ -35,6 +37,24 @@ class RouteGenerator {
       case Routes.modeSelectionScreen:
         widgetScreen = ModeSelectionScreen();
         break;
+      case Routes.profileView:
+        widgetScreen = const ProfileView();
+        break;
+      case Routes.editProfileView:
+        widgetScreen = const EditProfileView();
+        break;
+      case Routes.notificationView:
+        widgetScreen = const NotificationView();
+        break;
+      case Routes.settingView:
+        widgetScreen = const SettingView();
+        break;
+
+      // Provider
+      case Routes.selectCategoryView:
+        widgetScreen = const SelectCategoryView();
+        break;
+
       default:
         widgetScreen = _errorRoute();
     }
