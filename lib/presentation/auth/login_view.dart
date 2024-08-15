@@ -6,6 +6,7 @@ import 'package:flutter_project/presentation/home/home_view.dart';
 import 'package:flutter_project/presentation/widgets/app_button.dart';
 import 'package:flutter_project/presentation/widgets/app_rich_text.dart';
 import 'package:flutter_project/presentation/widgets/app_text_field_widget.dart';
+import 'package:flutter_project/presentation/widgets/custom_button.dart';
 
 import 'package:gap/gap.dart';
 
@@ -139,7 +140,7 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.075,
               ),
-              AppButton(
+              CustomButton(
                 onTap: () {
                   if (formKey.currentState!.validate())
                     Navigator.push(context,

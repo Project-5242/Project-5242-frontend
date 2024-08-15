@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/presentation/provider/create_profile.dart/ctreate_profile3.dart';
+import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -162,7 +163,7 @@ class _CreateProfile2State extends State<CreateProfile2> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.020,
             ),
-            AppButton(
+            CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () {
@@ -177,7 +178,7 @@ class _CreateProfile2State extends State<CreateProfile2> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
-            AppButton(
+            CustomButton(
               onTap: () {
                 if (formKey.currentState!.validate())
                   Navigator.push(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/provider/edit_update/edit_profile1.dart';
 import 'package:flutter_project/presentation/provider/edit_update/edit_profile3.dart';
+import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:flutter_project/res/assets_res.dart';
 
 import '../../../data/constants/app_colors.dart';
@@ -38,7 +39,7 @@ class EditProfile4 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.037,
             ),
-            AppButton(
+            CustomButton(
               onTap: () {},
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
@@ -47,7 +48,7 @@ class EditProfile4 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.037,
             ),
-            AppButton(
+            CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () => Navigator.push(context,

@@ -12,6 +12,7 @@ import '../../../data/constants/app_string.dart';
 import '../../home/home_view.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_text_field_widget.dart';
+import '../../widgets/custom_button.dart';
 
 class CreateProfile1 extends StatefulWidget {
   const CreateProfile1({super.key});
@@ -159,7 +160,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.020,
             ),
-            AppButton(
+            CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () {
@@ -174,7 +175,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
-            AppButton(
+            CustomButton(
               onTap: () {
                 if (formKey.currentState!.validate())
                   Navigator.push(

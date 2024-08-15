@@ -6,6 +6,7 @@ import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/presentation/home/home_view.dart';
 import 'package:flutter_project/presentation/widgets/app_button.dart';
+import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
@@ -219,7 +220,7 @@ class _AppProfileState extends State<AppProfile> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.020,
                   ),
-                  AppButton(
+                  CustomButton(
                     color: AppColors.white,
                     color1: AppColors.themeColor,
                     onTap: widget.onTap1,
@@ -232,7 +233,7 @@ class _AppProfileState extends State<AppProfile> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.025,
                   ),
-                  AppButton(
+                  CustomButton(
                     onTap: widget.onTap2,
                     height: MediaQuery.of(context).size.height * 0.060,
                     width: MediaQuery.of(context).size.width,

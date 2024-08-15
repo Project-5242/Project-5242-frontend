@@ -4,6 +4,7 @@ import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/auth/login_view.dart';
 import 'package:flutter_project/presentation/provider/create_profile.dart/create_profile.dart';
 import 'package:flutter_project/presentation/home/home_view.dart';
+import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -163,7 +164,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.075,
                   ),
-                  AppButton(
+                  CustomButton(
                     onTap: () {
                       if (formKey.currentState!.validate())
                         Navigator.push(

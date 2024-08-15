@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/presentation/provider/create_profile.dart/create_profile1.dart';
+import 'package:flutter_project/presentation/widgets/custom_button.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
@@ -31,7 +32,7 @@ class CreateProfile extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.335,
                 ),
-                AppButton(
+                CustomButton(
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(

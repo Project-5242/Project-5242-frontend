@@ -7,6 +7,7 @@ import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
 import '../../home/home_view.dart';
 import '../../widgets/app_button.dart';
+import '../../widgets/custom_button.dart';
 import 'ctreate_profile3.dart';
 
 class CreateProfile4 extends StatelessWidget {
@@ -38,7 +39,7 @@ class CreateProfile4 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.037,
             ),
-            AppButton(
+            CustomButton(
               onTap: () {},
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
@@ -47,7 +48,7 @@ class CreateProfile4 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.037,
             ),
-            AppButton(
+            CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () {
@@ -61,7 +62,7 @@ class CreateProfile4 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.037,
             ),
-            AppButton(
+            CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () {},

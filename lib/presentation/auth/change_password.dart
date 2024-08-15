@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/presentation/widgets/app_rich_text.dart';
+import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -106,7 +107,7 @@ class ChangePassword1 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.131,
             ),
-            AppButton(
+            CustomButton(
               onTap: () {
                 //   if (uniqueKey.currentState!.validate()) {
                 Navigator.push(context,
@@ -206,7 +207,7 @@ class ChangePassword2 extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.131,
           ),
-          AppButton(
+          CustomButton(
             onTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ChangePassword3())),
             height: MediaQuery.of(context).size.height * 0.060,
@@ -254,7 +255,7 @@ class ChangePassword2 extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.032,
                   ),
-                  AppButton(
+                  CustomButton(
                     onTap: () => Navigator.pop(context),
                     height: MediaQuery.of(context).size.height * 0.060,
                     width: MediaQuery.of(context).size.width * 0.275,
@@ -394,7 +395,7 @@ class _ChangePassword3State extends State<ChangePassword3> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.131,
             ),
-            AppButton(
+            CustomButton(
               onTap: () {
                 if (formKey.currentState!.validate()) ;
               },

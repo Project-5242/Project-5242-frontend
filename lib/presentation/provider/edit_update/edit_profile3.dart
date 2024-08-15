@@ -12,6 +12,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../data/constants/app_string.dart';
+import '../../widgets/custom_button.dart';
 import '../create_profile.dart/create_profile4.dart';
 
 class EditProfile3 extends StatelessWidget {
@@ -79,7 +80,7 @@ class EditProfile3 extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.113,
               ),
-              AppButton(
+              CustomButton(
                 color: AppColors.white,
                 color1: AppColors.themeColor,
                 onTap: () => Navigator.push(context,
@@ -91,7 +92,7 @@ class EditProfile3 extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.034,
               ),
-              AppButton(
+              CustomButton(
                 color: AppColors.white,
                 color1: AppColors.themeColor,
                 onTap: () => Navigator.push(context,
@@ -103,7 +104,7 @@ class EditProfile3 extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.165,
               ),
-              AppButton(
+              CustomButton(
                 onTap: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => EditProfile4())),
                 height: MediaQuery.of(context).size.height * 0.060,

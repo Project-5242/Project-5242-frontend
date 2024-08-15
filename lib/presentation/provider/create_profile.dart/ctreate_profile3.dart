@@ -7,6 +7,7 @@ import '../../../data/constants/app_string.dart';
 import '../../home/home_view.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_text_field_widget.dart';
+import '../../widgets/custom_button.dart';
 import 'create_profile2.dart';
 import 'create_profile4.dart';
 import 'static_profile.dart';
@@ -45,7 +46,7 @@ class CreateProfile3 extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.113,
           ),
-          AppButton(
+          CustomButton(
             color: AppColors.white,
             color1: AppColors.themeColor,
             onTap: () => Navigator.push(
@@ -57,7 +58,7 @@ class CreateProfile3 extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.034,
           ),
-          AppButton(
+          CustomButton(
             color: AppColors.white,
             color1: AppColors.themeColor,
             onTap: () => Navigator.push(
@@ -69,7 +70,7 @@ class CreateProfile3 extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.165,
           ),
-          AppButton(
+          CustomButton(
             onTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => CreateProfile4())),
             height: MediaQuery.of(context).size.height * 0.060,
