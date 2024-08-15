@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/data/constants/app_colors.dart';
 
 ThemeData getLightTheme(BuildContext context) {
   return ThemeData(
+    scaffoldBackgroundColor: Colors.white,
     fontFamily: 'Roboto',
     primaryColor: const Color(0xFF0B8FAC),
     secondaryHeaderColor: const Color(0xffffffff),
@@ -12,11 +14,15 @@ ThemeData getLightTheme(BuildContext context) {
     disabledColor: const Color(0x33FF9A62),
     shadowColor: Colors.black.withOpacity(0.4),
     appBarTheme: const AppBarTheme(
-        titleTextStyle: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0,
-            color: Color(0xFF0B8FAC))),
+      titleTextStyle: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w700,
+        letterSpacing: 0,
+        color: Color(0xFF0B8FAC),
+      ),
+      surfaceTintColor: Colors.white,
+      backgroundColor: Colors.white,
+    ),
     pageTransitionsTheme: const PageTransitionsTheme(builders: {
       TargetPlatform.android: ZoomPageTransitionsBuilder(),
       TargetPlatform.iOS: ZoomPageTransitionsBuilder(),

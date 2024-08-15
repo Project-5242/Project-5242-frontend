@@ -1,45 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/base/extensions/text_style_extensions.dart';
-import 'package:flutter_project/base/helpers/color_schemes.dart';
-import 'package:flutter_project/data/constants/app_colors.dart';
+
+import 'package:flutter_project/base/base.dart';
 
 class AppButton extends StatelessWidget {
-  final double? width;
   final double? height;
-  final String? text;
-  final Color? color;
-  final Color? color1;
-  final VoidCallback onTap;
-
-  const AppButton(
-      {super.key,
-      this.width,
-      this.height,
-      this.text,
-      required this.onTap,
-      this.color,
-      this.color1});
+  final double? width;
+  final void Function()? onPressed;
+  final ShapeBorder? shape;
+  final Color? textColor;
+  final Color? backgroundColor;
+  final String? title;
+  final double? radius;
+  final TextStyle? style;
+  const AppButton({
+    super.key,
+    required this.height,
+    required this.width,
+    this.shape,
+    required this.onPressed,
+    this.textColor,
+    this.title,
+    this.style,
+    this.backgroundColor,
+    this.radius,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-            color: color ?? AppColors.themeColor,
-            borderRadius: BorderRadius.circular(10.0),
-            border:
-                Border.all(color: color1 ?? AppColors.themeColor, width: 1.0)),
-        child: Center(
-          child: Text(
-            text ?? '',
-            textAlign: TextAlign.center,
-            style: context.customFont(
-                'Open Sans', 20.0, FontWeight.w400, color1 ?? AppColors.white),
+    return MaterialButton(
+      height: height,
+      minWidth: width,
+      shape: shape ??
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius ?? 15),
           ),
-        ),
+      onPressed: onPressed,
+      color: backgroundColor,
+      child: Text(
+        title ?? "",
+        style: style ??
+            TextStyle(
+              fontFamily: Fonts.fontsOpenSans,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: textColor ?? AppColors.white,
+            ),
       ),
     );
   }

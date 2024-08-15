@@ -79,4 +79,47 @@ class AppStrings {
   static const String loctext = 'Lorem ipsum, dolor sit amet';
 
   // static const String emaiVerification = 'Email Verification';
+  static const String savedItems = 'Saved Items';
+  static const String noItems = 'No Saved Items!';
+  static const String viewProfile = 'View Profile';
+  static const String removeProfile = 'Remove Profile';
+  static const String details = 'Details';
+  static const String onboardtitle = 'Welcome to  App';
+  static const String skip = 'Skip';
+  static const String getStarted = 'Get Started';
+  static const String onboardSubText =
+      'Korem ipsum dolor sit amet, consectetur adipiscing elit.';
+  static const String noItemsSubText =
+      'You don’t have any saved items. Go to home and add some.';
+  static const String selectRole = 'Select Role';
+  static const String selectRoleSubText =
+      'Select any one as per you wants to Start.';
+  static const String userText = 'Start as a User';
+  static const String providerText = 'Start as a Provider';
+  static const String proceed = 'Proceed';
+  static const String provider = 'Provider';
+  static const String providerSubText =
+      'Welcome! to Provider profile please select your login method given below.';
+  static const String userSubText =
+      'Welcome! to User profile please select your login method given below.';
+  static const String user = 'User';
+  static const String login = 'Login';
+
+  static const String notification = 'Notifications';
+
+  static const String today = 'Today';
+  static const String yesterday = 'Yesterday';
+  static const String setting = 'Setting';
+  static const String general = 'General';
+  static const String language = 'Language';
+  static const String notificationSettings = 'Notification Settings';
+  static const String location = 'Location';
+  static const String accountSecrity = 'Account & Secrity';
+  static const String emailandMobileNumber = 'Email and Mobile Number';
+  static const String securitySettings = 'Security Settings';
+  static const String deleteAccount = 'Delete Account';
+  static const String other = 'Other';
+  static const String privacyPolicy = 'Privacy Policy';
+  static const String termsandConditions = 'Terms and Conditions';
+  static const String rateApp = 'Rate App';
 }
