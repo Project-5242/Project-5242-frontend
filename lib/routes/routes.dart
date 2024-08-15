@@ -13,4 +13,7 @@ class Routes {
   static const String editProfileView = "/edit_profile_view";
   static const String notificationView = "/notification_view";
   static const String settingView = "/setting_view";
+
+  // Provider Side
+  static const String selectCategoryView = "/select_category_view";
 }

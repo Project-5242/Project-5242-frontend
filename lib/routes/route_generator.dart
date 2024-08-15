@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import '../presentation/home/home_view.dart';
 import '../presentation/splash/splash_view.dart';
@@ -31,6 +32,12 @@ class RouteGenerator {
       case Routes.settingView:
         widgetScreen = const SettingView();
         break;
+
+      // Provider
+      case Routes.selectCategoryView:
+        widgetScreen = const SelectCategoryView();
+        break;
+
       default:
         widgetScreen = _errorRoute();
     }
