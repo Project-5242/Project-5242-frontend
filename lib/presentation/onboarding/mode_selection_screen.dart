@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/res/assets_res.dart';
+import 'package:flutter_project/routes/routes.dart';
 
 class ModeSelectionScreen extends StatelessWidget {
   const ModeSelectionScreen({super.key});
@@ -38,7 +40,7 @@ class ModeSelectionScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // Handle the button press
+                context.pushNamedAndRemoveUntil(Routes.userDetailScreen);
               },
               child: Text(
                 AppStrings.signUp,
