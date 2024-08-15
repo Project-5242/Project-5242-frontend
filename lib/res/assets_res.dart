@@ -20,6 +20,8 @@ class AssetsRes {
   static const String ARROWBACK_SVG = 'assets/svg_icons/arrow_back.svg';
   static const String ARROWFORWARD_SVG = 'assets/svg_icons/arrow_forward.svg';
   static const String SHARE_SVG = 'assets/svg_icons/Share.svg';
+  static const String EMPTYNOTIFICATION_SVG =
+      'assets/svg_icons/empty_notification.svg';
   //PNG File
   static const String ARROWFORWARD_PNG = 'assets/icon/arrow_forward.png';
   static const String SHARE_PNG = 'assets/icon/Share.png';

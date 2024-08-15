@@ -11,4 +11,6 @@ class Routes {
   static const String errorScreen = "/errorScreen";
   static const String profileView = "/profile_view";
   static const String editProfileView = "/edit_profile_view";
+  static const String notificationView = "/notification_view";
+  static const String settingView = "/setting_view";
 }

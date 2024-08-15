@@ -10,4 +10,9 @@ class AppColors {
   static Color textFieldBackgroundColor =
       const Color.fromRGBO(217, 217, 217, 0.3);
   static Color textFieldBorderColor = const Color.fromRGBO(133, 133, 133, 0.3);
+  static Color textColor = const Color.fromRGBO(26, 26, 26, 1);
+  static Color textgreyColor = const Color.fromRGBO(128, 128, 128, 1);
+  static Color dividerColor = const Color.fromRGBO(230, 230, 230, 1);
+  static Color iconColor = const Color.fromRGBO(37, 40, 49, 0.5);
+  static Color switchButtonColor = const Color.fromRGBO(0, 100, 210, 1);
 }
