@@ -51,8 +51,9 @@ class EditProfile4 extends StatelessWidget {
             CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditProfile3())),
+              onTap: () {
+                Navigator.pushNamed(context, Routes.editProfile3);
+              },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
               text: AppStrings.preview,

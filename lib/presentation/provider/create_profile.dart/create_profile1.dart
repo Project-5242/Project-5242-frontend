@@ -11,6 +11,7 @@ import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
 
 import '../../home/dashboard.dart';
+import '../../../routes/routes.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_text_field_widget.dart';
 import '../../widgets/custom_button.dart';
@@ -166,8 +167,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
               color1: AppColors.themeColor,
               onTap: () {
                 if (formKey.currentState!.validate())
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0)));
+                  Navigator.pushNamed(context, Routes.dashbaord);
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
@@ -178,14 +178,9 @@ class _CreateProfile1State extends State<CreateProfile1> {
             ),
             CustomButton(
               onTap: () {
-                if (formKey.currentState!.validate())
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateProfile2(
-                                currentIndex: 1,
-                                totalSteps: 3,
-                              )));
+                if (formKey.currentState!.validate()) {
+                  Navigator.pushNamed(context, Routes.createProfile2);
+                }
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,

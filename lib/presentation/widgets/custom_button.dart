@@ -9,14 +9,15 @@ class CustomButton extends StatelessWidget {
   final Color? color1;
   final VoidCallback onTap;
 
-  const CustomButton(
-      {super.key,
-      this.width,
-      this.height,
-      this.text,
-      required this.onTap,
-      this.color,
-      this.color1});
+  const CustomButton({
+    super.key,
+    this.width,
+    this.height,
+    this.text,
+    required this.onTap,
+    this.color,
+    this.color1,
+  });
 
   @override
   Widget build(BuildContext context) {

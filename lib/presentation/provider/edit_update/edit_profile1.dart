@@ -32,12 +32,10 @@ class _EditProfile1State extends State<EditProfile1> {
   Widget build(BuildContext context) {
     return AppProfile(
       onTap1: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0)));
+        Navigator.pushNamed(context, Routes.dashbaord);
       },
       onTap2: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => EditProfile2()));
+        Navigator.pushNamed(context, Routes.editProfile2);
       },
       text1: AppStrings.addYoueSubNode1,
       text2: AppStrings.loginSubTitle,
