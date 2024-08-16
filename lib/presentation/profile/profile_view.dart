@@ -1,12 +1,11 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -77,8 +76,8 @@ class _ProfileViewState extends State<ProfileView> {
                                 backgroundColor: AppColors.borderColor,
                                 child: const CircleAvatar(
                                   radius: 45,
-                                  backgroundImage: NetworkImage(
-                                    'https://media.distractify.com/brand-img/IXMXHdSmC/0x0/woman-being-splashed-with-water-1684438561942.jpg', // Replace with your profile picture URL
+                                  backgroundImage: CachedNetworkImageProvider(
+                                    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1200px-Googleplex_HQ_%28cropped%29.jpg', // Replace with your profile picture URL
                                   ),
                                 ),
                               ),
@@ -112,6 +111,14 @@ class _ProfileViewState extends State<ProfileView> {
                                 title: "Terms & Conditions", onTap: () {}),
                             _customListTile(
                                 title: "Change Password", onTap: () {}),
+                            SizedBox(height: height * 0.09),
+                            AppButton(
+                              height: 37,
+                              width: 100,
+                              backgroundColor: AppColors.darkBlue,
+                              title: "Logout",
+                              onPressed: () {},
+                            ),
                           ],
                         ),
                       ),
@@ -129,7 +136,7 @@ class _ProfileViewState extends State<ProfileView> {
                       child: isSettingVisible
                           ? const Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 60, vertical: 40),
+                                  horizontal: 90, vertical: 40),
                               child: SettingView(),
                             )
                           : Row(
@@ -139,13 +146,14 @@ class _ProfileViewState extends State<ProfileView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const CircleAvatar(
+                                      CircleAvatar(
                                         radius: 55,
-                                        backgroundColor: Colors.white,
-                                        child: CircleAvatar(
+                                        backgroundColor: AppColors.borderColor,
+                                        child: const CircleAvatar(
                                           radius: 50,
-                                          backgroundImage: NetworkImage(
-                                            'https://media.distractify.com/brand-img/IXMXHdSmC/0x0/woman-being-splashed-with-water-1684438561942.jpg', // Replace with your profile picture URL
+                                          backgroundImage:
+                                              CachedNetworkImageProvider(
+                                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1200px-Googleplex_HQ_%28cropped%29.jpg', // Replace with your profile picture URL
                                           ),
                                         ),
                                       ),
@@ -256,7 +264,7 @@ class _ProfileViewState extends State<ProfileView> {
                               ],
                             ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -324,7 +332,6 @@ class _ProfileViewState extends State<ProfileView> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: height * 0.09),
                 AppButton(
                   height: 37,

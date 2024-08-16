@@ -18,12 +18,13 @@ class EditProfileView extends StatelessWidget {
 
   _mobileView(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final response = ResponsiveCheck(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           // SliverAppBar with Cover Photo and Centered Profile Picture
           SliverAppBar(
-            expandedHeight: height * 0.23,
+            expandedHeight: response.isMobile ? height * 0.23 : height * 0.30,
             // expandedHeight: height * 0.33,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -44,10 +45,10 @@ class EditProfileView extends StatelessWidget {
                     top: height * 0.12,
                     right: 0,
                     left: 0,
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       radius: 55,
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
+                      backgroundColor: AppColors.borderColor,
+                      child: const CircleAvatar(
                         radius: 50,
                         backgroundImage: NetworkImage(
                           'https://media.distractify.com/brand-img/IXMXHdSmC/0x0/woman-being-splashed-with-water-1684438561942.jpg', // Replace with your profile picture URL
