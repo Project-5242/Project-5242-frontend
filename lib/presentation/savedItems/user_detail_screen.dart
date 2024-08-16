@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
+import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,9 +16,9 @@ class UserDetailScreen extends StatefulWidget {
 class _UserDetailScreenState extends State<UserDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final response = ResponsiveCheck(context);
     return Scaffold(
-      appBar: defaultTargetPlatform == TargetPlatform.android ||
-              defaultTargetPlatform == TargetPlatform.iOS
+      appBar: response.isMobile
           ? AppBar(
               leading: IconButton(
                   onPressed: () {
@@ -55,19 +56,21 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                     fontWeight: FontWeight.w600),
               ),
             ),
-      body: defaultTargetPlatform == TargetPlatform.android ||
-              defaultTargetPlatform == TargetPlatform.iOS
+      body: response.isMobile || response.isTablet
           ? ListView(
               children: [
                 Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: response.isTablet ? 100 : 0, vertical: 20),
                   width: MediaQuery.of(context).size.width,
-                  height: 301,
+                  height: MediaQuery.of(context).size.height * 0.3,
                   color: AppColors.grey,
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 25, horizontal: response.isTablet ? 30 : 20),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,6 +99,9 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                         height: 25,
                       ),
                       const SubnodeComp(),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const SubnodeComp()
                     ],
                   ),
@@ -103,7 +109,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
               ],
             )
           : SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(34, 32, 88, 32),
+              padding: const EdgeInsets.fromLTRB(34, 32, 88, 32),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -114,8 +120,8 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(right: 48),
-                          height: 301,
-                          width: 430,
+                          height: MediaQuery.of(context).size.height * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.3,
                           decoration: BoxDecoration(
                             color: AppColors.grey1,
                             borderRadius: BorderRadius.circular(8),
@@ -140,7 +146,6 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                             ),
                             Container(
                               margin: const EdgeInsets.only(top: 20),
-                              color: AppColors.grey,
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: Text(
                                 "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.\n\nJorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
@@ -210,8 +215,14 @@ class _SubnodeCompState extends State<SubnodeComp> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final response = ResponsiveCheck(context);
     return Container(
-      width: MediaQuery.of(context).size.width * 0.25,
+      color: AppColors.blue1,
+      width: response.isMobile
+          ? MediaQuery.of(context).size.width
+          : response.isTablet
+              ? MediaQuery.of(context).size.width * 0.7
+              : MediaQuery.of(context).size.width * 0.30,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -306,7 +317,8 @@ class _SubnodeCompState extends State<SubnodeComp> {
                         height: 22,
                       ),
                       SizedBox(
-                        height: 110,
+                        height:
+                            response.isMobile || response.isTablet ? 110 : 90,
                         child: ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -327,6 +339,9 @@ class _SubnodeCompState extends State<SubnodeComp> {
               ],
             ),
           ),
+          const SizedBox(
+            height: 32,
+          )
         ],
       ),
     );

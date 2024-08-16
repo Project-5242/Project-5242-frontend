@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
+import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,12 +10,12 @@ class SavedItemComp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final response = ResponsiveCheck(context);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return GridView.builder(
           shrinkWrap: true,
-          gridDelegate: defaultTargetPlatform == TargetPlatform.android ||
-                  defaultTargetPlatform == TargetPlatform.iOS
+          gridDelegate: response.isMobile || response.isTablet
               ? const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 25.0,
@@ -29,8 +30,7 @@ class SavedItemComp extends StatelessWidget {
                   crossAxisSpacing: 42.0,
                   childAspectRatio: 2 / 3,
                 ),
-          padding: defaultTargetPlatform == TargetPlatform.android ||
-                  defaultTargetPlatform == TargetPlatform.iOS
+          padding: response.isMobile || response.isTablet
               ? const EdgeInsets.symmetric(vertical: 50, horizontal: 20)
               : const EdgeInsets.fromLTRB(65, 100, 95, 50),
           itemCount: 8,
