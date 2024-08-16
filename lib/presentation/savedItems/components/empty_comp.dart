@@ -3,6 +3,7 @@ import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter/foundation.dart';
 
 class EmptyComp extends StatelessWidget {
   const EmptyComp({super.key});
@@ -10,6 +11,7 @@ class EmptyComp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 70),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,12 +28,17 @@ class EmptyComp extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          Text(AppStrings.noItemsSubText,
-              style: TextStyle(
-                  color: AppColors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
-              textAlign: TextAlign.center)
+          Container(
+            width: defaultTargetPlatform == TargetPlatform.android ||
+                defaultTargetPlatform == TargetPlatform.iOS
+            ?  MediaQuery.of(context).size.width:MediaQuery.of(context).size.width * 0.26,
+            child: Text(AppStrings.noItemsSubText,
+                style: TextStyle(
+                    color: AppColors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400),
+                textAlign: TextAlign.center),
+          )
         ],
       ),
     );

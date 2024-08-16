@@ -47,7 +47,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.black),
+                          color: AppColors.black1),
                     ),
                     value: 'user',
                     activeColor: AppColors.blue,
@@ -64,7 +64,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                       style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.black),
+                          color: AppColors.black1),
                     ),
                     value: 'provider',
                     activeColor: AppColors.blue,
@@ -177,7 +177,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: AppColors.black),
+                                color: AppColors.black1),
                           ),
                           value: "user",
                           groupValue: _selectedRole,
@@ -196,7 +196,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: AppColors.black),
+                                color: AppColors.black1),
                           ),
                           value: "provider",
                           groupValue: _selectedRole,

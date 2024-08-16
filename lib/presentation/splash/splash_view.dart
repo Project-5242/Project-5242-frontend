@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     Future.delayed(const Duration(seconds: 03), () {
       if (context.mounted)
-        context.pushNamedAndRemoveUntil(Routes.selectRoleScreen);
+        context.pushNamedAndRemoveUntil(Routes.userDetailScreen);
     });
     super.initState();
   }
