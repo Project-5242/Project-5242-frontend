@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../data/constants/app_colors.dart';
 import '../../res/assets_res.dart';
 
+import '../profile/profile_view.dart';
 import 'home_widget.dart';
 
 class DashbaordWidget extends StatefulWidget {
@@ -21,7 +24,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
     HomeWidget(),
     HomeWidget(),
     HomeWidget(),
-    HomeWidget(),
+    ProfileView(),
   ];
 
   @override
@@ -37,8 +40,8 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: Container(
+      body: /*Platform.isAndroid||Platform.isAndroid ?*/_pages[_currentIndex],
+      bottomNavigationBar:  Container(
         height: 65,
         key: bottomNavKey,
         color: AppColors.white,
