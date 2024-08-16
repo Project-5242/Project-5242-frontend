@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
+import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -9,14 +10,21 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final height = MediaQuery.of(context).size.height;
 
+    return ResponsiveView(
+      mobile: _mobileView(context),
+    );
+  }
+
+  _mobileView(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           // SliverAppBar with Cover Photo and Centered Profile Picture
           SliverAppBar(
             expandedHeight: height * 0.23,
+            // expandedHeight: height * 0.33,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
@@ -136,6 +144,13 @@ class EditProfileView extends StatelessWidget {
                     CustomTextFormField(
                       title: "Password",
                       hintText: "Enter Your Password",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          Icons.visibility_off,
+                          color: AppColors.black,
+                        ),
+                        onPressed: () {},
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
@@ -153,9 +168,9 @@ class EditProfileView extends StatelessWidget {
                       backgroundColor: AppColors.darkBlue,
                       title: "Update",
                       onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          // Handle form submission
-                        }
+                        // if (formKey.currentState!.validate()) {
+                        //   // Handle form submission
+                        // }
                       },
                     ),
                     SizedBox(height: height * 0.19),

@@ -28,7 +28,7 @@ class RouteGenerator {
       case Routes.loginScreen:
         widgetScreen = LoginView();
       case Routes.dashbaord:
-        widgetScreen =  DashbaordWidget(currentIndex: 0);
+        widgetScreen = DashbaordWidget(currentIndex: 0);
       case Routes.savedItemsScreen:
         widgetScreen = const SaveditemScreen();
       case Routes.userDetailScreen:
