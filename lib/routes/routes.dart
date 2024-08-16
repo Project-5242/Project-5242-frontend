@@ -27,6 +27,7 @@ class Routes {
   static const String notificationView = "/notification_view";
   static const String settingView = "/setting_view";
   static const String allnotes = "/allnotes";
+  static const String meesagedesktop = "/chat_message_desktop";
 
   // Provider Side
   static const String selectCategoryView = "/select_category_view";

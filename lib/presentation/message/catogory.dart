@@ -38,6 +38,13 @@ class Catagory1 extends StatelessWidget {
           subTitle: 'Thanks, Ajay! We look forward to it as...',
           time: '5 mins ago',
         ),
+        SizedBox(height: 20),
+        CustomizeListTile(
+          image: 'assets/images/person.png',
+          title: 'Jason Jones',
+          subTitle: 'Thanks, Ajay! We look forward to it as...',
+          time: '5 mins ago',
+        ),
       ],
     );
   }
@@ -65,8 +72,8 @@ class CustomizeListTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           child: Image.asset(
             image,
-            height: 70,
-            width: 70,
+            height: 60,
+            width: 60,
             fit: BoxFit.cover,
           ),
         ),

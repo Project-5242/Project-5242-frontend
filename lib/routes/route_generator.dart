@@ -10,6 +10,7 @@ import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import '../presentation/home/notes_widget.dart';
+import '../presentation/message/chat_message_desktop.dart';
 import '../presentation/onboarding/mode_selection_screen.dart';
 import '../presentation/onboarding/onboarding_screen.dart';
 import '../presentation/onboarding/select_role_screen.dart';
@@ -61,6 +62,9 @@ class RouteGenerator {
         break;
       case Routes.messages:
         widgetScreen = const MessageScreen();
+        break;
+      case Routes.meesagedesktop:
+        widgetScreen = const MessageChatScreen1();
         break;
       case Routes.allnotes:
         widgetScreen = const NotesWidget();
