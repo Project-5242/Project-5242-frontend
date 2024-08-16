@@ -12,6 +12,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../data/constants/app_string.dart';
+import '../../../routes/routes.dart';
 import '../../home/dashboard.dart';
 import '../../widgets/custom_button.dart';
 import '../create_profile.dart/create_profile4.dart';
@@ -84,8 +85,9 @@ class EditProfile3 extends StatelessWidget {
               CustomButton(
                 color: AppColors.white,
                 color1: AppColors.themeColor,
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0))),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.dashbaord);
+                },
                 height: MediaQuery.of(context).size.height * 0.060,
                 width: MediaQuery.of(context).size.width,
                 text: AppStrings.loctext,
@@ -96,8 +98,9 @@ class EditProfile3 extends StatelessWidget {
               CustomButton(
                 color: AppColors.white,
                 color1: AppColors.themeColor,
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0))),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.dashbaord);
+                },
                 height: MediaQuery.of(context).size.height * 0.060,
                 width: MediaQuery.of(context).size.width,
                 text: AppStrings.addMannually,
@@ -106,8 +109,9 @@ class EditProfile3 extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.165,
               ),
               CustomButton(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditProfile4())),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.editProfile4);
+                },
                 height: MediaQuery.of(context).size.height * 0.060,
                 width: MediaQuery.of(context).size.width,
                 text: AppStrings.next,
