@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/routes/routes.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../res/assets_res.dart';
@@ -13,10 +14,15 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-     Future.delayed(const Duration(seconds: 03), () {
-       if (context.mounted) context.pushNamedAndRemoveUntil(Routes.onboardingScreen);
-    });
     super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          Routes.onboardingScreen,
+          (Route<dynamic> route) => false, // Remove all previous routes
+        );
+      }
+    });
   }
 
   @override
