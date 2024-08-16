@@ -64,3 +64,5 @@ flutter:
     - assets/secrets/dotenv.env
     - assets/icon/
     - assets/svg_icons/
+    - assets/images/
+
