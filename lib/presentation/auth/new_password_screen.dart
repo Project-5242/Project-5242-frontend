@@ -16,270 +16,285 @@ class NewPasswordScreen extends StatefulWidget {
 
 class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmpassController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final formKey = GlobalKey<FormState>();
-  bool _obsecureText = true;
-  bool _obsecure = true;
+  bool _obscureText = true;
+  bool _obscureConfirmText = true;
+
   @override
   Widget build(BuildContext context) {
     return ChangePasswordScreen(
-        midleWidget: Form(
-      key: formKey,
-      child: LayoutBuilder(builder: (context, constraints) {
-        bool isDesktop = constraints.maxWidth > 800;
-        return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            children: [
-              if (isDesktop) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          textAlign: TextAlign.center,
-                          AppStrings.createNewPassword,
-                          style: context.customFont(
-                              'Open Sans', 20.0, FontWeight.w700, Colors.black),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.010,
-                        ),
-                        Text(
-                          textAlign: TextAlign.center,
-                          AppStrings.newPasswordDifferent,
-                          style: context.customFont(
-                            'Open Sans',
-                            16.0,
-                            FontWeight.w400,
-                            AppColors.black,
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.026,
-                        ),
-                        AppTextFieldWidget(
-                          controller: passwordController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            } else if (value.length < 6) {
-                              return 'Password must be at least 6 characters.';
-                            }
-                            return null;
-                          },
-                          password: _obsecureText,
-                          suffix: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _obsecureText = !_obsecureText;
-                              });
-                            },
-                            icon: Icon(
-                              _obsecureText
-                                  ? CupertinoIcons.eye_slash
-                                  : CupertinoIcons.eye,
-                              size: 24.0,
-                              color: Colors.black,
+      midleWidget: Form(
+        key: formKey,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            bool isDesktop = constraints.maxWidth > 800;
+
+            return ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              children: [
+                if (isDesktop) ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppStrings.createNewPassword,
+                            style: context.customFont(
+                              'Open Sans',
+                              20.0,
+                              FontWeight.w700,
+                              Colors.black,
                             ),
                           ),
-                          title: AppStrings.newPassword,
-                          borderSideColor: AppColors.greyLight,
-                          hint: AppStrings.enterPassword,
-                          hintStyle: context.customFont(
-                            'Open Sans',
-                            18.0,
-                            FontWeight.w400,
-                            AppColors.grey,
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.010,
                           ),
-                          fillColor: AppColors.textFill,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.026,
-                        ),
-                        AppTextFieldWidget(
-                          controller: confirmpassController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            } else if (value != passwordController) {
-                              return ' Confirm Password does not match with password ';
-                            }
-                            return null;
-                          },
-                          password: _obsecure,
-                          suffix: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _obsecure = !_obsecure;
-                              });
-                            },
-                            icon: Icon(
-                              _obsecure
-                                  ? CupertinoIcons.eye_slash
-                                  : CupertinoIcons.eye,
-                              size: 24.0,
-                              color: Colors.black,
+                          Text(
+                            AppStrings.newPasswordDifferent,
+                            style: context.customFont(
+                              'Open Sans',
+                              16.0,
+                              FontWeight.w400,
+                              AppColors.black,
                             ),
                           ),
-                          title: AppStrings.confirmPassword,
-                          borderSideColor: AppColors.greyLight,
-                          hint: AppStrings.enterPassword,
-                          hintStyle: context.customFont(
-                            'Open Sans',
-                            18.0,
-                            FontWeight.w400,
-                            AppColors.grey,
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.026,
                           ),
-                          fillColor: AppColors.textFill,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.131,
-                        ),
-                        CustomButton(
-                          onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              Navigator.pushNamed(context, Routes.homeScreen);
-                            }
-                          },
-                          height: MediaQuery.of(context).size.height * 0.060,
-                          width: MediaQuery.of(context).size.width * 0.275,
-                          text: AppStrings.resetPassword,
-                        ),
-                      ],
-                    ),
-                    Image.asset(
-                      AssetsRes.PASSWORD3,
-                      fit: BoxFit.contain,
-                      height: MediaQuery.of(context).size.height * 0.150,
-                      width: MediaQuery.of(context).size.width * 0.150,
-                    ),
-                  ],
-                )
-              ] else ...[
-                Image.asset(
-                  AssetsRes.PASSWORD3,
-                  fit: BoxFit.contain,
-                  height: MediaQuery.of(context).size.height * 0.150,
-                  width: MediaQuery.of(context).size.width * 0.150,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.044,
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  AppStrings.createNewPassword,
-                  style: context.customFont(
-                      'Open Sans', 20.0, FontWeight.w700, Colors.black),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.010,
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  AppStrings.newPasswordDifferent,
-                  style: context.customFont(
-                    'Open Sans',
-                    16.0,
-                    FontWeight.w400,
-                    AppColors.black,
+                          AppTextFieldWidget(
+                            controller: passwordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              } else if (value.length < 6) {
+                                return 'Password must be at least 6 characters.';
+                              }
+                              return null;
+                            },
+                            password: _obscureText,
+                            suffix: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                              icon: Icon(
+                                _obscureText
+                                    ? CupertinoIcons.eye_slash
+                                    : CupertinoIcons.eye,
+                                size: 24.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                            title: AppStrings.newPassword,
+                            borderSideColor: AppColors.greyLight,
+                            hint: AppStrings.enterPassword,
+                            hintStyle: context.customFont(
+                              'Open Sans',
+                              18.0,
+                              FontWeight.w400,
+                              AppColors.grey,
+                            ),
+                            fillColor: AppColors.textFill,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.026,
+                          ),
+                          AppTextFieldWidget(
+                            controller: confirmPasswordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              } else if (value != passwordController.text) {
+                                return 'Confirm Password does not match with password';
+                              }
+                              return null;
+                            },
+                            password: _obscureConfirmText,
+                            suffix: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _obscureConfirmText = !_obscureConfirmText;
+                                });
+                              },
+                              icon: Icon(
+                                _obscureConfirmText
+                                    ? CupertinoIcons.eye_slash
+                                    : CupertinoIcons.eye,
+                                size: 24.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                            title: AppStrings.confirmPassword,
+                            borderSideColor: AppColors.greyLight,
+                            hint: AppStrings.enterPassword,
+                            hintStyle: context.customFont(
+                              'Open Sans',
+                              18.0,
+                              FontWeight.w400,
+                              AppColors.grey,
+                            ),
+                            fillColor: AppColors.textFill,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.131,
+                          ),
+                          CustomButton(
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                Navigator.pushNamed(context, Routes.homeScreen);
+                              }
+                            },
+                            height: MediaQuery.of(context).size.height * 0.060,
+                            width: MediaQuery.of(context).size.width * 0.275,
+                            text: AppStrings.resetPassword,
+                          ),
+                        ],
+                      ),
+                      Image.asset(
+                        AssetsRes.PASSWORD3,
+                        fit: BoxFit.contain,
+                        height: MediaQuery.of(context).size.height * 0.150,
+                        width: MediaQuery.of(context).size.width * 0.150,
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.026,
-                ),
-                AppTextFieldWidget(
-                  controller: passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    } else if (value.length < 6) {
-                      return 'Password must be at least 6 characters.';
-                    }
-                    return null;
-                  },
-                  password: _obsecureText,
-                  suffix: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _obsecureText = !_obsecureText;
-                      });
+                ] else ...[
+                  Image.asset(
+                    AssetsRes.PASSWORD3,
+                    fit: BoxFit.contain,
+                    height: MediaQuery.of(context).size.height * 0.150,
+                    width: MediaQuery.of(context).size.width * 0.150,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.044,
+                  ),
+                  Text(
+                    textAlign: TextAlign.center,
+                    AppStrings.createNewPassword,
+                    style: context.customFont(
+                      'Open Sans',
+                      20.0,
+                      FontWeight.w700,
+                      Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.010,
+                  ),
+                  Text(
+                    textAlign: TextAlign.center,
+                    AppStrings.newPasswordDifferent,
+                    style: context.customFont(
+                      'Open Sans',
+                      16.0,
+                      FontWeight.w400,
+                      AppColors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.026,
+                  ),
+                  AppTextFieldWidget(
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      } else if (value.length < 6) {
+                        return 'Password must be at least 6 characters.';
+                      }
+                      return null;
                     },
-                    icon: Icon(
-                      _obsecureText
-                          ? CupertinoIcons.eye_slash
-                          : CupertinoIcons.eye,
-                      size: 24.0,
-                      color: Colors.black,
+                    password: _obscureText,
+                    suffix: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: Icon(
+                        _obscureText
+                            ? CupertinoIcons.eye_slash
+                            : CupertinoIcons.eye,
+                        size: 24.0,
+                        color: Colors.black,
+                      ),
                     ),
+                    title: AppStrings.newPassword,
+                    borderSideColor: AppColors.greyLight,
+                    hint: AppStrings.enterPassword,
+                    hintStyle: context.customFont(
+                      'Open Sans',
+                      18.0,
+                      FontWeight.w400,
+                      AppColors.grey,
+                    ),
+                    fillColor: AppColors.textFill,
                   ),
-                  title: AppStrings.newPassword,
-                  borderSideColor: AppColors.greyLight,
-                  hint: AppStrings.enterPassword,
-                  hintStyle: context.customFont(
-                    'Open Sans',
-                    18.0,
-                    FontWeight.w400,
-                    AppColors.grey,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.026,
                   ),
-                  fillColor: AppColors.textFill,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.026,
-                ),
-                AppTextFieldWidget(
-                  controller: confirmpassController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    } else if (value != passwordController) {
-                      return ' Confirm Password does not match with password ';
-                    }
-                    return null;
-                  },
-                  password: _obsecure,
-                  suffix: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _obsecure = !_obsecure;
-                      });
+                  AppTextFieldWidget(
+                    controller: confirmPasswordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      } else if (value != passwordController.text) {
+                        return 'Confirm Password does not match with password';
+                      }
+                      return null;
                     },
-                    icon: Icon(
-                      _obsecure ? CupertinoIcons.eye_slash : CupertinoIcons.eye,
-                      size: 24.0,
-                      color: Colors.black,
+                    password: _obscureConfirmText,
+                    suffix: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureConfirmText = !_obscureConfirmText;
+                        });
+                      },
+                      icon: Icon(
+                        _obscureConfirmText
+                            ? CupertinoIcons.eye_slash
+                            : CupertinoIcons.eye,
+                        size: 24.0,
+                        color: Colors.black,
+                      ),
                     ),
+                    title: AppStrings.confirmPassword,
+                    borderSideColor: AppColors.greyLight,
+                    hint: AppStrings.enterPassword,
+                    hintStyle: context.customFont(
+                      'Open Sans',
+                      18.0,
+                      FontWeight.w400,
+                      AppColors.grey,
+                    ),
+                    fillColor: AppColors.textFill,
                   ),
-                  title: AppStrings.confirmPassword,
-                  borderSideColor: AppColors.greyLight,
-                  hint: AppStrings.enterPassword,
-                  hintStyle: context.customFont(
-                    'Open Sans',
-                    18.0,
-                    FontWeight.w400,
-                    AppColors.grey,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.131,
                   ),
-                  fillColor: AppColors.textFill,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.131,
-                ),
-                CustomButton(
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      Navigator.pushNamed(context, Routes.homeScreen);
-                    }
-                  },
-                  height: MediaQuery.of(context).size.height * 0.060,
-                  width: MediaQuery.of(context).size.width * 0.275,
-                  text: AppStrings.resetPassword,
-                ),
+                  CustomButton(
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        Navigator.pushNamed(context, Routes.homeScreen);
+                      }
+                    },
+                    height: MediaQuery.of(context).size.height * 0.060,
+                    width: MediaQuery.of(context).size.width * 0.275,
+                    text: AppStrings.resetPassword,
+                  ),
+                ],
               ],
-            ]);
-      }),
-    ));
+            );
+          },
+        ),
+      ),
+    );
   }
 }

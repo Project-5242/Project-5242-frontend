@@ -24,7 +24,7 @@ class OtpScreen extends StatelessWidget {
               if (isDesktop) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
+                    horizontal: 40,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -35,6 +35,7 @@ class OtpScreen extends StatelessWidget {
                           //height: MediaQuery.of(context).size.height * 0.010,
                           width: MediaQuery.of(context).size.width * 0.500,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
@@ -51,7 +52,7 @@ class OtpScreen extends StatelessWidget {
                                     MediaQuery.of(context).size.height * 0.010,
                               ),
                               Text(
-                                AppStrings.enter4digitSentEmail,
+                                'Please enter 4 digit code sent to your e-mail :-',
                                 style: context.customFont(
                                   'Open Sans',
                                   16.0,
@@ -63,34 +64,30 @@ class OtpScreen extends StatelessWidget {
                                 height:
                                     MediaQuery.of(context).size.height * 0.026,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50.0),
-                                child: SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.090,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.250,
-                                  child: PinFieldAutoFill(
-                                    keyboardType: TextInputType.number,
-                                    decoration: BoxLooseDecoration(
-                                      strokeColorBuilder: FixedColorBuilder(
-                                          AppColors.themeColor),
-                                      bgColorBuilder:
-                                          FixedColorBuilder(AppColors.white),
-                                      radius: const Radius.circular(5.0),
-                                    ),
-                                    codeLength: 4,
-                                    onCodeChanged: (code) {
-                                      if (code != null && code.length == 4) {
-                                        print("OTP Code: $code");
-                                      }
-                                    },
-                                    cursor: Cursor(
-                                      width: 2,
-                                      color: Colors.black,
-                                      enabled: true,
-                                    ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.090,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.250,
+                                child: PinFieldAutoFill(
+                                  keyboardType: TextInputType.number,
+                                  decoration: BoxLooseDecoration(
+                                    strokeColorBuilder:
+                                        FixedColorBuilder(AppColors.themeColor),
+                                    bgColorBuilder:
+                                        FixedColorBuilder(AppColors.white),
+                                    radius: const Radius.circular(5.0),
+                                  ),
+                                  codeLength: 4,
+                                  onCodeChanged: (code) {
+                                    if (code != null && code.length == 4) {
+                                      print("OTP Code: $code");
+                                    }
+                                  },
+                                  cursor: Cursor(
+                                    width: 2,
+                                    color: Colors.black,
+                                    enabled: true,
                                   ),
                                 ),
                               ),
@@ -98,36 +95,32 @@ class OtpScreen extends StatelessWidget {
                                 height:
                                     MediaQuery.of(context).size.height * 0.030,
                               ),
-                              Center(
-                                child: RichTextWidget(
-                                    size: 16,
-                                    decoration: TextDecoration.underline,
-                                    color: AppColors.black,
-                                    color1: AppColors.themeColor,
-                                    text: AppStrings.dontReceiveCode,
-                                    text1: AppStrings.resend,
-                                    onTap: () {
-                                      _dialogeBox(context);
-                                    }),
-                              ),
+                              RichTextWidget(
+                                  size: 16,
+                                  decoration: TextDecoration.underline,
+                                  color: AppColors.black,
+                                  color1: AppColors.themeColor,
+                                  text: AppStrings.dontReceiveCode,
+                                  text1: AppStrings.resend,
+                                  onTap: () {
+                                    _dialogeBox(context);
+                                  }),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.050,
+                                    MediaQuery.of(context).size.height * 0.160,
                               ),
-                              Center(
-                                child: CustomButton(
-                                  onTap: () {
-                                    //  if (uniqueKey.currentState!.validate()) {
-                                    Navigator.pushNamed(
-                                        context, Routes.newPassword);
-                                    //  }
-                                  },
-                                  height: MediaQuery.of(context).size.height *
-                                      0.085,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.250,
-                                  text: AppStrings.sendEmail,
-                                ),
+                              CustomButton(
+                                onTap: () {
+                                  //  if (uniqueKey.currentState!.validate()) {
+                                  Navigator.pushNamed(
+                                      context, Routes.newPassword);
+                                  //  }
+                                },
+                                height:
+                                    MediaQuery.of(context).size.height * 0.085,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.200,
+                                text: AppStrings.verify,
                               ),
                             ],
                           ),

@@ -1,6 +1,9 @@
 class AppStrings {
   static const String welcome = 'Welcome';
   static const String signIn = 'Sign In';
+  static const String appName = 'App Name';
+  static const String welcomeAsProvider = 'Welcome! As a Provider';
+
   static const String createAccount = 'Create New Account';
   static const String createAccountDes = 'Create New Account As a USER';
   static String loginSubTitle =
