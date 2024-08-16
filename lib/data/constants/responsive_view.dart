@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/data/constants/fonts.dart';
-
 
 class ResponsiveCheck {
   final BuildContext context;
@@ -11,16 +9,22 @@ class ResponsiveCheck {
 
   bool get isTablet =>
       MediaQuery.of(context).size.width >= 600 &&
-          MediaQuery.of(context).size.width < 1200;
+      MediaQuery.of(context).size.width < 1200;
 
   bool get isDesktop => MediaQuery.of(context).size.width >= 1200;
 }
 
 class ResponsiveView extends StatelessWidget {
   final Widget? mobile;
-  final Widget? desktop;
   final Widget? tablet;
-  const ResponsiveView({super.key, this.mobile, this.desktop, this.tablet});
+  final Widget? desktop;
+
+  const ResponsiveView({
+    super.key,
+    this.mobile,
+    this.tablet,
+    this.desktop,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class ResponsiveView extends StatelessWidget {
         builder: ((BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth < 640) {
         return mobile ?? const ErrorMessage(title: "Need Mobile Widget");
-      } else if (constraints.maxWidth <= 640 || constraints.maxWidth < 900) {
+      } else if (constraints.maxWidth >= 640 && constraints.maxWidth < 1200) {
         return tablet ?? const ErrorMessage(title: "Need Tablet Widget");
       } else {
         return desktop ?? const ErrorMessage(title: "Need Desktop Widget");
@@ -38,23 +42,12 @@ class ResponsiveView extends StatelessWidget {
 }
 
 class ErrorMessage extends StatelessWidget {
-  final String? title;
+  final String title;
+
   const ErrorMessage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          title.toString(),
-          style: TextStyle(
-            fontFamily: Fonts.fontsOpenSans,
-            fontSize: 24,
-            color: Colors.red,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
+    return Center(child: Text(title));
   }
 }
