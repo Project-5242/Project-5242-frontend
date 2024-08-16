@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
-import 'package:flutter_project/presentation/home/home_view.dart';
+
 import 'package:flutter_project/presentation/widgets/app_button.dart';
 import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:flutter_project/res/assets_res.dart';

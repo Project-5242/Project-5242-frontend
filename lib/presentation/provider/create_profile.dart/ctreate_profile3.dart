@@ -4,7 +4,8 @@ import 'package:gap/gap.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-import '../../home/home_view.dart';
+
+import '../../home/dashboard.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_text_field_widget.dart';
 import '../../widgets/custom_button.dart';
@@ -50,7 +51,7 @@ class CreateProfile3 extends StatelessWidget {
             color: AppColors.white,
             color1: AppColors.themeColor,
             onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeView())),
+                context, MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0))),
             height: MediaQuery.of(context).size.height * 0.060,
             width: MediaQuery.of(context).size.width,
             text: AppStrings.allowCurrentloc,
@@ -62,7 +63,7 @@ class CreateProfile3 extends StatelessWidget {
             color: AppColors.white,
             color1: AppColors.themeColor,
             onTap: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeView())),
+                context, MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0))),
             height: MediaQuery.of(context).size.height * 0.060,
             width: MediaQuery.of(context).size.width,
             text: AppStrings.addMannually,

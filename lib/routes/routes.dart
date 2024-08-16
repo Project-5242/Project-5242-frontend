@@ -9,7 +9,7 @@ class Routes {
   static const String loginScreen = "/loginScreen";
   static const String chatscreen = "/chat";
   static const String registerScreen = "/registerScreen";
-  static const String homeScreen = "/homeScreen";
+  static const String dashbaord = "/dashbaord";
   static const String errorScreen = "/errorScreen";
   static const String messages = "/messages";
   static const String savedItemsScreen = "/savedItemsScreen";
@@ -21,6 +21,7 @@ class Routes {
   static const String editProfileView = "/edit_profile_view";
   static const String notificationView = "/notification_view";
   static const String settingView = "/setting_view";
+  static const String allnotes = "/allnotes";
 
   // Provider Side
   static const String selectCategoryView = "/select_category_view";

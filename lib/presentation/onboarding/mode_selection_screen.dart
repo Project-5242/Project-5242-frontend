@@ -63,7 +63,7 @@ class ModeSelectionScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // Handle the button press
+                context.pushNamedAndRemoveUntil(Routes.loginScreen);
               },
               child: Text(
                 AppStrings.login,

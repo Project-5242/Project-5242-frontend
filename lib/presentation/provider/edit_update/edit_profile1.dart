@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/presentation/home/dashboard.dart';
 import 'package:flutter_project/presentation/provider/edit_update/edit_profile2.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:gap/gap.dart';
@@ -10,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-import '../../home/home_view.dart';
+
 import '../../widgets/app_button.dart';
 import '../../widgets/app_profile.dart';
 import '../../widgets/app_text_field_widget.dart';
@@ -32,7 +33,7 @@ class _EditProfile1State extends State<EditProfile1> {
     return AppProfile(
       onTap1: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeView()));
+            context, MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0)));
       },
       onTap2: () {
         Navigator.push(

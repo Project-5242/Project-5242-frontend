@@ -9,7 +9,8 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-import '../../home/home_view.dart';
+
+import '../../home/dashboard.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_text_field_widget.dart';
 import '../../widgets/custom_button.dart';
@@ -166,7 +167,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
               onTap: () {
                 if (formKey.currentState!.validate())
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeView()));
+                      MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0)));
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
