@@ -19,6 +19,7 @@ class AppStrings {
   static const String mobilenumber = 'Mobile Number';
   static const String enteryourMobileNumber = 'Enter Your Mobile Number';
   static const String changePassword = 'Change Password';
+  static const String editProfile = "Edit Profile";
   static const String enterEmailAddress =
       'Please enter your email address to \nreceive a verification code';
   static const String sendEmail = 'Send Email';

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/presentation/auth/login_view.dart';
-import 'package:flutter_project/presentation/onboarding/mode_selection_screen.dart';
-import 'package:flutter_project/presentation/onboarding/onboarding_screen.dart';
-import 'package:flutter_project/presentation/onboarding/select_role_screen.dart';
+import 'package:flutter_project/presentation/home/dashboard.dart';
+import 'package:flutter_project/presentation/message/chat.dart';
+import 'package:flutter_project/presentation/message/messages.dart';
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
 import 'package:flutter_project/routes/routes.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
-import '../presentation/home/home_view.dart';
+import '../presentation/home/notes_widget.dart';
+import '../presentation/onboarding/mode_selection_screen.dart';
+import '../presentation/onboarding/onboarding_screen.dart';
+import '../presentation/onboarding/select_role_screen.dart';
 import '../presentation/splash/splash_view.dart';
 
 class RouteGenerator {
@@ -24,8 +27,8 @@ class RouteGenerator {
         break;
       case Routes.loginScreen:
         widgetScreen = LoginView();
-      case Routes.homeScreen:
-        widgetScreen = const HomeView();
+      case Routes.dashbaord:
+        widgetScreen =  DashbaordWidget(currentIndex: 0);
       case Routes.savedItemsScreen:
         widgetScreen = const SaveditemScreen();
       case Routes.userDetailScreen:
@@ -53,8 +56,15 @@ class RouteGenerator {
       // Provider
       case Routes.selectCategoryView:
         widgetScreen = const SelectCategoryView();
+      case Routes.chatscreen:
+        widgetScreen = const ChatScreen();
         break;
-
+      case Routes.messages:
+        widgetScreen = const MessageScreen();
+        break;
+      case Routes.allnotes:
+        widgetScreen = const NotesWidget();
+        break;
       default:
         widgetScreen = _errorRoute();
     }

@@ -5,7 +5,7 @@ import 'package:flutter_project/presentation/widgets/custom_button.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-import '../../home/home_view.dart';
+
 import '../../widgets/app_button.dart';
 
 class CreateProfile extends StatelessWidget {

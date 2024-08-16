@@ -29,4 +29,12 @@ class AppColors {
   static Color dividerColor = const Color.fromRGBO(230, 230, 230, 1);
   static Color iconColor = const Color.fromRGBO(37, 40, 49, 0.5);
   static Color switchButtonColor = const Color.fromRGBO(0, 100, 210, 1);
+
+
+  static Color background_theme = const Color(0xff0B8FAC);
+  static Color text_colour = const Color(0xff858585);
+  static Color text_field_bg = const Color(0xffD9D9D9);
+  static Color category_bg = const Color(0xff7BC1B7);
+  static Color node_bg = const Color(0xffD2EBE7);
+
 }

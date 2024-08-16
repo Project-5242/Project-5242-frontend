@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
-import 'package:flutter_project/presentation/home/home_view.dart';
+
 import 'package:flutter_project/presentation/provider/edit_update/edit_profile4.dart';
 import 'package:flutter_project/presentation/widgets/app_button.dart';
 import 'package:flutter_project/res/assets_res.dart';
@@ -12,6 +12,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../data/constants/app_string.dart';
+import '../../home/dashboard.dart';
 import '../../widgets/custom_button.dart';
 import '../create_profile.dart/create_profile4.dart';
 
@@ -84,7 +85,7 @@ class EditProfile3 extends StatelessWidget {
                 color: AppColors.white,
                 color1: AppColors.themeColor,
                 onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeView())),
+                    MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0))),
                 height: MediaQuery.of(context).size.height * 0.060,
                 width: MediaQuery.of(context).size.width,
                 text: AppStrings.loctext,
@@ -96,7 +97,7 @@ class EditProfile3 extends StatelessWidget {
                 color: AppColors.white,
                 color1: AppColors.themeColor,
                 onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeView())),
+                    MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0))),
                 height: MediaQuery.of(context).size.height * 0.060,
                 width: MediaQuery.of(context).size.width,
                 text: AppStrings.addMannually,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/presentation/auth/sign_up.dart';
-import 'package:get/get.dart';
+
 
 class RichTextWidget extends StatelessWidget {
   final String text;

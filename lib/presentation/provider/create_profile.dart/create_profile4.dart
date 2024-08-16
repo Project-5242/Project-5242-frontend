@@ -5,7 +5,7 @@ import 'package:flutter_project/res/assets_res.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-import '../../home/home_view.dart';
+
 import '../../widgets/app_button.dart';
 import '../../widgets/custom_button.dart';
 import 'ctreate_profile3.dart';

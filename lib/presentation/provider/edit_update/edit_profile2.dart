@@ -4,7 +4,8 @@ import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/presentation/provider/edit_update/edit_profile3.dart';
 import 'package:flutter_project/presentation/widgets/app_profile.dart';
 
-import '../../home/home_view.dart';
+import '../../home/dashboard.dart';
+
 
 class EditProfile2 extends StatefulWidget {
   const EditProfile2({super.key});
@@ -22,7 +23,7 @@ class _EditProfile2State extends State<EditProfile2> {
     return AppProfile(
       onTap1: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeView()));
+            context, MaterialPageRoute(builder: (context) =>DashbaordWidget(currentIndex: 0)));
       },
       onTap2: () {
         Navigator.push(

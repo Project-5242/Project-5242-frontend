@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -60,7 +61,7 @@ class EditProfileView extends StatelessWidget {
             ),
             centerTitle: true,
             title: Text(
-              "Edit Profile",
+              AppStrings.editProfile,
               style: TextStyle(
                 fontFamily: Fonts.fontsOpenSans,
                 fontSize: 20,
