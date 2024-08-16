@@ -6,6 +6,7 @@ import 'package:flutter_project/presentation/widgets/app_profile.dart';
 
 import '../../home/dashboard.dart';
 
+import '../../../routes/routes.dart';
 
 class EditProfile2 extends StatefulWidget {
   const EditProfile2({super.key});
@@ -22,12 +23,10 @@ class _EditProfile2State extends State<EditProfile2> {
   Widget build(BuildContext context) {
     return AppProfile(
       onTap1: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) =>DashbaordWidget(currentIndex: 0)));
+        Navigator.pushNamed(context, Routes.dashbaord);
       },
       onTap2: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => EditProfile3()));
+        Navigator.pushNamed(context, Routes.editProfile3);
       },
       text1: AppStrings.addYoueSubNode2,
       text2: AppStrings.loginSubTitle,
