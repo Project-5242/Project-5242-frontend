@@ -1,6 +1,6 @@
 name: flutter_project
 description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -36,8 +35,10 @@ dependencies:
   mime: ^1.0.5
   flutter_html: ^3.0.0-beta.2
   cached_network_image: ^3.4.0
-  flutter_screenutil: ^5.9.3
+  get: ^4.6.6
   flutter_svg: ^2.0.10+1
+  sms_autofill: ^2.4.0
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -47,7 +48,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/images/
     - assets/icon/ic_image_placeholder.png
+    - assets/icon/Vector.png
+    - assets/icon/Edit.png
+    - assets/icon/eye-closed.png
+    - assets/icon/Hide.png
+    - assets/icon/Hide.svg
     - assets/icon/ic_no_wifi.png
     - assets/lottie/empty_lottie.json
     - assets/lottie/error_lottie.json
@@ -55,5 +62,7 @@ flutter:
     - assets/lottie/page_not_found.json
     - assets/lottie/welcome_lottie.json
     - assets/secrets/dotenv.env
+    - assets/icon/
+    - assets/svg_icons/
     - assets/images/
 
