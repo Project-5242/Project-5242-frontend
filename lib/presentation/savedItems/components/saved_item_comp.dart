@@ -35,7 +35,7 @@ class SavedItemComp extends StatelessWidget {
                   PopupMenuButton<int>(
                     color: AppColors.white,
                     padding: const EdgeInsets.all(8),
-                    menuPadding: const EdgeInsets.all(8),
+                    // menuPadding: const EdgeInsets.all(8),
                     onSelected: (value) {
                       // Handle menu item selection
                       if (value == 1) {
