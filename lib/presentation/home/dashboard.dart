@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../data/constants/app_colors.dart';
+import '../../data/constants/responsive_view.dart';
 import '../../res/assets_res.dart';
 
 import '../profile/profile_view.dart';
+import 'compontes/custom_textview.dart';
 import 'home_widget.dart';
 
 class DashbaordWidget extends StatefulWidget {
@@ -36,86 +38,13 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
 
     super.initState();
   }
-
+  bool isExpanded = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: /*Platform.isAndroid||Platform.isAndroid ?*/_pages[_currentIndex],
-      bottomNavigationBar:  Container(
-        height: 65,
-        key: bottomNavKey,
-        color: AppColors.white,
-        child: Column(
-          children: [
-            Container(
-              height: 1,
-              color: AppColors.white,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                bottomNavItem(
-                  title: "",
-                  icon: AssetsRes.ic_home,
-                  isSelected: _currentIndex == 0,
-                  onTap: () {
-                    if (_currentIndex != 0) {
-                      setState(() {
-                        _currentIndex = 0;
-                      });
-                    }
-                  },
-                ),
-                bottomNavItem(
-                  title: "",
-                  icon:  AssetsRes.ic_heat,
-                  isSelected: _currentIndex == 1,
-                  onTap: () {
-                    if (_currentIndex != 1) {
-                      setState(() {
-                        _currentIndex = 1;
-                      });
-                    }
-                  },
-                ),
-                bottomNavItem(
-                    title: "",
-                    icon: AssetsRes.ic_chat,
-                    isSelected: _currentIndex == 2,
-                    onTap: () {
-                      setState(
-                        () {
-                          if (_currentIndex != 2) {
-                            setState(() {
-                              _currentIndex = 2;
-                            });
-                          }
-                        },
-                      );
-                    }),
-                bottomNavItem(
-                    title: "",
-                    icon: AssetsRes.ic_user,
-                    isSelected: _currentIndex == 3,
-                    onTap: () {
-                      setState(
-                            () {
-                          if (_currentIndex != 3) {
-                            setState(() {
-                              _currentIndex = 3;
-                            });
-                          }
-                        },
-                      );
-                    }),
-              ],
-            ),
-          ],
-        ),
-      ),
+    return ResponsiveView(
+      mobile: _mobileView(context),
+      desktop: _desktopView(context),
+      tablet: _mobileView(context),
     );
   }
 
@@ -167,5 +96,229 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
         ],
       ),
     );
+  }
+
+  _mobileView(BuildContext context) {
+    return Scaffold(
+      body: /*Platform.isAndroid||Platform.isAndroid ?*/ _pages[_currentIndex],
+      bottomNavigationBar: Container(
+        height: 65,
+        key: bottomNavKey,
+        color: AppColors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 1,
+              color: AppColors.white,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                bottomNavItem(
+                  title: "",
+                  icon: AssetsRes.ic_home,
+                  isSelected: _currentIndex == 0,
+                  onTap: () {
+                    if (_currentIndex != 0) {
+                      setState(() {
+                        _currentIndex = 0;
+                      });
+                    }
+                  },
+                ),
+                bottomNavItem(
+                  title: "",
+                  icon: AssetsRes.ic_heat,
+                  isSelected: _currentIndex == 1,
+                  onTap: () {
+                    if (_currentIndex != 1) {
+                      setState(() {
+                        _currentIndex = 1;
+                      });
+                    }
+                  },
+                ),
+                bottomNavItem(
+                    title: "",
+                    icon: AssetsRes.ic_chat,
+                    isSelected: _currentIndex == 2,
+                    onTap: () {
+                      setState(
+                        () {
+                          if (_currentIndex != 2) {
+                            setState(() {
+                              _currentIndex = 2;
+                            });
+                          }
+                        },
+                      );
+                    }),
+                bottomNavItem(
+                    title: "",
+                    icon: AssetsRes.ic_user,
+                    isSelected: _currentIndex == 3,
+                    onTap: () {
+                      setState(
+                        () {
+                          if (_currentIndex != 3) {
+                            setState(() {
+                              _currentIndex = 3;
+                            });
+                          }
+                        },
+                      );
+                    }),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _desktopView(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(100.0), // Set the height of the AppBar
+          child: AppBar(
+            elevation: 4.0,
+            backgroundColor: AppColors.greyDivider,
+            title: CustomTextView(
+                  "App Name",
+                  style: TextStyle(
+                      color: AppColors.text_colour,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+            ),
+            actions: [
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.height*.5,
+                      child: TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          hintStyle: TextStyle(
+                              color: AppColors.text_colour,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400),
+                          fillColor: AppColors.text_field_bg,
+                          filled: true,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.only(top: 12, bottom: 12),
+                            child: SvgPicture.asset(
+                              AssetsRes.ic_search,
+                              width: 18.0,
+                              height: 18.0,
+                            ),
+                          ),
+                          // contentPadding: const EdgeInsets.symmetric(horizontal: 5),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: AppColors.text_field_bg,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: AppColors.text_field_bg,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: AppColors.text_field_bg,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30,),
+                    SvgPicture.asset(
+                      AssetsRes.ic_notification,
+                      height: 32,
+                      width: 32,
+                    ),
+                    CircleAvatar(
+                      radius: 55,
+                      backgroundImage: NetworkImage(
+                        'https://www.example.com/profile_picture.jpg', // Replace with your image URL
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+            // Change the background color of the AppBar
+          )),
+      body:Row(children: [
+        AnimatedContainer(
+          duration: Duration(milliseconds: 300),  // Animation duration
+          width: isExpanded ? 250 : 80,  // Width based on expansion state
+          color: Colors.blueGrey[900],
+          child: Column(
+            children: <Widget>[
+
+              ListTile(
+                leading: Icon(Icons.home, color: Colors.white),
+                title: isExpanded
+                    ? Text('Home', style: TextStyle(color: Colors.white))
+                    : null,
+                onTap: () {
+                  _onMenuItemClicked();  // Collapse drawer when clicked
+                  // Navigate to Home
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.star, color: Colors.white),
+                title: isExpanded
+                    ? Text('Favorites', style: TextStyle(color: Colors.white))
+                    : null,
+                onTap: () {
+                  _onMenuItemClicked();  // Collapse drawer when clicked
+                  // Navigate to Favorites
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.settings, color: Colors.white),
+                title: isExpanded
+                    ? Text('Settings', style: TextStyle(color: Colors.white))
+                    : null,
+                onTap: () {
+                  _onMenuItemClicked();  // Collapse drawer when clicked
+                  // Navigate to Settings
+                },
+              ),
+            ],
+          ),
+        ),
+      ],)
+      ,
+    );
+  }
+
+  void _toggleDrawer() {
+    setState(() {
+      isExpanded = !isExpanded;  // Toggle the drawer's expanded state
+    });
+  }
+
+  void _onMenuItemClicked() {
+    // Collapse the drawer when a menu item is clicked
+    if (isExpanded) {
+      _toggleDrawer();
+    }
   }
 }
