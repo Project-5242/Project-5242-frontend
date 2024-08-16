@@ -122,4 +122,8 @@ class AppStrings {
   static const String privacyPolicy = 'Privacy Policy';
   static const String termsandConditions = 'Terms and Conditions';
   static const String rateApp = 'Rate App';
+  static const String appName = 'App Name';
+  static const String copyRight = '"© 2022 APP NAME"';
+  static const String webSubText =
+      'Select any one role as per you wants to Start with "App Name".';
 }
