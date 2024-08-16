@@ -211,7 +211,6 @@ class _SubnodeCompState extends State<SubnodeComp> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.grey,
       width: MediaQuery.of(context).size.width * 0.25,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
