@@ -51,7 +51,9 @@ class _SignUpState extends State<SignUp> {
             child: Form(
               key: formKey,
               child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: isDesktop
+                    ? EdgeInsets.symmetric(horizontal: 50, vertical: 10)
+                    : EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.020,
@@ -167,11 +169,11 @@ class _SignUpState extends State<SignUp> {
                   CustomButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        Navigator.pushNamed(context, Routes.homeScreen);
+                        Navigator.pushNamed(context, Routes.createProfile);
                       }
                     },
                     height: isDesktop
-                        ? MediaQuery.of(context).size.height * 0.070
+                        ? MediaQuery.of(context).size.height * 0.080
                         : MediaQuery.of(context).size.height * 0.060,
                     width: MediaQuery.of(context).size.width * 0.376,
                     text: AppStrings.signUp,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 
+import '../../data/constants/responsive_view.dart';
+
 class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
@@ -21,6 +23,8 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = ResponsiveCheck(context);
+
     return InkWell(
         onTap: onTap,
         child: Container(
@@ -35,8 +39,11 @@ class CustomButton extends StatelessWidget {
               child: Text(
                 text ?? '',
                 textAlign: TextAlign.center,
-                style: context.customFont('Open Sans', 20.0, FontWeight.w400,
-                    color1 ?? AppColors.white),
+                style: responsive.isTablet
+                    ? context.customFont('Open Sans', 17.0, FontWeight.w500,
+                        color1 ?? AppColors.white)
+                    : context.customFont('Open Sans', 18.0, FontWeight.w500,
+                        color1 ?? AppColors.white),
               ),
             )));
   }
