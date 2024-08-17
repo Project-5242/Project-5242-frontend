@@ -37,8 +37,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case Routes.root:
-        // widgetScreen = const CreateProfile();
-        widgetScreen = const SplashView();
+        widgetScreen = SplashView();
         break;
       case Routes.loginScreen:
         widgetScreen = LoginView();
@@ -98,6 +97,7 @@ class RouteGenerator {
           currentIndex: 1,
           totalSteps: 3,
         );
+      case Routes.createProfile3:
         widgetScreen = const CreateProfile3(
           currentIndex: 2,
           totalSteps: 3,
@@ -106,9 +106,10 @@ class RouteGenerator {
         widgetScreen = const CreateProfile4();
       case Routes.editProfile1:
         widgetScreen = EditProfile1();
+      case Routes.editProfile2:
         widgetScreen = const EditProfile2();
       case Routes.editProfile3:
-        widgetScreen = const EditProfile3();
+        widgetScreen = EditProfile3();
       case Routes.editProfile4:
         widgetScreen = const EditProfile4();
         break;

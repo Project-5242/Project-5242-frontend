@@ -115,14 +115,14 @@ class _AppProfileState extends State<AppProfile> {
                     widget.text1,
                     //   AppStrings.addYoueSubNode1,
                     style: context.customFont(
-                        'Open Sans', 24.0, FontWeight.w600, AppColors.black1),
+                        'Open Sans', 24.0, FontWeight.w600, AppColors.black),
                   ),
                   Gap(10),
                   Text(
                     widget.text2,
                     //  AppStrings.lorem,
                     style: context.customFont('Open Sans', 19.0,
-                        FontWeight.w400, AppColors.black1.withOpacity(0.3)),
+                        FontWeight.w400, AppColors.black.withOpacity(0.3)),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.010,

@@ -79,7 +79,7 @@ class CreateProfile extends StatelessWidget {
                           textAlign: TextAlign.center,
                           AppStrings.createProfile,
                           style: context.customFont('Open Sans', 22.0,
-                              FontWeight.w600, AppColors.black1),
+                              FontWeight.w600, AppColors.black),
                         ),
                         IconButton(
                           onPressed: () {},
@@ -107,7 +107,7 @@ class CreateProfile extends StatelessWidget {
                     ),
                     CustomButton(
                       onTap: () =>
-                          Navigator.pushNamed(context, Routes.createProfile4),
+                          Navigator.pushNamed(context, Routes.createProfile1),
                       height: MediaQuery.of(context).size.height * 0.080,
                       width: MediaQuery.of(context).size.width * 0.400,
                       text: AppStrings.continueText,
