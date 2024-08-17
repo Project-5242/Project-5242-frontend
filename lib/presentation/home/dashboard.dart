@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/presentation/message/chat.dart';
+import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import '../../data/constants/app_colors.dart';
@@ -25,8 +27,8 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
   final bottomNavKey = GlobalKey();
   final List<Widget> _pages = const [
     HomeWidget(),
-    HomeWidget(),
-    HomeWidget(),
+    SaveditemScreen(),
+    Scaffold(),
     ProfileView(),
   ];
 
@@ -283,12 +285,15 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
             style: SideMenuStyle(
               // showTooltip: false,
               displayMode: SideMenuDisplayMode.compact,
+              backgroundColor: AppColors.darkBlue,
               showHamburger: false,
               hoverColor: Colors.blue[100],
               selectedHoverColor: Colors.blue[100],
-              selectedColor: Colors.lightBlue,
+              selectedColor: Colors.white,
+              unselectedIconColor: Colors.white,
+              itemOuterPadding: const EdgeInsets.symmetric(vertical: 10),
               selectedTitleTextStyle: const TextStyle(color: Colors.white),
-              selectedIconColor: Colors.white,
+              selectedIconColor: Colors.black,
               // decoration: BoxDecoration(
               //   borderRadius: BorderRadius.all(Radius.circular(10)),
               // ),
@@ -336,28 +341,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
           Expanded(
             child: PageView(
               controller: pageController,
-              children: [
-                HomeWidget(),
-                Container(
-                  color: Colors.white,
-                  child: const Center(
-                    child: Text(
-                      'Users',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.white,
-                  child: const Center(
-                    child: Text(
-                      'Expansion Item 1',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                  ),
-                ),
-                const ProfileView(),
-              ],
+              children: _pages,
             ),
           ),
         ],
