@@ -19,9 +19,11 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(const Duration(seconds: 03), () {
       final response = ResponsiveCheck(context);
       if (context.mounted)
+      {
         response.isMobile
             ? context.pushNamedAndRemoveUntil(Routes.onboardingScreen)
             : context.pushNamedAndRemoveUntil(Routes.selectRoleScreen);
+      }
     });
     super.initState();
   }
