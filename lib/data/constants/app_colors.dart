@@ -35,5 +35,7 @@ class AppColors {
   static Color text_field_bg = const Color(0xffD9D9D9);
   static Color category_bg = const Color(0xff7BC1B7);
   static Color node_bg = const Color(0xffD2EBE7);
+  static Color note_d_bg = const Color(0xffC4C4C4);
+
   static Color grey3 = const Color(0xffEAEAEA);
 }
