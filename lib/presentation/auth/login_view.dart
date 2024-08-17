@@ -343,7 +343,7 @@ class _DesktopLoginState extends State<DesktopLogin> {
                         onTap: () {
                           if (formKey.currentState!.validate()) {
                             Navigator.pushNamed(
-                                context, Routes.userDetailScreen);
+                                context, Routes.savedItemsScreen);
                           }
                         },
                         height: MediaQuery.of(context).size.height * 0.080,
