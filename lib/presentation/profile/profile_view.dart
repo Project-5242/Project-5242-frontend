@@ -6,6 +6,7 @@ import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
+import 'dart:io';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -67,61 +68,67 @@ class _ProfileViewState extends State<ProfileView> {
                       color: AppColors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: CircleAvatar(
-                                radius: 50,
-                                backgroundColor: AppColors.borderColor,
-                                child: const CircleAvatar(
-                                  radius: 45,
-                                  backgroundImage: CachedNetworkImageProvider(
-                                    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1200px-Googleplex_HQ_%28cropped%29.jpg', // Replace with your profile picture URL
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: CircleAvatar(
+                                  radius: 50,
+                                  backgroundColor: AppColors.borderColor,
+                                  child: const CircleAvatar(
+                                    radius: 45,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1200px-Googleplex_HQ_%28cropped%29.jpg', // Replace with your profile picture URL
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: height * 0.02),
-                            // Body Code
-                            AppButton(
-                              height: 37,
-                              width: 100,
-                              backgroundColor: AppColors.darkBlue,
-                              title: "Edit Profile",
-                              onPressed: () {
-                                setState(() {
-                                  isSettingVisible = false;
-                                });
-                              },
-                            ),
-                            SizedBox(height: height * 0.04),
-                            _customListTile(
-                                title: "Notification", onTap: () {}),
-                            _customListTile(
-                                title: "Setting",
-                                onTap: () {
+                              SizedBox(height: height * 0.02),
+                              // Body Code
+                              AppButton(
+                                height: 37,
+                                width: 100,
+                                backgroundColor: AppColors.darkBlue,
+                                title: "Edit Profile",
+                                onPressed: () {
                                   setState(() {
-                                    isSettingVisible = true;
+                                    isSettingVisible = false;
                                   });
-                                }),
-                            _customListTile(
-                                title: "Privacy & Policy", onTap: () {}),
-                            _customListTile(
-                                title: "Terms & Conditions", onTap: () {}),
-                            _customListTile(
-                                title: "Change Password", onTap: () {}),
-                            SizedBox(height: height * 0.09),
-                            AppButton(
-                              height: 37,
-                              width: 100,
-                              backgroundColor: AppColors.darkBlue,
-                              title: "Logout",
-                              onPressed: () {},
-                            ),
-                          ],
+                                },
+                              ),
+                              SizedBox(height: height * 0.04),
+                              _customListTile(
+                                  title: "Notification", onTap: () {}),
+                              _customListTile(
+                                  title: "Setting",
+                                  onTap: () {
+                                    setState(() {
+                                      isSettingVisible = true;
+                                    });
+                                  }),
+                              _customListTile(
+                                  title: "Privacy & Policy", onTap: () {}),
+                              _customListTile(
+                                  title: "Terms & Conditions", onTap: () {}),
+                              _customListTile(
+                                  title: "Change Password", onTap: () {}),
+                              SizedBox(height: height * 0.09),
+                              AppButton(
+                                height: 37,
+                                width: 100,
+                                backgroundColor: AppColors.darkBlue,
+                                title: "Logout",
+                                onPressed: () {
+                                  context.pushNamedAndRemoveUntil(
+                                      Routes.loginScreen);
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -323,16 +330,29 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
                 SizedBox(height: height * 0.02),
+
+                if (Theme.of(context).platform == TargetPlatform.android)
+                  AppButton(
+                    height: 37,
+                    width: 100,
+                    backgroundColor: AppColors.darkBlue,
+                    title: "Edit Profile",
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.editProfileView);
+                    },
+                  )
+                else if (Theme.of(context).platform == TargetPlatform.android)
+                  AppButton(
+                    height: 37,
+                    width: 100,
+                    backgroundColor: AppColors.darkBlue,
+                    title: "Edit Profile",
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.editProfileView);
+                    },
+                  ),
                 // Body Code
-                AppButton(
-                  height: 37,
-                  width: 100,
-                  backgroundColor: AppColors.darkBlue,
-                  title: "Edit Profile",
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.editProfileView);
-                  },
-                ),
+
                 SizedBox(height: height * 0.04),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 27),

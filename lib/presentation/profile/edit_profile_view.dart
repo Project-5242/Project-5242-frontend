@@ -20,6 +20,7 @@ class _EditProfileViewState extends State<EditProfileView> {
     final formKey = GlobalKey<FormState>();
     final height = MediaQuery.of(context).size.height;
     final responsive = ResponsiveCheck(context);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
