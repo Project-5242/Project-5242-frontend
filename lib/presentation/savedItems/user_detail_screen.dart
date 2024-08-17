@@ -261,7 +261,7 @@ class _SubnodeCompState extends State<SubnodeComp> {
                           decoration: BoxDecoration(
                             color: _selectedIndex == index
                                 ? AppColors.green
-                                : AppColors.white,
+                                : AppColors.grey3,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Text(

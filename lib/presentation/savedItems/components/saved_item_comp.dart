@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/res/assets_res.dart';
+import 'package:flutter_project/routes/routes.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SavedItemComp extends StatelessWidget {
@@ -38,7 +39,7 @@ class SavedItemComp extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.fromLTRB(7, 10, 0, 15),
               decoration: BoxDecoration(
-                color: AppColors.grey,
+                color: AppColors.textFill,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -62,7 +63,11 @@ class SavedItemComp extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             value: 1,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pushNamed(
+                                    context, Routes.userDetailScreen);
+                              },
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.infinity, 20),
                                 shape: RoundedRectangleBorder(
@@ -120,14 +125,18 @@ class SavedItemComp extends StatelessWidget {
                       Text(
                         "User Name",
                         style: TextStyle(
-                            color: AppColors.white,
+                            color: response.isMobile || response.isTablet
+                                ? AppColors.white
+                                : AppColors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
                         "Work 10 hrs",
                         style: TextStyle(
-                            color: AppColors.white,
+                            color: response.isMobile || response.isTablet
+                                ? AppColors.white
+                                : AppColors.black,
                             fontSize: 14,
                             fontWeight: FontWeight.w400),
                       ),
@@ -136,14 +145,21 @@ class SavedItemComp extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          SvgPicture.asset(AssetsRes.LOCATION_ICON),
+                          SvgPicture.asset(
+                            AssetsRes.LOCATION_ICON,
+                            color: response.isMobile || response.isTablet
+                                ? AppColors.white
+                                : AppColors.black,
+                          ),
                           const SizedBox(
                             width: 6,
                           ),
                           Text(
                             "Location",
                             style: TextStyle(
-                                color: AppColors.white,
+                                color: response.isMobile || response.isTablet
+                                    ? AppColors.white
+                                    : AppColors.black,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400),
                           ),
