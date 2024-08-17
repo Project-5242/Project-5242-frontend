@@ -40,8 +40,8 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: /*Platform.isAndroid||Platform.isAndroid ?*/_pages[_currentIndex],
-      bottomNavigationBar:  Container(
+      body: /*Platform.isAndroid||Platform.isAndroid ?*/ _pages[_currentIndex],
+      bottomNavigationBar: Container(
         height: 65,
         key: bottomNavKey,
         color: AppColors.white,
@@ -51,9 +51,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
               height: 1,
               color: AppColors.white,
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -71,7 +69,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
                 ),
                 bottomNavItem(
                   title: "",
-                  icon:  AssetsRes.ic_heat,
+                  icon: AssetsRes.ic_heat,
                   isSelected: _currentIndex == 1,
                   onTap: () {
                     if (_currentIndex != 1) {
@@ -102,7 +100,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
                     isSelected: _currentIndex == 3,
                     onTap: () {
                       setState(
-                            () {
+                        () {
                           if (_currentIndex != 3) {
                             setState(() {
                               _currentIndex = 3;

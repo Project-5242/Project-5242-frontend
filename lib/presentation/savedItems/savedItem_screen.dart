@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
-import 'package:flutter_project/presentation/savedItems/components/empty_comp.dart';
 import 'package:flutter_project/presentation/savedItems/components/saved_item_comp.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter/foundation.dart';
 
 class SaveditemScreen extends StatefulWidget {
   const SaveditemScreen({super.key});
