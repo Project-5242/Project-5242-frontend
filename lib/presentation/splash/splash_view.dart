@@ -3,6 +3,7 @@ import 'package:flutter_project/base/extensions/navigation_extension.dart';
 import 'package:flutter_project/routes/routes.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../data/constants/responsive_view.dart';
 import '../../res/assets_res.dart';
 
 class SplashView extends StatefulWidget {
