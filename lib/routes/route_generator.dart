@@ -39,8 +39,10 @@ class RouteGenerator {
         break;
       case Routes.loginScreen:
         widgetScreen = LoginView();
+        break;
       case Routes.dashbaord:
         widgetScreen = DashbaordWidget(currentIndex: 0);
+        break;
       case Routes.signUp:
         widgetScreen = const SignUp();
       case Routes.forgetPassword:

@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
-import 'package:flutter_project/presentation/provider/edit_update/edit_profile3.dart';
 import 'package:flutter_project/presentation/widgets/app_profile.dart';
-
-import '../../home/dashboard.dart';
-
 import '../../../routes/routes.dart';
 
 class EditProfile2 extends StatefulWidget {

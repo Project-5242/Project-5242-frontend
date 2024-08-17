@@ -16,6 +16,8 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   bool isSettingVisible = false;
+  bool _passHide = true;
+  final _formKeyDesk = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -171,92 +173,105 @@ class _ProfileViewState extends State<ProfileView> {
                                 Expanded(
                                   flex: 3,
                                   child: SingleChildScrollView(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 40,
-                                          bottom: 20,
-                                          left: 16,
-                                          right: 40),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          CustomTextFormField(
-                                            title: "Full Name",
-                                            hintText: "Enter Your Full Name",
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your Name';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.03),
-                                          CustomTextFormField(
-                                            title: "Email",
-                                            hintText: "Enter Your Email",
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your email';
-                                              }
-                                              if (!RegExp(
-                                                      r'^[^@]+@[^@]+\.[^@]+')
-                                                  .hasMatch(value)) {
-                                                return 'Please enter a valid email address';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.03),
-                                          CustomTextFormField(
-                                            title: "Phone Number",
-                                            hintText: "Enter Your Phone Number",
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter Phone Number';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.03),
-                                          CustomTextFormField(
-                                            title: "Password",
-                                            hintText: "Enter Your Password",
-                                            suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.visibility_off,
-                                                color: AppColors.black,
-                                              ),
-                                              onPressed: () {},
+                                    child: Form(
+                                      key: _formKeyDesk,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 40,
+                                            bottom: 20,
+                                            left: 16,
+                                            right: 40),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CustomTextFormField(
+                                              title: "Full Name",
+                                              hintText: "Enter Your Full Name",
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter your Name';
+                                                }
+                                                return null;
+                                              },
                                             ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your password';
-                                              }
-                                              if (value.length < 6) {
-                                                return 'Password must be at least 6 characters long';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.05),
-                                          AppButton(
-                                            height: 37,
-                                            width: 100,
-                                            backgroundColor: AppColors.darkBlue,
-                                            title: "Update",
-                                            onPressed: () {
-                                              // if (formKey.currentState!.validate()) {
-                                              //   // Handle form submission
-                                              // }
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.19),
-                                        ],
+                                            SizedBox(height: height * 0.03),
+                                            CustomTextFormField(
+                                              title: "Email",
+                                              hintText: "Enter Your Email",
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter your email';
+                                                }
+                                                if (!RegExp(
+                                                        r'^[^@]+@[^@]+\.[^@]+')
+                                                    .hasMatch(value)) {
+                                                  return 'Please enter a valid email address';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.03),
+                                            CustomTextFormField(
+                                              title: "Phone Number",
+                                              hintText:
+                                                  "Enter Your Phone Number",
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter Phone Number';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.03),
+                                            CustomTextFormField(
+                                              title: "Password",
+                                              hintText: "Enter Your Password",
+                                              obscureText: _passHide,
+                                              suffixIcon: IconButton(
+                                                icon: Icon(
+                                                  _passHide
+                                                      ? Icons.visibility_off
+                                                      : Icons.visibility,
+                                                  color: AppColors.black,
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _passHide = !_passHide;
+                                                  });
+                                                },
+                                              ),
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter your password';
+                                                }
+                                                if (value.length < 6) {
+                                                  return 'Password must be at least 6 characters long';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.05),
+                                            AppButton(
+                                              height: 37,
+                                              width: 100,
+                                              backgroundColor:
+                                                  AppColors.darkBlue,
+                                              title: "Update",
+                                              onPressed: () {
+                                                if (_formKeyDesk.currentState!
+                                                    .validate()) {
+                                                  // Handle form submission
+                                                }
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.19),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

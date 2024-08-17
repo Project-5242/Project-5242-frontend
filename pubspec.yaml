@@ -40,6 +40,7 @@ dependencies:
   sms_autofill: ^2.4.0
   google_fonts: ^6.2.1
   flutter_screenutil: ^5.9.3
+  easy_sidemenu: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -66,4 +67,3 @@ flutter:
     - assets/icon/
     - assets/svg_icons/
     - assets/images/
-

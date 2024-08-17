@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
-import 'package:flutter_project/presentation/provider/edit_update/edit_profile1.dart';
-import 'package:flutter_project/presentation/provider/edit_update/edit_profile3.dart';
 import 'package:flutter_project/presentation/widgets/custom_button.dart';
-import 'package:flutter_project/res/assets_res.dart';
 
-import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-
-import '../../widgets/app_button.dart';
 
 class EditProfile4 extends StatelessWidget {
   const EditProfile4({super.key});
