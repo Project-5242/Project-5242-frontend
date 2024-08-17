@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
             initialRoute: Routes.root,
             onGenerateRoute: RouteGenerator.generateRoute,
             navigatorObservers: [AppRouteObserver()],
-
           ),
         ),
       ),

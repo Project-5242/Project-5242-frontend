@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
-
-
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
-
-import '../../data/constants/responsive_view.dart';
 
 class EditProfileView extends StatelessWidget {
   const EditProfileView({super.key});
@@ -13,24 +9,14 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-
-    return ResponsiveView(
-      mobile: _mobileView(context),
-      desktop: _mobileView(context),
-    );
-  }
-
-  _mobileView(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
-    final response = ResponsiveCheck(context);
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           // SliverAppBar with Cover Photo and Centered Profile Picture
           SliverAppBar(
-            expandedHeight: response.isMobile ?height * 0.23 : height* 0.30,
+            expandedHeight: height * 0.23,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
@@ -75,7 +61,7 @@ class EditProfileView extends StatelessWidget {
             ),
             centerTitle: true,
             title: Text(
-              "edit",
+              AppStrings.editProfile,
               style: TextStyle(
                 fontFamily: Fonts.fontsOpenSans,
                 fontSize: 20,
@@ -167,9 +153,9 @@ class EditProfileView extends StatelessWidget {
                       backgroundColor: AppColors.darkBlue,
                       title: "Update",
                       onPressed: () {
-                        // if (formKey.currentState!.validate()) {
-                        //   // Handle form submission
-                        // }
+                        if (formKey.currentState!.validate()) {
+                          // Handle form submission
+                        }
                       },
                     ),
                     SizedBox(height: height * 0.19),
