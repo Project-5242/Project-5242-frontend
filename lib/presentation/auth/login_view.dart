@@ -157,7 +157,7 @@ class _LoginMobileState extends State<LoginMobile> {
             CustomButton(
               onTap: () {
                 if (formKey.currentState!.validate())
-                  Navigator.pushNamed(context, Routes.userDetailScreen);
+                  Navigator.pushNamed(context, Routes.dashbaord);
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width * 0.376,
@@ -343,7 +343,7 @@ class _DesktopLoginState extends State<DesktopLogin> {
                         onTap: () {
                           if (formKey.currentState!.validate()) {
                             Navigator.pushNamed(
-                                context, Routes.savedItemsScreen);
+                                context, Routes.dashbaord);
                           }
                         },
                         height: MediaQuery.of(context).size.height * 0.080,
