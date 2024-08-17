@@ -217,7 +217,6 @@ class _SubnodeCompState extends State<SubnodeComp> {
   Widget build(BuildContext context) {
     final response = ResponsiveCheck(context);
     return Container(
-      color: AppColors.blue1,
       width: response.isMobile
           ? MediaQuery.of(context).size.width
           : response.isTablet
