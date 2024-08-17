@@ -4,11 +4,11 @@ class AppColors {
   static Color white = const Color(0xffFFFFFF);
   static Color greyDivider = const Color(0xffE5E7EB);
   static Color textFill = const Color(0xffD9D9D9);
-  static Color grey = const Color(0xff858585).withOpacity(0.3);
+  static Color grey = const Color(0xff858585);
   static Color greyLight = const Color(0xff858585);
   static Color themeColor = const Color(0xff0B8FAC);
-  static Color black = Colors.black.withOpacity(0.5);
-  static Color black1 = Colors.black;
+  static Color black = Colors.black;
+  static Color black1 = Colors.black12;
   //static Color textFi = Color(0xffD9D9D94D);
   // static Color black = const Color(0xff000000);
   static Color blue = const Color(0xff0B8FAC);
@@ -30,11 +30,9 @@ class AppColors {
   static Color iconColor = const Color.fromRGBO(37, 40, 49, 0.5);
   static Color switchButtonColor = const Color.fromRGBO(0, 100, 210, 1);
 
-
   static Color background_theme = const Color(0xff0B8FAC);
   static Color text_colour = const Color(0xff858585);
   static Color text_field_bg = const Color(0xffD9D9D9);
   static Color category_bg = const Color(0xff7BC1B7);
   static Color node_bg = const Color(0xffD2EBE7);
-
 }

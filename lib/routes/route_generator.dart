@@ -37,8 +37,8 @@ class RouteGenerator {
 
     switch (settings.name) {
       case Routes.root:
+        // widgetScreen = const CreateProfile();
         widgetScreen = const SplashView();
-        // widgetScreen = const SplashView();
         break;
       case Routes.loginScreen:
         widgetScreen = LoginView();
