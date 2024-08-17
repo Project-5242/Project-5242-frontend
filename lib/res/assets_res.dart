@@ -43,7 +43,7 @@ class AssetsRes {
   static const String ARROWFORWARD_PNG = 'assets/icon/arrow_forward.png';
   static const String SHARE_PNG = 'assets/icon/Share.png';
 
-
+  static String ic_edit = "assets/icon/Edit_color.png";
   static String ic_home = "assets/icon/ic_home.svg";
   static String ic_heat = "assets/icon/ic_heat.svg";
   static String ic_chat = "assets/icon/ic_chat.svg";
