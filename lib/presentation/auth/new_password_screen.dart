@@ -87,7 +87,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                     'Open Sans',
                                     16.0,
                                     FontWeight.w400,
-                                    AppColors.black,
+                                    AppColors.black.withOpacity(0.3),
                                   ),
                                 ),
                                 SizedBox(

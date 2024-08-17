@@ -183,7 +183,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   RichTextWidget(
                       size: 16.0,
-                      color: AppColors.black,
+                      color: AppColors.black.withOpacity(0.3),
                       color1: AppColors.themeColor,
                       text: AppStrings.alreadyhaveAccount,
                       text1: AppStrings.signIn,

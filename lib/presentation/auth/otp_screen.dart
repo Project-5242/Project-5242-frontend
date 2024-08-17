@@ -74,7 +74,7 @@ class OtpScreen extends StatelessWidget {
                                   'Open Sans',
                                   16.0,
                                   FontWeight.w400,
-                                  AppColors.black,
+                                  AppColors.black.withOpacity(0.3),
                                 ),
                               ),
                               SizedBox(
@@ -115,7 +115,7 @@ class OtpScreen extends StatelessWidget {
                               RichTextWidget(
                                   size: 14.0,
                                   decoration: TextDecoration.underline,
-                                  color: AppColors.black,
+                                  color: AppColors.black.withOpacity(0.3),
                                   color1: AppColors.themeColor,
                                   text: AppStrings.dontReceiveCode,
                                   text1: AppStrings.resend,
@@ -181,7 +181,7 @@ class OtpScreen extends StatelessWidget {
                     'Open Sans',
                     16.0,
                     FontWeight.w400,
-                    AppColors.black,
+                    AppColors.black.withOpacity(0.3),
                   ),
                 ),
                 SizedBox(
@@ -220,7 +220,7 @@ class OtpScreen extends StatelessWidget {
                 RichTextWidget(
                     size: 16,
                     decoration: TextDecoration.underline,
-                    color: AppColors.black,
+                    color: AppColors.black.withOpacity(0.3),
                     color1: AppColors.themeColor,
                     text: AppStrings.dontReceiveCode,
                     text1: AppStrings.resend,
@@ -276,7 +276,7 @@ class OtpScreen extends StatelessWidget {
                     'Open Sans',
                     18.0,
                     FontWeight.w400,
-                    AppColors.black1,
+                    AppColors.black,
                   ),
                 ),
                 SizedBox(

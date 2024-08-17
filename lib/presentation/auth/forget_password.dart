@@ -75,7 +75,7 @@ class ForgetPassword extends StatelessWidget {
                                     'Open Sans',
                                     16.0,
                                     FontWeight.w400,
-                                    AppColors.black,
+                                    AppColors.black1,
                                   ),
                                 ),
                                 SizedBox(
@@ -163,7 +163,7 @@ class ForgetPassword extends StatelessWidget {
                       'Open Sans',
                       16.0,
                       FontWeight.w400,
-                      AppColors.black,
+                      AppColors.black1,
                     ),
                   ),
                   SizedBox(

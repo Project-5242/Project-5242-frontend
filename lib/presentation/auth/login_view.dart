@@ -168,7 +168,7 @@ class _LoginMobileState extends State<LoginMobile> {
             ),
             RichTextWidget(
                 size: 16.0,
-                color: AppColors.black,
+                color: AppColors.black1,
                 color1: AppColors.themeColor,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.signUp);
@@ -250,13 +250,13 @@ class _DesktopLoginState extends State<DesktopLogin> {
                       Text(
                         AppStrings.signIn,
                         style: context.customFont('Open Sans', 26.0,
-                            FontWeight.w700, AppColors.black1),
+                            FontWeight.w700, AppColors.black),
                       ),
                       Gap(10),
                       Text(
                         AppStrings.loginSubTitle,
                         style: context.customFont('Open Sans', 18.0,
-                            FontWeight.w400, AppColors.black),
+                            FontWeight.w400, AppColors.black.withOpacity(0.3)),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.077,
@@ -354,7 +354,7 @@ class _DesktopLoginState extends State<DesktopLogin> {
                       ),
                       RichTextWidget(
                           size: 16.0,
-                          color: AppColors.black,
+                          color: AppColors.black.withOpacity(0.3),
                           color1: AppColors.themeColor,
                           onTap: () {
                             Navigator.pushNamed(context, Routes.signUp);
