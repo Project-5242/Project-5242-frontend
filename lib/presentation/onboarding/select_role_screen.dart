@@ -5,6 +5,8 @@ import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/routes/routes.dart';
+import 'package:flutter_project/base/extensions/navigation_extension.dart';
+import 'package:flutter_project/routes/routes.dart';
 
 class SelectRoleScreen extends StatefulWidget {
   @override
@@ -160,7 +162,9 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
           Expanded(
             child: Container(
               color: Colors.white,
-              padding: const EdgeInsets.only(left: 153, right: 153),
+              padding: const EdgeInsets.only(
+                left: 153,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +182,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.black1),
+                        color: AppColors.black),
                   ),
                   const SizedBox(height: 51),
                   RadioListTile(
@@ -187,7 +191,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.black1),
+                          color: AppColors.black),
                     ),
                     value: "user",
                     groupValue: _selectedRole,
@@ -206,7 +210,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.black1),
+                          color: AppColors.black),
                     ),
                     value: "provider",
                     groupValue: _selectedRole,
@@ -220,21 +224,26 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                     },
                   ),
                   const SizedBox(height: 70),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.blue,
-                      minimumSize: const Size(double.infinity, 60),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.loginScreen);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.blue,
+                        minimumSize: const Size(double.infinity, 60),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      AppStrings.proceed,
-                      style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.white),
+                      child: Text(
+                        AppStrings.proceed,
+                        style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 70),
