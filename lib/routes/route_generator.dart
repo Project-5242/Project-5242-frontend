@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/presentation/auth/change_password.dart';
 import 'package:flutter_project/presentation/auth/forget_password.dart';
-import 'package:flutter_project/presentation/auth/login_view.dart';
 import 'package:flutter_project/presentation/auth/sign_up.dart';
 import 'package:flutter_project/presentation/home/dashboard.dart';
 import 'package:flutter_project/presentation/message/chat.dart';
 import 'package:flutter_project/presentation/message/messages.dart';
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
-import 'package:flutter_project/routes/routes.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
@@ -37,13 +34,15 @@ class RouteGenerator {
 
     switch (settings.name) {
       case Routes.root:
+        // widgetScreen = const CreateProfile();
         widgetScreen = const SplashView();
-        // widgetScreen = const SplashView();
         break;
       case Routes.loginScreen:
         widgetScreen = LoginView();
+        break;
       case Routes.dashbaord:
         widgetScreen = DashbaordWidget(currentIndex: 0);
+        break;
       case Routes.signUp:
         widgetScreen = const SignUp();
       case Routes.forgetPassword:

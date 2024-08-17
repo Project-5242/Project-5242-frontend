@@ -35,10 +35,7 @@ class ChangePasswordScreen extends StatelessWidget {
                     color: Colors.black,
                   )),
           title: isDesktop
-              ? const Text(
-                  textAlign: TextAlign.left,
-                  AppStrings.forgetPassword,
-                )
+              ? null
               : const Text(
                   AppStrings.changePassword,
                 ),

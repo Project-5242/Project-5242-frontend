@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/fonts.dart';
 
-
 class ResponsiveCheck {
   final BuildContext context;
 
@@ -11,7 +10,7 @@ class ResponsiveCheck {
 
   bool get isTablet =>
       MediaQuery.of(context).size.width >= 600 &&
-          MediaQuery.of(context).size.width < 1200;
+      MediaQuery.of(context).size.width < 1200;
 
   bool get isDesktop => MediaQuery.of(context).size.width >= 1200;
 }

@@ -53,11 +53,13 @@ class AppStrings {
   //Provider Side
   static const String readyCreateProfile =
       "Hey User, Ready to Create your Profile?";
+  static const String readyCreateProfile1 =
+      'Hey User, Ready to Create \nyour Profile?';
   static const String addYoueSubNode1 = 'Add Your Sub Node 1';
   static const String addYoueSubNode2 = 'Add Your Sub Node 2';
 
   static const String lorem =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+      'Lorem ipsum dolor sit amet, consectetur \nadipiscing elit.';
   static const String addWorkHours = 'Add work hours';
   static const String title = 'Title';
   static const String createProfile = 'Create Your Profile';
@@ -128,4 +130,8 @@ class AppStrings {
   static const String privacyPolicy = 'Privacy Policy';
   static const String termsandConditions = 'Terms and Conditions';
   static const String rateApp = 'Rate App';
+
+  static const String copyRight = '"© 2022 APP NAME"';
+  static const String webSubText =
+      'Select any one role as per you wants to Start with "App Name".';
 }

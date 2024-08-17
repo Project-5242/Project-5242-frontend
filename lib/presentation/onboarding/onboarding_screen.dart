@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
-import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
-import 'package:flutter_project/res/assets_res.dart';
-import 'package:flutter_project/routes/routes.dart';
-import 'package:flutter_svg/svg.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -42,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 25),
+          margin: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
             children: [
               Expanded(
@@ -51,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPageChanged: (int page) {
                     setState(() {
                       _currentPage = page;
-                      print("pageIndex:${_currentPage}");
+                      debugPrint("pageIndex:${_currentPage}");
                     });
                   },
                   itemCount: 3,
