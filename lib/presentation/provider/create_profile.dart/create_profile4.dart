@@ -160,11 +160,16 @@ _deskTopView(BuildContext context) {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,
               ),
-              CustomButton(
-                onTap: () {},
-                height: MediaQuery.of(context).size.height * 0.080,
-                width: MediaQuery.of(context).size.width * 0.075,
-                text: AppStrings.done,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomButton(
+                    onTap: () {},
+                    height: MediaQuery.of(context).size.height * 0.100,
+                    width: MediaQuery.of(context).size.width * 0.200,
+                    text: AppStrings.done,
+                  ),
+                ],
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,
@@ -175,20 +180,23 @@ _deskTopView(BuildContext context) {
                 onTap: () {
                   Navigator.pushNamed(context, Routes.editProfile1);
                 },
-                height: MediaQuery.of(context).size.height * 0.080,
-                width: MediaQuery.of(context).size.width * 0.100,
+                height: MediaQuery.of(context).size.height * 0.100,
+                width: MediaQuery.of(context).size.width * 0.200,
                 text: AppStrings.editUpdate,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.020,
+                height: MediaQuery.of(context).size.height * 0.150,
               ),
-              CustomButton(
-                color: AppColors.white,
-                color1: AppColors.themeColor,
-                onTap: () {},
-                height: MediaQuery.of(context).size.height * 0.080,
-                width: MediaQuery.of(context).size.width * 0.100,
-                text: AppStrings.preview,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 120),
+                child: CustomButton(
+                  color: AppColors.white,
+                  color1: AppColors.themeColor,
+                  onTap: () {},
+                  height: MediaQuery.of(context).size.height * 0.080,
+                  width: MediaQuery.of(context).size.width * 0.100,
+                  text: AppStrings.preview,
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,

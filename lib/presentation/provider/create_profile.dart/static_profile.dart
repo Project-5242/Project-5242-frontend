@@ -79,7 +79,7 @@ class _StaticProfileLayoutState extends State<StaticProfileLayout> {
                         Text(
                           '${widget.currentIndex + 1}/${widget.totalSteps}',
                           style: TextStyle(
-                            color: AppColors.black1,
+                            color: AppColors.black,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),

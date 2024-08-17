@@ -85,13 +85,13 @@ class _CreateProfile1State extends State<CreateProfile1> {
             Text(
               AppStrings.addYoueSubNode1,
               style: context.customFont(
-                  'Open Sans', 24.0, FontWeight.w600, AppColors.black1),
+                  'Open Sans', 24.0, FontWeight.w600, AppColors.black),
             ),
             Gap(10),
             Text(
               AppStrings.lorem,
               style: context.customFont('Open Sans', 19.0, FontWeight.w400,
-                  AppColors.black1.withOpacity(0.3)),
+                  AppColors.black.withOpacity(0.3)),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.010,
@@ -253,233 +253,234 @@ class _CreateProfile1State extends State<CreateProfile1> {
             padding: responsive.isTablet
                 ? const EdgeInsets.symmetric(horizontal: 20, vertical: 10)
                 : const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: ListView(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      color: AppColors.themeColor,
-                      icon: Icon(Icons.arrow_back_ios),
-                      onPressed: () {
-                        _previousStep;
-                        Navigator.pop(context);
-                      },
-                    ),
-                    Text(
-                      '${currentIndex + 1}/${totalSteps}',
-                      style: TextStyle(
-                        color: AppColors.black1,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-                LinearProgressIndicator(
-                  value: (currentIndex + 1) / totalSteps,
-                  color: AppColors.themeColor,
-                  borderRadius: BorderRadius.circular(4),
-                  minHeight: 5,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.030,
-                ),
-                Text(
-                  AppStrings.addYoueSubNode1,
-                  style: context.customFont(
-                      'Open Sans', 24.0, FontWeight.w600, AppColors.black1),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.010,
-                ),
-                Text(
-                  AppStrings.lorem,
-                  style: context.customFont('Open Sans', 19.0, FontWeight.w400,
-                      AppColors.black1.withOpacity(0.3)),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.010,
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: AppTextFieldWidget(
-                        textAlign: TextAlign.center,
-                        controller: hoursController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'This field cant be empty';
-                          }
-                          return null;
-                        },
-                        //title: AppStrings.email,
-                        borderSideColor: AppColors.greyLight,
-                        hint: AppStrings.addWorkHours,
-                        hintStyle: context.customFont(
-                          'Open Sans',
-                          18.0,
-                          FontWeight.w400,
-                          AppColors.grey,
-                        ),
-                        fillColor: AppColors.textFill,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.028,
-                    ),
-                    Flexible(
-                      child: AppTextFieldWidget(
-                        textAlign: TextAlign.center,
-                        controller: titleController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'This field cant be empty';
-                          }
-                          return null;
-                        },
-                        //title: AppStrings.email,
-                        borderSideColor: AppColors.greyLight,
-                        hint: AppStrings.addDescription,
-                        hintStyle: context.customFont(
-                          'Open Sans',
-                          18.0,
-                          FontWeight.w400,
-                          AppColors.grey,
-                        ),
-                        fillColor: AppColors.textFill,
-                      ),
-                    ),
-                  ],
-                ),
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.height * 0.010,
-                // ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: AppTextFieldWidget(
-                        textAlign: TextAlign.center,
-                        controller: titleController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'This field cant be empty';
-                          }
-                          return null;
-                        },
-                        //title: AppStrings.email,
-                        borderSideColor: AppColors.greyLight,
-                        hint: AppStrings.title,
-                        hintStyle: context.customFont(
-                          'Open Sans',
-                          18.0,
-                          FontWeight.w400,
-                          AppColors.grey,
-                        ),
-                        fillColor: AppColors.textFill,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.028,
-                    ),
-                    Flexible(
-                      child: AppTextFieldWidget(
-                        textAlign: TextAlign.center,
-                        controller: descController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'This field cant be empty';
-                          }
-                          return null;
-                        },
-                        //title: AppStrings.email,
-                        borderSideColor: AppColors.greyLight,
-                        hint: AppStrings.addImages,
-                        hintStyle: context.customFont(
-                          'Open Sans',
-                          18.0,
-                          FontWeight.w400,
-                          AppColors.grey,
-                        ),
-                        fillColor: AppColors.textFill,
-                      ),
-                      //  Container(
-                      //   width: MediaQuery.of(context).size.width * 0.300,
-                      //   height: MediaQuery.of(context).size.height * 0.080,
-                      //   decoration: BoxDecoration(
-                      //       color: AppColors.white,
-                      //       borderRadius: BorderRadius.circular(10.0),
-                      //       border:
-                      //           Border.all(color: AppColors.grey, width: 1.0)),
-                      //   child: Center(
-                      //     child: GestureDetector(
-                      //       onTap: () {
-                      //         _pickImage();
-                      //       },
-                      //       child: _selectedImage != null
-                      //           ? Image.file(
-                      //               File(_selectedImage!.path),
-                      //               fit: BoxFit.cover,
-                      //             )
-                      //           : Center(
-                      //               child: Text(
-                      //                 AppStrings.addImages,
-                      //                 style: context.customFont(
-                      //                     'Open Sans',
-                      //                     20.0,
-                      //                     FontWeight.w400,
-                      //                     AppColors.grey),
-                      //               ),
-                      //             ),
-                      //     ),
-                      //   ),
-                      // ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.070,
-                ),
-                Flexible(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            child: Form(
+              key: formKey,
+              child: ListView(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomButton(
-                        color: AppColors.white,
-                        color1: AppColors.themeColor,
-                        onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, Routes.dashbaord);
-                          }
+                      IconButton(
+                        color: AppColors.themeColor,
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          _previousStep;
+                          Navigator.pop(context);
                         },
-                        width: responsive.isTablet
-                            ? MediaQuery.of(context).size.width * 0.300
-                            : MediaQuery.of(context).size.width * 0.202,
-                        height: MediaQuery.of(context).size.height * 0.080,
-                        text: AppStrings.addMore,
+                      ),
+                      Text(
+                        '${currentIndex + 1}/${totalSteps}',
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                  LinearProgressIndicator(
+                    value: (currentIndex + 1) / totalSteps,
+                    color: AppColors.themeColor,
+                    borderRadius: BorderRadius.circular(4),
+                    minHeight: 5,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.030,
+                  ),
+                  Text(
+                    AppStrings.addYoueSubNode1,
+                    style: context.customFont(
+                        'Open Sans', 24.0, FontWeight.w600, AppColors.black),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.010,
+                  ),
+                  Text(
+                    AppStrings.lorem,
+                    style: context.customFont('Open Sans', 19.0,
+                        FontWeight.w400, AppColors.black1.withOpacity(0.3)),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.010,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: AppTextFieldWidget(
+                          textAlign: TextAlign.center,
+                          controller: hoursController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'This field cant be empty';
+                            }
+                            return null;
+                          },
+                          //title: AppStrings.email,
+                          borderSideColor: AppColors.greyLight,
+                          hint: AppStrings.addWorkHours,
+                          hintStyle: context.customFont(
+                            'Open Sans',
+                            18.0,
+                            FontWeight.w400,
+                            AppColors.grey,
+                          ),
+                          fillColor: AppColors.textFill,
+                        ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.028,
                       ),
-                      CustomButton(
-                        onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, Routes.createProfile2);
-                          }
-                        },
-                        width: responsive.isTablet
-                            ? MediaQuery.of(context).size.width * 0.300
-                            : MediaQuery.of(context).size.width * 0.202,
-                        height: MediaQuery.of(context).size.height * 0.080,
-                        text: AppStrings.next,
+                      Flexible(
+                        child: AppTextFieldWidget(
+                          textAlign: TextAlign.center,
+                          controller: titleController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'This field cant be empty';
+                            }
+                            return null;
+                          },
+                          //title: AppStrings.email,
+                          borderSideColor: AppColors.greyLight,
+                          hint: AppStrings.addDescription,
+                          hintStyle: context.customFont(
+                            'Open Sans',
+                            18.0,
+                            FontWeight.w400,
+                            AppColors.grey,
+                          ),
+                          fillColor: AppColors.textFill,
+                        ),
                       ),
                     ],
                   ),
-                )
-              ],
+                  Row(
+                    children: [
+                      Flexible(
+                        child: AppTextFieldWidget(
+                          textAlign: TextAlign.center,
+                          controller: titleController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'This field cant be empty';
+                            }
+                            return null;
+                          },
+                          //title: AppStrings.email,
+                          borderSideColor: AppColors.greyLight,
+                          hint: AppStrings.title,
+                          hintStyle: context.customFont(
+                            'Open Sans',
+                            18.0,
+                            FontWeight.w400,
+                            AppColors.grey,
+                          ),
+                          fillColor: AppColors.textFill,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.028,
+                      ),
+                      Flexible(
+                        child: AppTextFieldWidget(
+                          textAlign: TextAlign.center,
+                          controller: descController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'This field cant be empty';
+                            }
+                            return null;
+                          },
+                          //title: AppStrings.email,
+                          borderSideColor: AppColors.greyLight,
+                          hint: AppStrings.addImages,
+                          hintStyle: context.customFont(
+                            'Open Sans',
+                            18.0,
+                            FontWeight.w400,
+                            AppColors.grey,
+                          ),
+                          fillColor: AppColors.textFill,
+                        ),
+                        //  Container(
+                        //   width: MediaQuery.of(context).size.width * 0.300,
+                        //   height: MediaQuery.of(context).size.height * 0.080,
+                        //   decoration: BoxDecoration(
+                        //       color: AppColors.white,
+                        //       borderRadius: BorderRadius.circular(10.0),
+                        //       border:
+                        //           Border.all(color: AppColors.grey, width: 1.0)),
+                        //   child: Center(
+                        //     child: GestureDetector(
+                        //       onTap: () {
+                        //         _pickImage();
+                        //       },
+                        //       child: _selectedImage != null
+                        //           ? Image.file(
+                        //               File(_selectedImage!.path),
+                        //               fit: BoxFit.cover,
+                        //             )
+                        //           : Center(
+                        //               child: Text(
+                        //                 AppStrings.addImages,
+                        //                 style: context.customFont(
+                        //                     'Open Sans',
+                        //                     20.0,
+                        //                     FontWeight.w400,
+                        //                     AppColors.grey),
+                        //               ),
+                        //             ),
+                        //     ),
+                        //   ),
+                        // ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.070,
+                  ),
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButton(
+                          color: AppColors.white,
+                          color1: AppColors.themeColor,
+                          onTap: () {
+                            if (formKey.currentState!.validate()) {
+                              Navigator.pushNamed(context, Routes.dashbaord);
+                            }
+                          },
+                          width: responsive.isTablet
+                              ? MediaQuery.of(context).size.width * 0.300
+                              : MediaQuery.of(context).size.width * 0.202,
+                          height: MediaQuery.of(context).size.height * 0.080,
+                          text: AppStrings.addMore,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.028,
+                        ),
+                        CustomButton(
+                          onTap: () {
+                            if (formKey.currentState!.validate()) {
+                              Navigator.pushNamed(
+                                  context, Routes.createProfile2);
+                            }
+                          },
+                          width: responsive.isTablet
+                              ? MediaQuery.of(context).size.width * 0.300
+                              : MediaQuery.of(context).size.width * 0.202,
+                          height: MediaQuery.of(context).size.height * 0.080,
+                          text: AppStrings.next,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
