@@ -102,7 +102,7 @@ class AppTextFieldWidget extends StatelessWidget {
         Text(
           title ?? '',
           style: context.customFont(
-              'Open Sans', 14.0, FontWeight.w600, AppColors.black1),
+              'Open Sans', 14.0, FontWeight.w600, AppColors.black),
         ),
         const SizedBox(
           height: 06,
