@@ -51,7 +51,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
               title: Text(
                 AppStrings.details,
                 style: TextStyle(
-                    color: AppColors.black1,
+                    color: AppColors.black,
                     fontSize: 22,
                     fontWeight: FontWeight.w600),
               ),
@@ -78,7 +78,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           Text(
                             "Username",
                             style: TextStyle(
-                                color: AppColors.black1,
+                                color: AppColors.black,
                                 fontSize: 22,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -91,7 +91,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                       Text(
                         "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
                         style: TextStyle(
-                            color: AppColors.black1,
+                            color: AppColors.black,
                             fontSize: 14,
                             fontWeight: FontWeight.w400),
                       ),
@@ -133,14 +133,14 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                             Text(
                               "Username",
                               style: TextStyle(
-                                  color: AppColors.black1,
+                                  color: AppColors.black,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600),
                             ),
                             Text(
                               "Exp 10 yrs",
                               style: TextStyle(
-                                  color: AppColors.black1,
+                                  color: AppColors.black,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -150,7 +150,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                               child: Text(
                                 "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.\n\nJorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
                                 style: TextStyle(
-                                    color: AppColors.black1,
+                                    color: AppColors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -162,7 +162,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                               children: [
                                 SvgPicture.asset(
                                   AssetsRes.LOCATION_ICON,
-                                  color: AppColors.black1,
+                                  color: AppColors.black,
                                 ),
                                 const SizedBox(
                                   width: 6,
@@ -170,7 +170,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                 Text(
                                   "Location",
                                   style: TextStyle(
-                                      color: AppColors.black1,
+                                      color: AppColors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600),
                                 ),
@@ -228,7 +228,7 @@ class _SubnodeCompState extends State<SubnodeComp> {
           Text(
             "Subnode1",
             style: TextStyle(
-                color: AppColors.black1,
+                color: AppColors.black,
                 fontSize: 18,
                 fontWeight: FontWeight.w600),
           ),
@@ -267,7 +267,7 @@ class _SubnodeCompState extends State<SubnodeComp> {
                           child: Text(
                             dataList[index],
                             style: TextStyle(
-                                color: AppColors.black1,
+                                color: AppColors.black,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -285,7 +285,7 @@ class _SubnodeCompState extends State<SubnodeComp> {
                           Text(
                             "Lorem ipsum dolor sit",
                             style: TextStyle(
-                                color: AppColors.black1,
+                                color: AppColors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -307,7 +307,7 @@ class _SubnodeCompState extends State<SubnodeComp> {
                       Text(
                         "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
                         style: TextStyle(
-                          color: AppColors.black1,
+                          color: AppColors.black,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                         ),
