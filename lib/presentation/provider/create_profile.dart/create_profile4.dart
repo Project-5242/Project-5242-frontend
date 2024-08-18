@@ -119,7 +119,7 @@ _deskTopView(BuildContext context) {
               ? const EdgeInsets.symmetric(horizontal: 40, vertical: 10)
               : responsive.isDesktop
                   ? const EdgeInsets.symmetric(
-                      horizontal: 70,
+                      horizontal: 170,
                     )
                   : const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -160,16 +160,11 @@ _deskTopView(BuildContext context) {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomButton(
-                    onTap: () {},
-                    height: MediaQuery.of(context).size.height * 0.100,
-                    width: MediaQuery.of(context).size.width * 0.200,
-                    text: AppStrings.done,
-                  ),
-                ],
+              CustomButton(
+                onTap: () {},
+                height: MediaQuery.of(context).size.height * 0.100,
+                width: MediaQuery.of(context).size.width * 0.200,
+                text: AppStrings.done,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,
@@ -187,16 +182,13 @@ _deskTopView(BuildContext context) {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.150,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 120),
-                child: CustomButton(
-                  color: AppColors.white,
-                  color1: AppColors.themeColor,
-                  onTap: () {},
-                  height: MediaQuery.of(context).size.height * 0.080,
-                  width: MediaQuery.of(context).size.width * 0.100,
-                  text: AppStrings.preview,
-                ),
+              CustomButton(
+                color: AppColors.white,
+                color1: AppColors.themeColor,
+                onTap: () {},
+                height: MediaQuery.of(context).size.height * 0.080,
+                width: MediaQuery.of(context).size.width * 0.100,
+                text: AppStrings.preview,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,

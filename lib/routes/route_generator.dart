@@ -4,6 +4,9 @@ import 'package:flutter_project/presentation/auth/sign_up.dart';
 import 'package:flutter_project/presentation/home/dashboard.dart';
 import 'package:flutter_project/presentation/message/chat.dart';
 import 'package:flutter_project/presentation/message/messages.dart';
+import 'package:flutter_project/presentation/provider/dasboard/dashboard_1_page.dart';
+import 'package:flutter_project/presentation/provider/dasboard/provider_menu_page.dart';
+import 'package:flutter_project/presentation/provider/dasboard/saved_node.dart';
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
 import 'package:flutter_project/base/base.dart';
@@ -20,6 +23,7 @@ import '../presentation/provider/create_profile.dart/create_profile1.dart';
 import '../presentation/provider/create_profile.dart/create_profile2.dart';
 import '../presentation/provider/create_profile.dart/create_profile4.dart';
 import '../presentation/provider/create_profile.dart/ctreate_profile3.dart';
+import '../presentation/provider/dasboard/total_node.dart';
 import '../presentation/provider/edit_update/edit_profile1.dart';
 import '../presentation/provider/edit_update/edit_profile2.dart';
 import '../presentation/provider/edit_update/edit_profile3.dart';
@@ -111,6 +115,15 @@ class RouteGenerator {
         widgetScreen = EditProfile3();
       case Routes.editProfile4:
         widgetScreen = const EditProfile4();
+      case Routes.dashBoard1:
+        widgetScreen = const Dashboard1Page();
+      case Routes.totalNodeView:
+        widgetScreen = const TotalNodeView();
+      case Routes.savedNodeView:
+        widgetScreen = const SavedNodeView();
+      case Routes.menuView:
+        widgetScreen = const ProviderMenuPage();
+
         break;
       default:
         widgetScreen = _errorRoute();

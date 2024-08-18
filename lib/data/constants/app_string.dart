@@ -51,6 +51,16 @@ class AppStrings {
   static const String otpCodeSent = "OTP code sent on your email.";
 
   //Provider Side
+
+  static const String menu = 'Menu';
+  static const String dashboard = 'Dashboard';
+  static const String createProfile1 = 'Create Profile';
+  static const String profile = 'Profile';
+  static const String totalNode = 'Total Node';
+  static const String savedNode = 'Saved Node';
+  static const String newNode = 'New Node';
+  static const String previous = 'Previous';
+  static const String next = 'Next';
   static const String readyCreateProfile =
       "Hey User, Ready to Create your Profile?";
   static const String readyCreateProfile1 =
@@ -67,7 +77,6 @@ class AppStrings {
   static const String addDescription = 'Add  Description';
   static const String addImages = '+Add images';
   static const String addMore = '+ Add More';
-  static const String next = 'Next';
   static const String addYourLoc = 'Add Your Location';
   static const String allowCurrentloc = '+ Allow Access to Current Location';
   static const String addMannually = '+ Add Manually';
@@ -134,4 +143,11 @@ class AppStrings {
   static const String copyRight = '"© 2022 APP NAME"';
   static const String webSubText =
       'Select any one role as per you wants to Start with "App Name".';
+  static const String dashboardText = "28";
+  static const String percentageText = "+11.1%";
+  static const String savednodeText = "344";
+  static const String totalnodeText = "1058";
+
+  static const String percentageText1 = "+30.1%";
+  static const String percentageText2 = "+18.1%";
 }

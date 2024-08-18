@@ -17,6 +17,8 @@ class AppColors {
 //  static Color grey = const Color(0xff808080);
   static Color grey1 = const Color(0xffA0A0A0);
   static Color grey2 = const Color(0xff2D2B2E);
+  static Color green1 = const Color(0xFF4BB543);
+  static Color cyan = const Color(0xFF0B8FAC);
 
   static Color darkBlue = const Color.fromRGBO(11, 143, 172, 1);
   static Color borderColor = const Color.fromRGBO(135, 135, 135, 1);

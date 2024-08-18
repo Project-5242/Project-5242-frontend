@@ -252,12 +252,12 @@ class OtpScreen extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
               content: Container(
-            height: MediaQuery.of(context).size.height * 0.23,
+            height: MediaQuery.of(context).size.height * 0.2,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.010,
+                  height: MediaQuery.of(context).size.height * 0.020,
                 ),
                 Text(
                   textAlign: TextAlign.center,

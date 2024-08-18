@@ -17,6 +17,17 @@ class AssetsRes {
   static const String DOTENV = 'assets/secrets/dotenv.env';
   static const String HIDE_PASSWORD = 'assets/icon/Hide.svg';
   static const String EYE_CLOSED = 'assets/icon/eye-closed.svg';
+
+  static const String MENU_ICON = 'assets/icon/menu.png';
+  static const String ARROW = 'assets/icon/arrow.png';
+  static const String DASHBOARD = 'assets/icon/dashboard.png';
+  static const String PROFILE = 'assets/icon/profile.png';
+  static const String GRAPH = 'assets/icon/graph.png';
+  static const String INCREASEPERSENTAGE =
+      'assets/icon/increase_percentage.png';
+  static const String PREVIOUSE = 'assets/icon/previous.png';
+  static const String NEXT = 'assets/icon/next.png';
+
   //images
   static const String PASSWORD1 = 'assets/images/1 967.png';
   static const String PASSWORD2 = 'assets/images/2 1.png';

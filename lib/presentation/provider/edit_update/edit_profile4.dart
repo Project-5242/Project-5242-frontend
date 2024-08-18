@@ -103,10 +103,10 @@ class EditProfile4 extends StatelessWidget {
                 ? const EdgeInsets.symmetric(horizontal: 40, vertical: 10)
                 : responsive.isDesktop
                     ? const EdgeInsets.symmetric(
-                        horizontal: 70,
+                        horizontal: 170,
                       )
                     : const EdgeInsets.symmetric(
-                        horizontal: 20,
+                        horizontal: 30,
                       ),
             child: ListView(
               children: [

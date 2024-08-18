@@ -152,7 +152,7 @@ class _LoginMobileState extends State<LoginMobile> {
             CustomButton(
               onTap: () {
                 if (formKey.currentState!.validate())
-                  Navigator.pushNamed(context, Routes.dashbaord);
+                  Navigator.pushNamed(context, Routes.dashBoard1);
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width * 0.376,
@@ -163,7 +163,7 @@ class _LoginMobileState extends State<LoginMobile> {
             ),
             RichTextWidget(
                 size: 16.0,
-                color: AppColors.black1,
+                color: AppColors.black.withOpacity(0.3),
                 color1: AppColors.themeColor,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.signUp);
@@ -337,7 +337,7 @@ class _DesktopLoginState extends State<DesktopLogin> {
                       CustomButton(
                         onTap: () {
                           if (formKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, Routes.dashbaord);
+                            Navigator.pushNamed(context, Routes.dashBoard1);
                           }
                         },
                         height: MediaQuery.of(context).size.height * 0.080,

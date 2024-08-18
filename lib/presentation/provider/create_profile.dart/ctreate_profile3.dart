@@ -180,7 +180,7 @@ class _CreateProfile3State extends State<CreateProfile3> {
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.025),
                         LinearProgressIndicator(
-                          value: 2 / totalSteps,
+                          value: 3 / totalSteps,
                           color: AppColors.themeColor,
                           borderRadius: BorderRadius.circular(4),
                           minHeight: 5,
@@ -207,30 +207,37 @@ class _CreateProfile3State extends State<CreateProfile3> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.070,
                         ),
-                        CustomButton(
-                          color: AppColors.white,
-                          color1: AppColors.themeColor,
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      DashbaordWidget(currentIndex: 0))),
-                          height: MediaQuery.of(context).size.height * 0.080,
-                          width: MediaQuery.of(context).size.width * 0.200,
-                          text: AppStrings.allowCurrentloc,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.030,
-                        ),
-                        CustomButton(
-                          color: AppColors.white,
-                          color1: AppColors.themeColor,
-                          onTap: () {
-                            Navigator.pushNamed(context, Routes.dashbaord);
-                          },
-                          height: MediaQuery.of(context).size.height * 0.080,
-                          width: MediaQuery.of(context).size.width * 0.200,
-                          text: AppStrings.addMannually,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomButton(
+                              color: AppColors.white,
+                              color1: AppColors.themeColor,
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DashbaordWidget(currentIndex: 0))),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.100,
+                              width: MediaQuery.of(context).size.width * 0.210,
+                              text: AppStrings.allowCurrentloc,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.010,
+                            ),
+                            CustomButton(
+                              color: AppColors.white,
+                              color1: AppColors.themeColor,
+                              onTap: () {
+                                Navigator.pushNamed(context, Routes.dashbaord);
+                              },
+                              height:
+                                  MediaQuery.of(context).size.height * 0.100,
+                              width: MediaQuery.of(context).size.width * 0.210,
+                              text: AppStrings.addMannually,
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.070,

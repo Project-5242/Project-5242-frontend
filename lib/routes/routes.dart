@@ -40,4 +40,9 @@ class Routes {
   static const String editProfile2 = "/edit_profile2";
   static const String editProfile3 = "/edit_profile3";
   static const String editProfile4 = "/edit_profile4";
+  static const String dashBoard1 = "/dash_board1";
+  static const String totalNodeView = "/total_node_view";
+  static const String savedNodeView = "/saved_node_view";
+
+  static const String menuView = "/menu_view";
 }
