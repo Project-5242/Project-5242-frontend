@@ -3,7 +3,15 @@ class AppStrings {
   static const String signIn = 'Sign In';
   static const String appName = 'App Name';
   static const String welcomeAsProvider = 'Welcome! As a Provider';
-
+  static const String menu = 'Menu';
+  static const String dashboard = 'Dashboard';
+  static const String createProfile = 'Create Profile';
+  static const String profile = 'Profile';
+  static const String totalNode = 'Total Node';
+  static const String savedNode = 'Saved Node';
+  static const String newNode = 'New Node';
+  static const String previous = 'Previous';
+  static const String next = 'Next';
   static const String createAccount = 'Create New Account';
   static const String createAccountDes = 'Create New Account As a USER';
   static String loginSubTitle =

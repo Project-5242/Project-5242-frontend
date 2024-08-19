@@ -28,6 +28,13 @@ import '../presentation/provider/edit_update/edit_profile1.dart';
 import '../presentation/provider/edit_update/edit_profile2.dart';
 import '../presentation/provider/edit_update/edit_profile3.dart';
 import '../presentation/provider/edit_update/edit_profile4.dart';
+import 'package:flutter_project/presentation/auth/login_view.dart';
+import 'package:flutter_project/presentation/providers/dashboard_1_page.dart';
+import 'package:flutter_project/routes/routes.dart';
+
+import '../presentation/home/home_view.dart';
+import '../presentation/providers/dashboard_2_page.dart';
+import '../presentation/providers/provider_menu_page.dart';
 import '../presentation/splash/splash_view.dart';
 
 class RouteGenerator {
@@ -123,7 +130,15 @@ class RouteGenerator {
         widgetScreen = const SavedNodeView();
       case Routes.menuView:
         widgetScreen = const ProviderMenuPage();
-
+        widgetScreen = const LoginView();
+      case Routes.providerHomeScreen:
+        widgetScreen = const ProviderMenuPage();
+      case Routes.dashboard1Page:
+        widgetScreen = const Dashboard1Page();
+      case Routes.dashboard2Page:
+        widgetScreen = const Dashboard2Page();
+      case Routes.homeScreen:
+        widgetScreen = const HomeView();
         break;
       default:
         widgetScreen = _errorRoute();
