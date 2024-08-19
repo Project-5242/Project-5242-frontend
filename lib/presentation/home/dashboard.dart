@@ -11,6 +11,7 @@ import '../../data/constants/app_colors.dart';
 import '../../data/constants/responsive_view.dart';
 import '../../res/assets_res.dart';
 
+import '../message/chat_message_desktop.dart';
 import '../profile/profile_view.dart';
 import 'compontes/custom_textview.dart';
 import 'home_widget.dart';
@@ -29,7 +30,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
   final List<Widget> _pages = const [
     HomeWidget(),
     SaveditemScreen(),
-    Scaffold(),
+    MessageChatScreen1(),
     ProfileView(),
   ];
 
@@ -341,6 +342,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
           ),
           Expanded(
             child: PageView(
+              physics: NeverScrollableScrollPhysics(),
               controller: pageController,
               children: _pages,
             ),

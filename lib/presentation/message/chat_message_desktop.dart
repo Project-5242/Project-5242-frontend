@@ -30,12 +30,6 @@ class _MessageChatScreen1State extends State<MessageChatScreen1> with SingleTick
       appBar: AppBar(
         title: Row(
           children: [
-            InkWell(
-              onTap: () {
-
-              },
-              child: Icon(Icons.arrow_back_outlined),
-            ),
             SizedBox(width: 20),
            const Text(
               'Messages',
