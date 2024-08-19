@@ -127,8 +127,10 @@ class Dashboard1Page extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 127),
-          Image.asset(
-            AssetsRes.GRAPH,
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.300,
+            height: MediaQuery.of(context).size.height * .650,
+            child: BarChartSample(),
           ),
           const SizedBox(height: 30),
           Row(
@@ -199,17 +201,17 @@ class Dashboard1Page extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.100,
               ),
               Row(children: [
-                // SizedBox(
-
-                //   child:
-                //   //BarChartSample(),
-                // ),
-                Image.asset(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.540,
                   height: MediaQuery.of(context).size.height * .650,
-                  fit: BoxFit.contain,
-                  AssetsRes.GRAPH,
+                  child: BarChartSample(),
                 ),
+                // Image.asset(
+                //   width: MediaQuery.of(context).size.width * 0.540,
+                //   height: MediaQuery.of(context).size.height * .650,
+                //   fit: BoxFit.contain,
+                //   AssetsRes.GRAPH,
+                // ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.061,
                 ),

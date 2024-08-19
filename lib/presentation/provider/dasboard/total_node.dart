@@ -7,6 +7,7 @@ import 'package:flutter_project/res/assets_res.dart';
 import 'package:gap/gap.dart';
 
 import '../../../routes/routes.dart';
+import 'components/bar_chart.dart';
 
 class TotalNodeView extends StatelessWidget {
   const TotalNodeView({super.key});
@@ -62,8 +63,10 @@ class TotalNodeView extends StatelessWidget {
             : const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         children: [
           const SizedBox(height: 117),
-          Image.asset(
-            AssetsRes.GRAPH,
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.540,
+            height: MediaQuery.of(context).size.height * .650,
+            child: BarChartSample(),
           ),
           const SizedBox(height: 30),
           Row(
@@ -228,10 +231,10 @@ class TotalNodeView extends StatelessWidget {
       ),
       children: [
         SizedBox(height: MediaQuery.of(context).size.height * 0.020),
-        Image.asset(
-          AssetsRes.GRAPH,
+        SizedBox(
           height: MediaQuery.of(context).size.height * 0.450,
           width: MediaQuery.of(context).size.width * 0.350,
+          child: BarChartSample(),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.074),
         Row(
