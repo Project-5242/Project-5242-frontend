@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 
+import '../../data/constants/responsive_view.dart';
+
 class AppTextFieldWidget extends StatelessWidget {
   final String? title;
   final String? hint;
@@ -91,25 +93,27 @@ class AppTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final response = ResponsiveCheck(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title ?? '',
-          style: context.titleSmall,
+          style: context.customFont(
+              'Open Sans', 14.0, FontWeight.w600, AppColors.black),
         ),
         const SizedBox(
           height: 06,
         ),
 
         TextFormField(
-          // autovalidateMode: AutovalidateMode.disabled,
           controller: controller,
           keyboardType: inputType,
           readOnly: readOnly,
           onTap: onTap,
-          cursorColor: Colors.blue ?? Colors.black,
+          cursorColor: Colors.black,
           maxLines: password == true ? 1 : lines,
           obscureText: lines == null ? password == true : false,
           validator: validator ?? validator,
@@ -118,7 +122,7 @@ class AppTextFieldWidget extends StatelessWidget {
           focusNode: focusNode,
           enabled: editabled ?? true,
           textInputAction: action ?? TextInputAction.done,
-          textAlignVertical: TextAlignVertical.center, // Center text vertically
+          textAlignVertical: TextAlignVertical.center,
           onChanged: onChanged,
           inputFormatters: inputFormatters,
           enableInteractiveSelection: enableCopyPaste ?? false,
@@ -126,7 +130,8 @@ class AppTextFieldWidget extends StatelessWidget {
           decoration: InputDecoration(
             hintText: (hint ?? '').isNotEmpty ? capitalize(hint ?? '') : "",
             counterText: "",
-            hintStyle: hintStyle,
+            hintStyle: context.customFont(
+                'Open Sans', 14.0, FontWeight.w400, AppColors.grey),
             // errorText: errorText,
             filled: true,
             fillColor: AppColors.greyLight.withOpacity(0.2),
@@ -136,10 +141,12 @@ class AppTextFieldWidget extends StatelessWidget {
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(
-                    width: 2.0, color: AppColors.grey.withOpacity(0.3))),
+                    width: 1.0, color: AppColors.greyLight.withOpacity(0.1))),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(width: 2.0, color: Colors.blue),
+              borderSide: const BorderSide(
+                width: 1.0,
+              ),
             ),
             suffixIconColor: Theme.of(context).colorScheme.primary,
             suffixIcon: suffix,

@@ -8,12 +8,14 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final bool obscureText;
   const CustomTextFormField(
       {super.key,
       this.title,
       this.hintText,
       this.validator,
       this.controller,
+      this.obscureText = false,
       this.prefixIcon,
       this.suffixIcon});
 
@@ -33,6 +35,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         TextFormField(
+          obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText ?? "",
             hintStyle: TextStyle(

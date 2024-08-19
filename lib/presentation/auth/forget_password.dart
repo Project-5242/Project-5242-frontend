@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/auth/change_password.dart';
 
 import '../../data/constants/app_string.dart';
@@ -13,6 +14,7 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = ResponsiveCheck(context);
     return ChangePasswordScreen(
       midleWidget: Form(
         key: uniqueKey,
@@ -20,12 +22,22 @@ class ForgetPassword extends StatelessWidget {
           builder: (context, constraints) {
             bool isDesktop = constraints.maxWidth > 800;
             return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: responsive.isTablet
+                  ? const EdgeInsets.symmetric(
+                      horizontal: 90,
+                    )
+                  : responsive.isDesktop
+                      ? const EdgeInsets.symmetric(
+                          horizontal: 30,
+                        )
+                      : const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
               children: [
                 if (isDesktop) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
+                      horizontal: 70,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -34,10 +46,16 @@ class ForgetPassword extends StatelessWidget {
                         Flexible(
                           child: Container(
                             //height: MediaQuery.of(context).size.height * 0.010,
-                            width: MediaQuery.of(context).size.width * 0.500,
+                            width: MediaQuery.of(context).size.width * 0.430,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                Text(
+                                  AppStrings.forgetPassword,
+                                  style: context.customFont('Open Sans', 32.0,
+                                      FontWeight.w700, AppColors.themeColor),
+                                ),
                                 SizedBox(
                                   height: MediaQuery.of(context).size.height *
                                       0.101,
@@ -57,7 +75,7 @@ class ForgetPassword extends StatelessWidget {
                                     'Open Sans',
                                     16.0,
                                     FontWeight.w400,
-                                    AppColors.black,
+                                    AppColors.black.withOpacity(0.3),
                                   ),
                                 ),
                                 SizedBox(
@@ -145,7 +163,7 @@ class ForgetPassword extends StatelessWidget {
                       'Open Sans',
                       16.0,
                       FontWeight.w400,
-                      AppColors.black,
+                      AppColors.black.withOpacity(0.3),
                     ),
                   ),
                   SizedBox(

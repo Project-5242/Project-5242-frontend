@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/auth/change_password.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -14,17 +15,28 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final responseive = ResponsiveCheck(context);
     return ChangePasswordScreen(
       midleWidget: LayoutBuilder(
         builder: (context, constraints) {
           bool isDesktop = constraints.maxWidth > 800;
           return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: responseive.isTablet
+                ? const EdgeInsets.symmetric(
+                    horizontal: 90,
+                  )
+                : responseive.isDesktop
+                    ? const EdgeInsets.symmetric(
+                        horizontal: 30,
+                      )
+                    : const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
             children: [
               if (isDesktop) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
+                    horizontal: 70,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -38,9 +50,14 @@ class OtpScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(
+                                AppStrings.forgetPassword,
+                                style: context.customFont('Open Sans', 32.0,
+                                    FontWeight.w700, AppColors.themeColor),
+                              ),
                               SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.101,
+                                    MediaQuery.of(context).size.height * 0.070,
                               ),
                               Text(
                                 AppStrings.verifyOtp,
@@ -57,7 +74,7 @@ class OtpScreen extends StatelessWidget {
                                   'Open Sans',
                                   16.0,
                                   FontWeight.w400,
-                                  AppColors.black,
+                                  AppColors.black.withOpacity(0.3),
                                 ),
                               ),
                               SizedBox(
@@ -96,9 +113,9 @@ class OtpScreen extends StatelessWidget {
                                     MediaQuery.of(context).size.height * 0.030,
                               ),
                               RichTextWidget(
-                                  size: 16,
+                                  size: 14.0,
                                   decoration: TextDecoration.underline,
-                                  color: AppColors.black,
+                                  color: AppColors.black.withOpacity(0.3),
                                   color1: AppColors.themeColor,
                                   text: AppStrings.dontReceiveCode,
                                   text1: AppStrings.resend,
@@ -164,7 +181,7 @@ class OtpScreen extends StatelessWidget {
                     'Open Sans',
                     16.0,
                     FontWeight.w400,
-                    AppColors.black,
+                    AppColors.black.withOpacity(0.3),
                   ),
                 ),
                 SizedBox(
@@ -203,7 +220,7 @@ class OtpScreen extends StatelessWidget {
                 RichTextWidget(
                     size: 16,
                     decoration: TextDecoration.underline,
-                    color: AppColors.black,
+                    color: AppColors.black.withOpacity(0.3),
                     color1: AppColors.themeColor,
                     text: AppStrings.dontReceiveCode,
                     text1: AppStrings.resend,
@@ -234,53 +251,46 @@ class OtpScreen extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              content: LayoutBuilder(builder: (context, constraints) {
-            bool isDesktop = constraints.maxWidth > 800;
-            return Container(
-              height: isDesktop
-                  ? MediaQuery.of(context).size.height * 0.300
-                  : MediaQuery.of(context).size.height * 0.18,
-              width: isDesktop
-                  ? MediaQuery.of(context).size.width * 400
-                  : MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.010,
+              content: Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.020,
+                ),
+                Text(
+                  textAlign: TextAlign.center,
+                  AppStrings.resendCode,
+                  style: context.customFont(
+                    'Open Sans',
+                    20.0,
+                    FontWeight.w700,
+                    AppColors.themeColor,
                   ),
-                  Text(
-                    textAlign: TextAlign.center,
-                    AppStrings.resendCode,
-                    style: context.customFont(
-                      'Open Sans',
-                      20.0,
-                      FontWeight.w700,
-                      AppColors.themeColor,
-                    ),
+                ),
+                Text(
+                  textAlign: TextAlign.center,
+                  AppStrings.otpCodeSent,
+                  style: context.customFont(
+                    'Open Sans',
+                    18.0,
+                    FontWeight.w400,
+                    AppColors.black,
                   ),
-                  Text(
-                    textAlign: TextAlign.center,
-                    AppStrings.otpCodeSent,
-                    style: context.customFont(
-                      'Open Sans',
-                      18.0,
-                      FontWeight.w400,
-                      AppColors.black1,
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.032,
-                  ),
-                  CustomButton(
-                    onTap: () => Navigator.pop(context),
-                    height: MediaQuery.of(context).size.height * 0.060,
-                    width: MediaQuery.of(context).size.width * 0.275,
-                    text: AppStrings.ok,
-                  ),
-                ],
-              ),
-            );
-          }));
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.032,
+                ),
+                CustomButton(
+                  onTap: () => Navigator.pop(context),
+                  height: MediaQuery.of(context).size.height * 0.060,
+                  width: MediaQuery.of(context).size.width * 0.275,
+                  text: AppStrings.ok,
+                ),
+              ],
+            ),
+          ));
         });
   }
 }

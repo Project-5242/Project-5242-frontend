@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_project/data/constants/fonts.dart';
+
 class ResponsiveCheck {
   final BuildContext context;
 
@@ -16,15 +18,9 @@ class ResponsiveCheck {
 
 class ResponsiveView extends StatelessWidget {
   final Widget? mobile;
-  final Widget? tablet;
   final Widget? desktop;
-
-  const ResponsiveView({
-    super.key,
-    this.mobile,
-    this.tablet,
-    this.desktop,
-  });
+  final Widget? tablet;
+  const ResponsiveView({super.key, this.mobile, this.desktop, this.tablet});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +28,7 @@ class ResponsiveView extends StatelessWidget {
         builder: ((BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth < 640) {
         return mobile ?? const ErrorMessage(title: "Need Mobile Widget");
+      } else if (constraints.maxWidth <= 640 || constraints.maxWidth < 900) {
       } else if (constraints.maxWidth >= 640 && constraints.maxWidth < 1200) {
         return tablet ?? const ErrorMessage(title: "Need Tablet Widget");
       } else {
@@ -49,5 +46,18 @@ class ErrorMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(child: Text(title));
+    return Scaffold(
+      body: Center(
+        child: Text(
+          title.toString(),
+          style: TextStyle(
+            fontFamily: Fonts.fontsOpenSans,
+            fontSize: 24,
+            color: Colors.red,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }

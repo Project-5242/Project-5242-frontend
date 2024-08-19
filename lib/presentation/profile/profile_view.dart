@@ -1,12 +1,12 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'dart:io';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -17,6 +17,8 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   bool isSettingVisible = false;
+  bool _passHide = true;
+  final _formKeyDesk = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -66,53 +68,67 @@ class _ProfileViewState extends State<ProfileView> {
                       color: AppColors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: CircleAvatar(
-                                radius: 50,
-                                backgroundColor: AppColors.borderColor,
-                                child: const CircleAvatar(
-                                  radius: 45,
-                                  backgroundImage: NetworkImage(
-                                    'https://media.distractify.com/brand-img/IXMXHdSmC/0x0/woman-being-splashed-with-water-1684438561942.jpg', // Replace with your profile picture URL
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: CircleAvatar(
+                                  radius: 50,
+                                  backgroundColor: AppColors.borderColor,
+                                  child: const CircleAvatar(
+                                    radius: 45,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1200px-Googleplex_HQ_%28cropped%29.jpg', // Replace with your profile picture URL
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: height * 0.02),
-                            // Body Code
-                            AppButton(
-                              height: 37,
-                              width: 100,
-                              backgroundColor: AppColors.darkBlue,
-                              title: "Edit Profile",
-                              onPressed: () {
-                                setState(() {
-                                  isSettingVisible = false;
-                                });
-                              },
-                            ),
-                            SizedBox(height: height * 0.04),
-                            _customListTile(
-                                title: "Notification", onTap: () {}),
-                            _customListTile(
-                                title: "Setting",
-                                onTap: () {
+                              SizedBox(height: height * 0.02),
+                              // Body Code
+                              AppButton(
+                                height: 37,
+                                width: 100,
+                                backgroundColor: AppColors.darkBlue,
+                                title: "Edit Profile",
+                                onPressed: () {
                                   setState(() {
-                                    isSettingVisible = true;
+                                    isSettingVisible = false;
                                   });
-                                }),
-                            _customListTile(
-                                title: "Privacy & Policy", onTap: () {}),
-                            _customListTile(
-                                title: "Terms & Conditions", onTap: () {}),
-                            _customListTile(
-                                title: "Change Password", onTap: () {}),
-                          ],
+                                },
+                              ),
+                              SizedBox(height: height * 0.04),
+                              _customListTile(
+                                  title: "Notification", onTap: () {}),
+                              _customListTile(
+                                  title: "Setting",
+                                  onTap: () {
+                                    setState(() {
+                                      isSettingVisible = true;
+                                    });
+                                  }),
+                              _customListTile(
+                                  title: "Privacy & Policy", onTap: () {}),
+                              _customListTile(
+                                  title: "Terms & Conditions", onTap: () {}),
+                              _customListTile(
+                                  title: "Change Password", onTap: () {}),
+                              SizedBox(height: height * 0.09),
+                              AppButton(
+                                height: 37,
+                                width: 100,
+                                backgroundColor: AppColors.darkBlue,
+                                title: "Logout",
+                                onPressed: () {
+                                  context.pushNamedAndRemoveUntil(
+                                      Routes.loginScreen);
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -129,7 +145,7 @@ class _ProfileViewState extends State<ProfileView> {
                       child: isSettingVisible
                           ? const Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 60, vertical: 40),
+                                  horizontal: 90, vertical: 40),
                               child: SettingView(),
                             )
                           : Row(
@@ -139,13 +155,14 @@ class _ProfileViewState extends State<ProfileView> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const CircleAvatar(
+                                      CircleAvatar(
                                         radius: 55,
-                                        backgroundColor: Colors.white,
-                                        child: CircleAvatar(
+                                        backgroundColor: AppColors.borderColor,
+                                        child: const CircleAvatar(
                                           radius: 50,
-                                          backgroundImage: NetworkImage(
-                                            'https://media.distractify.com/brand-img/IXMXHdSmC/0x0/woman-being-splashed-with-water-1684438561942.jpg', // Replace with your profile picture URL
+                                          backgroundImage:
+                                              CachedNetworkImageProvider(
+                                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1200px-Googleplex_HQ_%28cropped%29.jpg', // Replace with your profile picture URL
                                           ),
                                         ),
                                       ),
@@ -163,92 +180,105 @@ class _ProfileViewState extends State<ProfileView> {
                                 Expanded(
                                   flex: 3,
                                   child: SingleChildScrollView(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 40,
-                                          bottom: 20,
-                                          left: 16,
-                                          right: 40),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          CustomTextFormField(
-                                            title: "Full Name",
-                                            hintText: "Enter Your Full Name",
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your Name';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.03),
-                                          CustomTextFormField(
-                                            title: "Email",
-                                            hintText: "Enter Your Email",
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your email';
-                                              }
-                                              if (!RegExp(
-                                                      r'^[^@]+@[^@]+\.[^@]+')
-                                                  .hasMatch(value)) {
-                                                return 'Please enter a valid email address';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.03),
-                                          CustomTextFormField(
-                                            title: "Phone Number",
-                                            hintText: "Enter Your Phone Number",
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter Phone Number';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.03),
-                                          CustomTextFormField(
-                                            title: "Password",
-                                            hintText: "Enter Your Password",
-                                            suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.visibility_off,
-                                                color: AppColors.black,
-                                              ),
-                                              onPressed: () {},
+                                    child: Form(
+                                      key: _formKeyDesk,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 40,
+                                            bottom: 20,
+                                            left: 16,
+                                            right: 40),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CustomTextFormField(
+                                              title: "Full Name",
+                                              hintText: "Enter Your Full Name",
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter your Name';
+                                                }
+                                                return null;
+                                              },
                                             ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Please enter your password';
-                                              }
-                                              if (value.length < 6) {
-                                                return 'Password must be at least 6 characters long';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.05),
-                                          AppButton(
-                                            height: 37,
-                                            width: 100,
-                                            backgroundColor: AppColors.darkBlue,
-                                            title: "Update",
-                                            onPressed: () {
-                                              // if (formKey.currentState!.validate()) {
-                                              //   // Handle form submission
-                                              // }
-                                            },
-                                          ),
-                                          SizedBox(height: height * 0.19),
-                                        ],
+                                            SizedBox(height: height * 0.03),
+                                            CustomTextFormField(
+                                              title: "Email",
+                                              hintText: "Enter Your Email",
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter your email';
+                                                }
+                                                if (!RegExp(
+                                                        r'^[^@]+@[^@]+\.[^@]+')
+                                                    .hasMatch(value)) {
+                                                  return 'Please enter a valid email address';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.03),
+                                            CustomTextFormField(
+                                              title: "Phone Number",
+                                              hintText:
+                                                  "Enter Your Phone Number",
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter Phone Number';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.03),
+                                            CustomTextFormField(
+                                              title: "Password",
+                                              hintText: "Enter Your Password",
+                                              obscureText: _passHide,
+                                              suffixIcon: IconButton(
+                                                icon: Icon(
+                                                  _passHide
+                                                      ? Icons.visibility_off
+                                                      : Icons.visibility,
+                                                  color: AppColors.black,
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _passHide = !_passHide;
+                                                  });
+                                                },
+                                              ),
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter your password';
+                                                }
+                                                if (value.length < 6) {
+                                                  return 'Password must be at least 6 characters long';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.05),
+                                            AppButton(
+                                              height: 37,
+                                              width: 100,
+                                              backgroundColor:
+                                                  AppColors.darkBlue,
+                                              title: "Update",
+                                              onPressed: () {
+                                                if (_formKeyDesk.currentState!
+                                                    .validate()) {
+                                                  // Handle form submission
+                                                }
+                                              },
+                                            ),
+                                            SizedBox(height: height * 0.19),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -256,7 +286,7 @@ class _ProfileViewState extends State<ProfileView> {
                               ],
                             ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -300,16 +330,29 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
                 SizedBox(height: height * 0.02),
+
+                if (Theme.of(context).platform == TargetPlatform.android)
+                  AppButton(
+                    height: 37,
+                    width: 100,
+                    backgroundColor: AppColors.darkBlue,
+                    title: "Edit Profile",
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.editProfileView);
+                    },
+                  )
+                else if (Theme.of(context).platform == TargetPlatform.android)
+                  AppButton(
+                    height: 37,
+                    width: 100,
+                    backgroundColor: AppColors.darkBlue,
+                    title: "Edit Profile",
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.editProfileView);
+                    },
+                  ),
                 // Body Code
-                AppButton(
-                  height: 37,
-                  width: 100,
-                  backgroundColor: AppColors.darkBlue,
-                  title: "Edit Profile",
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.editProfileView);
-                  },
-                ),
+
                 SizedBox(height: height * 0.04),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 27),
@@ -324,7 +367,6 @@ class _ProfileViewState extends State<ProfileView> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: height * 0.09),
                 AppButton(
                   height: 37,

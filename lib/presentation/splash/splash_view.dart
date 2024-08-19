@@ -3,6 +3,7 @@ import 'package:flutter_project/base/extensions/navigation_extension.dart';
 import 'package:flutter_project/routes/routes.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../data/constants/responsive_view.dart';
 import '../../res/assets_res.dart';
 
 class SplashView extends StatefulWidget {
@@ -16,7 +17,12 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 03), () {
-      if (context.mounted) context.pushNamedAndRemoveUntil(Routes.meesagedesktop);
+      final response = ResponsiveCheck(context);
+      if (context.mounted) {
+        response.isMobile
+            ? context.pushNamedAndRemoveUntil(Routes.onboardingScreen)
+            : context.pushNamedAndRemoveUntil(Routes.selectRoleScreen);
+      }
     });
     super.initState();
   }

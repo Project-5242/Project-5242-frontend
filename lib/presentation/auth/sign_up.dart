@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/auth/login_view.dart';
+import 'package:flutter_project/presentation/home/dashboard.dart';
 import 'package:flutter_project/presentation/provider/create_profile.dart/create_profile.dart';
 
 import 'package:flutter_project/presentation/widgets/custom_button.dart';
@@ -51,7 +52,9 @@ class _SignUpState extends State<SignUp> {
             child: Form(
               key: formKey,
               child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: isDesktop
+                    ? EdgeInsets.symmetric(horizontal: 50, vertical: 10)
+                    : EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.020,
@@ -167,11 +170,11 @@ class _SignUpState extends State<SignUp> {
                   CustomButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        Navigator.pushNamed(context, Routes.homeScreen);
+                        Navigator.pushNamed(context, Routes.createProfile);
                       }
                     },
                     height: isDesktop
-                        ? MediaQuery.of(context).size.height * 0.070
+                        ? MediaQuery.of(context).size.height * 0.080
                         : MediaQuery.of(context).size.height * 0.060,
                     width: MediaQuery.of(context).size.width * 0.376,
                     text: AppStrings.signUp,
@@ -181,12 +184,12 @@ class _SignUpState extends State<SignUp> {
                   ),
                   RichTextWidget(
                       size: 16.0,
-                      color: AppColors.black,
+                      color: AppColors.black.withOpacity(0.3),
                       color1: AppColors.themeColor,
                       text: AppStrings.alreadyhaveAccount,
                       text1: AppStrings.signIn,
                       onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginView())))
+                          MaterialPageRoute(builder: (context) => DashbaordWidget(currentIndex: 0))))
                 ],
               ),
             ),

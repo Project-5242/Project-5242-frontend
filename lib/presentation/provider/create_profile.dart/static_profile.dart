@@ -3,6 +3,7 @@ import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/constants/app_string.dart';
+import '../../../data/constants/responsive_view.dart';
 
 class StaticProfileLayout extends StatefulWidget {
   final Widget Function() middleContentBuilder;
@@ -78,7 +79,7 @@ class _StaticProfileLayoutState extends State<StaticProfileLayout> {
                         Text(
                           '${widget.currentIndex + 1}/${widget.totalSteps}',
                           style: TextStyle(
-                            color: AppColors.black1,
+                            color: AppColors.black,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
@@ -105,4 +106,66 @@ class _StaticProfileLayoutState extends State<StaticProfileLayout> {
       ),
     );
   }
-}
+}       
+        
+//         appBar: AppBar(
+//           automaticallyImplyLeading: false,
+//           title: const Text(
+//             AppStrings.createProfile,
+//           ),
+//           centerTitle: true,
+//         ),
+//         body: SingleChildScrollView(
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(horizontal: 20),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     SizedBox(
+//                       height: MediaQuery.of(context).size.height * 0.028,
+//                     ),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         IconButton(
+//                           color: AppColors.themeColor,
+//                           icon: Icon(Icons.arrow_back_ios),
+//                           onPressed: () {
+//                             _previousStep;
+//                             Navigator.pop(context);
+//                           },
+//                         ),
+//                         Text(
+//                           '${widget.currentIndex + 1}/${widget.totalSteps}',
+//                           style: TextStyle(
+//                             color: AppColors.black1,
+//                             fontSize: 14,
+//                             fontWeight: FontWeight.w400,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                     SizedBox(
+//                         height: MediaQuery.of(context).size.height * 0.025),
+//                     LinearProgressIndicator(
+//                       value: (widget.currentIndex + 1) / widget.totalSteps,
+//                       color: AppColors.themeColor,
+//                       borderRadius: BorderRadius.circular(4),
+//                       minHeight: 5,
+//                     ),
+//                     SizedBox(
+//                         height: MediaQuery.of(context).size.height * 0.025),
+//                     widget.middleContentBuilder(),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

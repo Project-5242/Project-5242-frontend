@@ -4,6 +4,8 @@ import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
 
+import '../../data/constants/responsive_view.dart';
+
 class EditProfileView extends StatelessWidget {
   const EditProfileView({super.key});
 
@@ -18,6 +20,8 @@ class EditProfileView extends StatelessWidget {
 
   _mobileView(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final responsive = ResponsiveCheck(context);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
