@@ -26,15 +26,14 @@ class ResponsiveView extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: ((BuildContext context, BoxConstraints constraints) {
-      if (constraints.maxWidth < 640) {
-        return mobile ?? const ErrorMessage(title: "Need Mobile Widget");
-      } else if (constraints.maxWidth <= 640 || constraints.maxWidth < 900) {
-      } else if (constraints.maxWidth >= 640 && constraints.maxWidth < 1200) {
-        return tablet ?? const ErrorMessage(title: "Need Tablet Widget");
-      } else {
-        return desktop ?? const ErrorMessage(title: "Need Desktop Widget");
-      }
-    }));
+          if (constraints.maxWidth < 640) {
+            return mobile ?? const ErrorMessage(title: "Need Mobile Widget");
+          } else if (constraints.maxWidth <= 640 || constraints.maxWidth < 900) {
+            return tablet ?? const ErrorMessage(title: "Need Tablet Widget");
+          } else {
+            return desktop ?? const ErrorMessage(title: "Need Desktop Widget");
+          }
+        }));
   }
 }
 

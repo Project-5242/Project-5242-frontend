@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/presentation/message/chat.dart';
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:easy_sidemenu/easy_sidemenu.dart';
+
 import '../../data/constants/app_colors.dart';
 import '../../data/constants/responsive_view.dart';
 import '../../res/assets_res.dart';
