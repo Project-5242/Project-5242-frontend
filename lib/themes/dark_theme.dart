@@ -12,6 +12,8 @@ ThemeData getDarkTheme(BuildContext context) {
     disabledColor: const Color(0x33FF9A62),
     shadowColor: Colors.black.withOpacity(0.4),
     appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.black,
+        surfaceTintColor: Colors.transparent,
         titleTextStyle: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w800,
