@@ -41,6 +41,11 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_screenutil: ^5.9.3
   easy_sidemenu: ^0.6.0
+  oktoast:
+  connectivity_plus:
+  path: ^1.9.0
+  http:
+  equatable:
 
 
 dev_dependencies:

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_project/domain/bloc/auth/bloc.dart';
 import 'package:flutter_project/presentation/message/chat.dart';
 import 'package:flutter_project/routes/route_generator.dart';
 import 'package:flutter_project/routes/routes.dart';
@@ -12,6 +13,7 @@ import 'package:toastification/toastification.dart';
 
 import 'base/observer/route_observer.dart';
 import 'data/providers/app_bloc_providers.dart';
+import 'domain/repositories/auth.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -24,7 +26,10 @@ class MyApp extends StatelessWidget {
         data: MediaQuery.of(context)
             .copyWith(textScaler: const TextScaler.linear(1.0)),
         child: MultiBlocProvider(
-          providers: AppBlocProviders.providers,
+
+          providers: [
+            BlocProvider(create: (context)=>AuthBloc(repository: AuthRepository.instance),),
+          ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
