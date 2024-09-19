@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/base/utils/getStorage.dart';
+import 'package:flutter_project/base/utils/navigatorService.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -70,6 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 MediaQuery.of(context).textScaleFactor * 18),
                       ),
                       onPressed: () {
+                         AppGetXStorage.saveIsFirstTime();
                         context
                             .pushNamedAndRemoveUntil(Routes.selectRoleScreen);
                       },
@@ -92,7 +95,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     MediaQuery.of(context).textScaleFactor *
                                         16),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            AppGetXStorage.saveIsFirstTime();
+                             context
+                            .pushNamedAndRemoveUntil(Routes.selectRoleScreen);
+                          },
                           child: Text(
                             AppStrings.skip,
                             style: TextStyle(

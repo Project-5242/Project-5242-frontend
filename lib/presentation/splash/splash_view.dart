@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/navigation_extension.dart';
+import 'package:flutter_project/base/utils/getStorage.dart';
 import 'package:flutter_project/routes/routes.dart';
 import 'package:lottie/lottie.dart';
 
@@ -19,9 +20,14 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(const Duration(seconds: 03), () {
       final response = ResponsiveCheck(context);
       if (context.mounted) {
-        response.isMobile
+        if(AppGetXStorage.getIsFirstTime()) {
+          response.isMobile
             ? context.pushNamedAndRemoveUntil(Routes.onboardingScreen)
             : context.pushNamedAndRemoveUntil(Routes.selectRoleScreen);
+        }else{
+          context.pushNamedAndRemoveUntil(Routes.selectRoleScreen);
+        }
+       
       }
     });
     super.initState();

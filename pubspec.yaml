@@ -46,6 +46,8 @@ dependencies:
   path: ^1.9.0
   http:
   equatable:
+  get_storage:
+  flutter_otp_text_field: ^1.2.0
 
 
 dev_dependencies:

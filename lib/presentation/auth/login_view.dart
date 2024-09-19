@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
+import 'package:flutter_project/domain/bloc/auth/bloc.dart';
 import 'package:flutter_project/presentation/widgets/app_rich_text.dart';
 import 'package:flutter_project/presentation/widgets/app_text_field_widget.dart';
 import 'package:flutter_project/presentation/widgets/custom_button.dart';
@@ -151,8 +153,10 @@ class _LoginMobileState extends State<LoginMobile> {
             ),
             CustomButton(
               onTap: () {
-                if (formKey.currentState!.validate())
-                  Navigator.pushNamed(context, Routes.dashBoard1);
+                if (formKey.currentState!.validate()){
+                  context.read<AuthBloc>().add(LoginEvent(emailController.text, passwordController.text));
+                }
+                 
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width * 0.376,

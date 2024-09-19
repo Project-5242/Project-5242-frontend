@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/base/utils/getStorage.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
@@ -363,7 +364,11 @@ class _ProfileViewState extends State<ProfileView> {
                       _customListTile(title: "Privacy & Policy", onTap: () {}),
                       _customListTile(
                           title: "Terms & Conditions", onTap: () {}),
-                      _customListTile(title: "Change Password", onTap: () {}),
+                      _customListTile(
+                          title: "Change Password",
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.changePassword);
+                          }),
                     ],
                   ),
                 ),
@@ -371,9 +376,21 @@ class _ProfileViewState extends State<ProfileView> {
                 AppButton(
                   height: 37,
                   width: 100,
+                  backgroundColor: Colors.red,
+                  title: "Delete Account",
+                  onPressed: () {
+                    
+                  },
+                ),
+                SizedBox(height: height * 0.01),
+                AppButton(
+                  height: 37,
+                  width: 100,
                   backgroundColor: AppColors.darkBlue,
                   title: "Logout",
-                  onPressed: () {},
+                  onPressed: () {
+                    AppGetXStorage.logout();
+                  },
                 ),
               ],
             ),

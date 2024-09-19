@@ -46,4 +46,10 @@ class Routes {
   static const String savedNodeView = "/saved_node_view";
 
   static const String menuView = "/menu_view";
+
+  static const String verifyEmail = "/verifyEmail";
+
+  static const String changePassword = "/changePassword";
+
+
 }

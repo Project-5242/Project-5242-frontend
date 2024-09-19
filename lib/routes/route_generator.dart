@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/base/utils/getStorage.dart';
 import 'package:flutter_project/presentation/auth/forget_password.dart';
 import 'package:flutter_project/presentation/auth/sign_up.dart';
+import 'package:flutter_project/presentation/auth/verifyEmail.dart';
 import 'package:flutter_project/presentation/home/dashboard.dart';
 import 'package:flutter_project/presentation/message/chat.dart';
 import 'package:flutter_project/presentation/message/messages.dart';
@@ -18,6 +20,7 @@ import '../presentation/onboarding/mode_selection_screen.dart';
 import '../presentation/onboarding/onboarding_screen.dart';
 import '../presentation/onboarding/select_role_screen.dart';
 import '../presentation/auth/otp_screen.dart';
+import '../presentation/profile/changePassword.dart';
 import '../presentation/provider/create_profile.dart/create_profile.dart';
 import '../presentation/provider/create_profile.dart/create_profile1.dart';
 import '../presentation/provider/create_profile.dart/create_profile2.dart';
@@ -38,7 +41,13 @@ class RouteGenerator {
 
     switch (settings.name) {
       case Routes.root:
-        widgetScreen = SplashView();
+        print('token==${AppGetXStorage.getToken()}');
+        if (AppGetXStorage.getToken() != null) {
+          widgetScreen = DashbaordWidget(currentIndex: 0);
+        } else {
+          widgetScreen = const SplashView();
+        }
+
         break;
       case Routes.loginScreen:
         widgetScreen = LoginView();
@@ -51,7 +60,13 @@ class RouteGenerator {
       case Routes.forgetPassword:
         widgetScreen = ForgetPassword();
       case Routes.otpScreen:
-        widgetScreen = OtpScreen();
+        widgetScreen = OtpScreen(
+          email: settings.arguments!.toString(),
+        );
+      case Routes.verifyEmail:
+        widgetScreen = VerifyEmailPage(
+          email: settings.arguments!.toString(),
+        );
       case Routes.newPassword:
         widgetScreen = const NewPasswordScreen();
       // case Routes.homeScreen:
@@ -108,7 +123,7 @@ class RouteGenerator {
       case Routes.createProfile4:
         widgetScreen = const CreateProfile4();
       case Routes.editProfile1:
-        widgetScreen = EditProfile1();
+        widgetScreen = const EditProfile1();
       case Routes.editProfile2:
         widgetScreen = const EditProfile2();
       case Routes.editProfile3:
@@ -123,6 +138,9 @@ class RouteGenerator {
         widgetScreen = const SavedNodeView();
       case Routes.menuView:
         widgetScreen = const ProviderMenuPage();
+
+      case Routes.changePassword:
+        widgetScreen = const ChangePasswordPage();
 
         break;
       default:

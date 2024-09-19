@@ -4,14 +4,13 @@ import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/auth/change_password.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
-import '../../data/constants/app_colors.dart';
 import '../../data/constants/app_string.dart';
 import '../widgets/app_rich_text.dart';
-import '../widgets/app_text_field_widget.dart';
 import '../widgets/custom_button.dart';
 
 class OtpScreen extends StatelessWidget {
-  OtpScreen({super.key});
+  final String email;
+  const OtpScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +199,7 @@ class OtpScreen extends StatelessWidget {
                         bgColorBuilder: FixedColorBuilder(AppColors.white),
                         radius: const Radius.circular(5.0),
                       ),
-                      codeLength: 4,
+                      codeLength: 6,
                       onCodeChanged: (code) {
                         if (code != null && code.length == 4) {
                           print("OTP Code: $code");

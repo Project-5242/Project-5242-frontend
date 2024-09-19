@@ -22,10 +22,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _login(LoginEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
+    print('login');
     final result =
         await repository.login(email: event.email, password: event.password);
     if (result) {
       emit(AuthSuccessState());
+      Navigatorservice.pushNamed(Routes.dashBoard1);
     } else {
       emit(AuthErrorState());
     }
@@ -33,10 +35,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _register(RegisterEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
+
     final result = await repository.register(user: event.user);
     if (result) {
       emit(AuthSuccessState());
-      Navigatorservice.pushNamed(Routes.createProfile);
+      Navigatorservice.pushNamed(Routes.verifyEmail, arguments: event.user.email);
     } else {
       emit(AuthErrorState());
     }
@@ -49,6 +52,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await repository.verifyEmail(email: event.email, otp: event.otp);
     if (result) {
       emit(AuthSuccessState());
+      Navigatorservice.pushNamed(Routes.loginScreen);
     } else {
       emit(AuthErrorState());
     }

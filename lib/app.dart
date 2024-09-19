@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_project/domain/bloc/auth/bloc.dart';
-import 'package:flutter_project/presentation/message/chat.dart';
 import 'package:flutter_project/routes/route_generator.dart';
 import 'package:flutter_project/routes/routes.dart';
 import 'package:flutter_project/themes/dark_theme.dart';
@@ -12,8 +11,9 @@ import 'package:flutter_project/themes/light_theme.dart';
 import 'package:toastification/toastification.dart';
 
 import 'base/observer/route_observer.dart';
-import 'data/providers/app_bloc_providers.dart';
 import 'domain/repositories/auth.dart';
+import 'presentation/auth/otp_screen.dart';
+import 'presentation/auth/verifyEmail.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
             initialRoute: Routes.root,
             onGenerateRoute: RouteGenerator.generateRoute,
             navigatorObservers: [AppRouteObserver()],
+            
           ),
         ),
       ),

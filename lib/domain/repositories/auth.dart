@@ -1,3 +1,4 @@
+import 'package:flutter_project/base/utils/getStorage.dart';
 import 'package:flutter_project/data/dataSource/http_source.dart';
 import 'package:flutter_project/data/models/user.dart';
 
@@ -21,6 +22,12 @@ class AuthRepository {
     );
     if (result.isSuccess) {
       AppUtils.showToast(message: result.json['message']);
+      AppGetXStorage.saveToken(result.json['token']);
+
+      /// save user
+      UserModel user = UserModel.fromJson(result.json['data']);
+      AppGetXStorage.saveUserData(user);
+
       return true;
     } else {
       AppUtils.showToast(message: result.json['message'],error: true);
@@ -34,6 +41,7 @@ class AuthRepository {
       ApiUrls.registerUrl,
       body: user.toJson,
     );
+    print('result: ${result.json}');
     if (result.isSuccess) {
       AppUtils.showToast(message: result.json['message']);
       return true;
@@ -128,10 +136,10 @@ class AuthRepository {
     final result = await _httpService.postRequest(
       ApiUrls.updateUserProfileUrl,
       body: user.toJson,
-      // headers: {
-      //   'Content-Type': 'application/json',
-      //   'token': 'application/json',
-      // }
+      headers: {
+        'Content-Type': 'application/json',
+        'token': 'Bearer ${AppGetXStorage.getToken()}',
+      }
     );
     if (result.isSuccess) {
       AppUtils.showToast(message: result.json['message']);
