@@ -1,13 +1,9 @@
 import 'dart:developer';
-import 'package:flutter_project/base/base.dart';
-import 'package:flutter/foundation.dart';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../routes/routes.dart';
-import '../helpers/db_helper.dart';
 
 class AppUtils {
   /// Launch Url's
@@ -36,13 +32,6 @@ class AppUtils {
     } else {
       return "Good evening!";
     }
-  }
-
-  /// Start First Screen
-  static void startFirstScreen({String? message}) {
-    DbHelper.eraseData();
-    Routes.navigatorKey.currentContext?.pushNamed(Routes.root);
-    showToast(message: message);
   }
 
   /// Show Toast

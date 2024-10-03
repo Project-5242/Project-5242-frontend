@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_project/res/assets_res.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'AppProvider/app_provider.dart';
 import 'app.dart';
-import 'base/observer/app_bloc_observer.dart';
 
+SharedPreferences? sharedPrefs;
 void main() async {
-  await Hive.initFlutter();
-  await Hive.openBox('appBox');
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: AssetsRes.DOTENV);
-  Bloc.observer = AppBlocObserver();
-  runApp(const MyApp());
+  sharedPrefs = await SharedPreferences.getInstance();
+  runApp(
+    MultiProvider(
+      providers: AppProvider.appProviders,
+      child: const MyApp(),
+    ),
+  );
 }

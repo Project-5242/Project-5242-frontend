@@ -3,14 +3,14 @@ import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
-import 'package:flutter_project/presentation/provider/dasboard/components/bar_chart.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:gap/gap.dart';
 
 import '../../../routes/routes.dart';
 
 class Dashboard1Page extends StatelessWidget {
-  const Dashboard1Page({super.key});
+  final String? roleType;
+  const Dashboard1Page({super.key, this.roleType});
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +132,6 @@ class Dashboard1Page extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 AppStrings.newNode,

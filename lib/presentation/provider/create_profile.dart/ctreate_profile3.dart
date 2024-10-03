@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
-import 'package:gap/gap.dart';
 
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-
-import '../../home/dashboard.dart';
 import '../../../routes/routes.dart';
-import '../../widgets/app_button.dart';
-import '../../widgets/app_text_field_widget.dart';
+import '../../home/dashboard.dart';
 import '../../widgets/custom_button.dart';
-import 'create_profile2.dart';
-import 'create_profile4.dart';
 import 'static_profile.dart';
 
 class CreateProfile3 extends StatefulWidget {
@@ -84,10 +78,8 @@ class _CreateProfile3State extends State<CreateProfile3> {
           CustomButton(
             color: AppColors.white,
             color1: AppColors.themeColor,
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DashbaordWidget(currentIndex: 0))),
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DashbaordWidget())),
             height: MediaQuery.of(context).size.height * 0.060,
             width: MediaQuery.of(context).size.width,
             text: AppStrings.allowCurrentloc,
@@ -216,8 +208,7 @@ class _CreateProfile3State extends State<CreateProfile3> {
                               onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          DashbaordWidget(currentIndex: 0))),
+                                      builder: (context) => DashbaordWidget())),
                               height:
                                   MediaQuery.of(context).size.height * 0.100,
                               width: MediaQuery.of(context).size.width * 0.210,

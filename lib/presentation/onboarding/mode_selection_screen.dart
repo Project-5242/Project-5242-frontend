@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
-import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
-import 'package:flutter_project/res/assets_res.dart';
-import 'package:flutter_project/routes/routes.dart';
+import 'package:flutter_project/presentation/auth/sign_up.dart';
 
 class ModeSelectionScreen extends StatelessWidget {
-  const ModeSelectionScreen({super.key});
+  final String? type;
+  const ModeSelectionScreen({super.key, this.type});
 
   @override
   Widget build(BuildContext context) {
-    final Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    var userType = arguments['userType'];
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 60, left: 36, right: 36),
         child: Column(
           children: [
-            userType == "user"
+            type == "user"
                 ? _onboardingComp(
                     context: context,
                     title: AppStrings.user,
@@ -28,19 +25,23 @@ class ModeSelectionScreen extends StatelessWidget {
                     title: AppStrings.provider,
                     description: AppStrings.providerSubText,
                     img: AssetsRes.ONBOARDING_IMG3),
-            //  Spacer(),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.white, // Dark teal color
-                minimumSize:
-                    const Size(double.infinity, 60), // Button width and height
+                backgroundColor: AppColors.white,
+                minimumSize: const Size(double.infinity, 60),
                 shape: RoundedRectangleBorder(
                   side: BorderSide(width: 1, color: AppColors.blue),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               onPressed: () {
-                context.pushNamedAndRemoveUntil(Routes.loginScreen);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SignUp(
+                      roleType: type,
+                    ),
+                  ),
+                );
               },
               child: Text(
                 AppStrings.signUp,
@@ -55,15 +56,18 @@ class ModeSelectionScreen extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.blue, // Dark teal color
-                minimumSize:
-                    const Size(double.infinity, 60), // Button width and height
+                backgroundColor: AppColors.blue,
+                minimumSize: const Size(double.infinity, 60),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               onPressed: () {
-                context.pushNamedAndRemoveUntil(Routes.loginScreen);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                  ),
+                );
               },
               child: Text(
                 AppStrings.login,

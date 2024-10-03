@@ -45,6 +45,7 @@ class AppStrings {
 
   static const String resetPassword = 'Reset Password';
   static const String emaiVerification = 'Email Verification';
+  static const String emailVerify = 'Email Verify';
   static const String enter4digitSentEmail =
       'Enter 4 digit code we sent you on the ';
   static const String emailExaple = 'example@xyz.com';
@@ -150,4 +151,32 @@ class AppStrings {
 
   static const String percentageText1 = "+30.1%";
   static const String percentageText2 = "+18.1%";
+
+  //KEYS
+  static const token = "TOKEN";
+  static const fcmToken = "fcmToken";
+  static const isLogin = "isLogin";
+  static const deviceOs = "DEVICE_OS";
+  static const isRemember = "isRemember";
+  static const userRememberEmail = "userRememberEmail";
+  static const userRememberPassword = "userRememberPassword";
+  static const userEmail = "userEmail";
+  static const userLastName = "userLastName";
+  static const userFirstName = "userFirstName";
+  static const userName = "userName";
+  static const userPhoneCode = "userPhoneCode";
+  static const userMobile = "userMobile";
+  static const userImage = "userImage";
+  static const gender = "gender";
+  static const userId = "userId";
+  static const isProvider = "isProvider";
+  static const isNewUser = "isNewUser";
+  static const rollId = "rollId";
+  static const locationOperator = "locationOperator";
+  static const preferredLanguage = "preferredLanguage";
+  static const userStoreName = "userStoreName";
+  static const userGSTNumber = "userGSTNumber";
+  static const userStoreLogo = "userStoreLogo";
+  static const userAddress = "userAddress";
+  static const isSliderComplete = "isSliderComplete";
 }

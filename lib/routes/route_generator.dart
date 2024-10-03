@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/auth/forget_password.dart';
 import 'package:flutter_project/presentation/auth/sign_up.dart';
 import 'package:flutter_project/presentation/home/dashboard.dart';
@@ -7,17 +8,17 @@ import 'package:flutter_project/presentation/message/messages.dart';
 import 'package:flutter_project/presentation/provider/dasboard/dashboard_1_page.dart';
 import 'package:flutter_project/presentation/provider/dasboard/provider_menu_page.dart';
 import 'package:flutter_project/presentation/provider/dasboard/saved_node.dart';
+import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
-import 'package:flutter_project/base/base.dart';
-import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
+
 import '../presentation/auth/new_password_screen.dart';
+import '../presentation/auth/otp_screen.dart';
 import '../presentation/home/notes_widget.dart';
 import '../presentation/onboarding/mode_selection_screen.dart';
 import '../presentation/onboarding/onboarding_screen.dart';
 import '../presentation/onboarding/select_role_screen.dart';
-import '../presentation/auth/otp_screen.dart';
 import '../presentation/provider/create_profile.dart/create_profile.dart';
 import '../presentation/provider/create_profile.dart/create_profile1.dart';
 import '../presentation/provider/create_profile.dart/create_profile2.dart';
@@ -38,13 +39,13 @@ class RouteGenerator {
 
     switch (settings.name) {
       case Routes.root:
-        widgetScreen = SplashView();
+        widgetScreen = const SplashView();
         break;
       case Routes.loginScreen:
-        widgetScreen = LoginView();
+        widgetScreen = const LoginView();
         break;
       case Routes.dashbaord:
-        widgetScreen = DashbaordWidget(currentIndex: 0);
+        widgetScreen = DashbaordWidget();
         break;
       case Routes.signUp:
         widgetScreen = const SignUp();
@@ -63,7 +64,7 @@ class RouteGenerator {
       case Routes.onboardingScreen:
         widgetScreen = const OnboardingScreen();
       case Routes.selectRoleScreen:
-        widgetScreen = SelectRoleScreen();
+        widgetScreen = const SelectRoleScreen();
       case Routes.modeSelectionScreen:
         widgetScreen = const ModeSelectionScreen();
         break;
@@ -108,7 +109,7 @@ class RouteGenerator {
       case Routes.createProfile4:
         widgetScreen = const CreateProfile4();
       case Routes.editProfile1:
-        widgetScreen = EditProfile1();
+        widgetScreen = const EditProfile1();
       case Routes.editProfile2:
         widgetScreen = const EditProfile2();
       case Routes.editProfile3:

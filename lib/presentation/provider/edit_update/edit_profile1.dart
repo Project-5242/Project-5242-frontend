@@ -1,17 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
-import 'package:flutter_project/presentation/home/dashboard.dart';
-import 'package:flutter_project/presentation/provider/edit_update/edit_profile2.dart';
 import 'package:flutter_project/presentation/widgets/desktop_create_profile.dart';
-import 'package:flutter_project/res/assets.dart';
-import 'package:flutter_project/res/assets_res.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
 import '../../widgets/app_profile.dart';
 
@@ -103,13 +94,11 @@ class _EditProfile1State extends State<EditProfile1> {
                       if (formKey.currentState!.validate()) {
                         Navigator.pushNamed(context, Routes.dashbaord);
                       }
-                      ;
                     },
                     onTap2: () {
                       if (formKey.currentState!.validate()) {
                         Navigator.pushNamed(context, Routes.editProfile2);
                       }
-                      ;
                     },
                     nodeText: AppStrings.addYoueSubNode1,
                     loremText: AppStrings.lorem),

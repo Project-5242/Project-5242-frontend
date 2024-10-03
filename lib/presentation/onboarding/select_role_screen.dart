@@ -1,27 +1,31 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
-import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
-import 'package:flutter_project/routes/routes.dart';
-import 'package:flutter_project/base/extensions/navigation_extension.dart';
-import 'package:flutter_project/routes/routes.dart';
+import 'package:flutter_project/presentation/onboarding/mode_selection_screen.dart';
+
+import '../../base/helpers/helper.dart';
 
 class SelectRoleScreen extends StatefulWidget {
+  const SelectRoleScreen({super.key});
+
   @override
-  _SelectRoleScreenState createState() => _SelectRoleScreenState();
+  SelectRoleScreenState createState() => SelectRoleScreenState();
 }
 
-class _SelectRoleScreenState extends State<SelectRoleScreen> {
+class SelectRoleScreenState extends State<SelectRoleScreen> {
   String _selectedRole = '';
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveView(
-      mobile: _mobileView(context),
-      tablet: _mobileView(context),
-      desktop: _desktopView(context),
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: ResponsiveView(
+        mobile: _mobileView(context),
+        desktop: _desktopView(context),
+      ),
     );
   }
 
@@ -62,6 +66,8 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
               onChanged: (String? value) {
                 setState(() {
                   _selectedRole = value!;
+                  print(
+                      'Selected role: $_selectedRole, is Provider: ${_selectedRole == 'provider'}');
                 });
               },
             ),
@@ -80,6 +86,8 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                 setState(
                   () {
                     _selectedRole = value!;
+                    print(
+                        'Selected role: $_selectedRole, is Provider: ${_selectedRole == 'provider'}');
                   },
                 );
               },
@@ -87,18 +95,24 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.blue, // Dark teal color
-                minimumSize:
-                    const Size(double.infinity, 60), // Button width and height
+                backgroundColor: AppColors.blue,
+                minimumSize: const Size(double.infinity, 60),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               onPressed: () {
-                Navigator.pushNamed(
+                /*Navigator.pushNamed(
                   context,
                   Routes.modeSelectionScreen,
                   arguments: {"userType": _selectedRole},
+                );*/
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ModeSelectionScreen(
+                      type: _selectedRole,
+                    ),
+                  ),
                 );
               },
               child: Text(
@@ -125,7 +139,6 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
               color: AppColors.blue,
               padding: const EdgeInsets.only(left: 85, top: 27, right: 80),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Align(
@@ -158,13 +171,10 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
               ),
             ),
           ),
-          // Right Side (White Background)
           Expanded(
             child: Container(
               color: Colors.white,
-              padding: const EdgeInsets.only(
-                left: 153,
-              ),
+              padding: const EdgeInsets.only(left: 153),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +195,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                         color: AppColors.black),
                   ),
                   const SizedBox(height: 51),
-                  RadioListTile(
+                  RadioListTile<String>(
                     title: Text(
                       AppStrings.userText,
                       style: TextStyle(
@@ -193,18 +203,17 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.black),
                     ),
-                    value: "user",
+                    value: 'user',
                     groupValue: _selectedRole,
                     activeColor: AppColors.blue,
                     onChanged: (String? value) {
-                      setState(
-                        () {
-                          _selectedRole = value!;
-                        },
-                      );
+                      setState(() {
+                        _selectedRole = value!;
+                        log('Selected role: $_selectedRole, is Provider: ${_selectedRole == 'provider'}');
+                      });
                     },
                   ),
-                  RadioListTile(
+                  RadioListTile<String>(
                     title: Text(
                       AppStrings.providerText,
                       style: TextStyle(
@@ -212,15 +221,14 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.black),
                     ),
-                    value: "provider",
+                    value: 'provider',
                     groupValue: _selectedRole,
                     activeColor: AppColors.blue,
                     onChanged: (String? value) {
-                      setState(
-                        () {
-                          _selectedRole = value!;
-                        },
-                      );
+                      setState(() {
+                        _selectedRole = value!;
+                        log('Selected role: $_selectedRole, is Provider: ${_selectedRole == 'provider'}');
+                      });
                     },
                   ),
                   const SizedBox(height: 70),
@@ -228,7 +236,13 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.loginScreen);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ModeSelectionScreen(
+                              type: _selectedRole,
+                            ),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.blue,

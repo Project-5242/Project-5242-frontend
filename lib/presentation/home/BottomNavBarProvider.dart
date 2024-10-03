@@ -1,59 +1,72 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/base/helpers/helper.dart';
+import 'package:flutter_project/presentation/home/home_widget.dart';
+import 'package:flutter_project/presentation/message/chat_message_desktop.dart';
+import 'package:flutter_project/presentation/profile/profile_view.dart';
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../data/constants/app_colors.dart';
 import '../../data/constants/responsive_view.dart';
 import '../../res/assets_res.dart';
-import '../message/chat_message_desktop.dart';
-import '../profile/profile_view.dart';
-import 'home_widget.dart';
+import '../provider/dasboard/dashboard_1_page.dart';
 
-class DashbaordWidget extends StatefulWidget {
+class BottomNavBarProvider extends StatefulWidget {
+  final String? whereComeTo;
   final int? currentIndex;
-  DashbaordWidget({super.key, this.currentIndex});
+  const BottomNavBarProvider({super.key, this.currentIndex, this.whereComeTo});
 
   @override
-  _DashbaordWidgetState createState() => _DashbaordWidgetState();
+  BottomNavBarProviderState createState() => BottomNavBarProviderState();
 }
 
-class _DashbaordWidgetState extends State<DashbaordWidget> {
+class BottomNavBarProviderState extends State<BottomNavBarProvider> {
   int _currentIndex = 0;
   final bottomNavKey = GlobalKey();
-  final List<Widget> _pages = const [
-    HomeWidget(),
-    SaveditemScreen(),
-    MessageChatScreen1(),
-    ProfileView(),
-  ];
-
-  PageController pageController = PageController();
-  SideMenuController sideMenu = SideMenuController();
-
   @override
   void initState() {
-    // Connect SideMenuController and PageController together
+    super.initState();
+
     sideMenu.addListener((index) {
       pageController.jumpToPage(index);
     });
-    setState(() {
-      _currentIndex = widget.currentIndex ?? 0;
-    });
 
-    super.initState();
+    _pages = [
+      widget.whereComeTo == "provider"
+          ? const Dashboard1Page()
+          : const HomeWidget(),
+      widget.whereComeTo == "provider"
+          ? Container(color: Colors.blue)
+          : const SaveditemScreen(),
+      widget.whereComeTo == "provider"
+          ? Container(color: Colors.yellow)
+          : const MessageChatScreen1(),
+      widget.whereComeTo == "provider"
+          ? Container(color: Colors.green)
+          : const ProfileView(),
+    ];
+
+    _currentIndex = widget.currentIndex ?? 0;
   }
+
+  List<Widget> _pages = [];
+  PageController pageController = PageController();
+  SideMenuController sideMenu = SideMenuController();
 
   bool isExpanded = true;
   @override
   Widget build(BuildContext context) {
-    return ResponsiveView(
-      mobile: _mobileView(context),
-      desktop: _desktopView(
-        context,
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: ResponsiveView(
+        mobile: _mobileView(context),
+        desktop: _desktopView(
+          context,
+        ),
+        tablet: _mobileView(context),
       ),
-      tablet: _mobileView(context),
     );
   }
 
@@ -72,7 +85,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
               ? Container(
                   height: 45,
                   width: 45,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: AppColors.background_theme,
                     borderRadius: BorderRadius.circular(8.0),
@@ -93,7 +106,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
               : Container(
                   height: 45,
                   width: 45,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   color: Colors.transparent,
                   child: SvgPicture.asset(
                     icon,
@@ -109,7 +122,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
 
   _mobileView(BuildContext context) {
     return Scaffold(
-      body: /*Platform.isAndroid||Platform.isAndroid ?*/ _pages[_currentIndex],
+      body: _pages[_currentIndex],
       bottomNavigationBar: Container(
         height: 65,
         key: bottomNavKey,
@@ -337,7 +350,7 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
           ),
           Expanded(
             child: PageView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               controller: pageController,
               children: _pages,
             ),

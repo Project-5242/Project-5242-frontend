@@ -4,6 +4,7 @@ class Routes {
   ///Create a GlobalKey<NavigatorState>
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
+
   static const String root = "/";
   static const String splashView = "/splashView";
   static const String loginScreen = "/loginScreen";
