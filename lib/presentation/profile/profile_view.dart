@@ -4,7 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/base/helpers/helper.dart';
+import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
+import 'package:flutter_project/main.dart';
 import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
@@ -327,11 +329,10 @@ class _ProfileViewState extends State<ProfileView> {
                     child: CircleAvatar(
                       radius: 50,
                       backgroundColor: AppColors.borderColor,
-                      child: const CircleAvatar(
+                      child: CircleAvatar(
                         radius: 45,
                         backgroundImage: NetworkImage(
-                          'https://media.distractify.com/brand-img/IXMXHdSmC/0x0/woman-being-splashed-with-water-1684438561942.jpg', // Replace with your profile picture URL
-                        ),
+                            "${sharedPrefs?.getString(AppStrings.userImage)}"),
                       ),
                     ),
                   ),

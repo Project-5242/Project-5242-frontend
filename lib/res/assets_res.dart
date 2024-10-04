@@ -32,6 +32,7 @@ class AssetsRes {
   static const String PASSWORD1 = 'assets/images/1 967.png';
   static const String PASSWORD2 = 'assets/images/2 1.png';
   static const String PASSWORD3 = 'assets/images/3 59417.png';
+  static const String noProfile = 'assets/images/noProfile.png';
 
   //provoder
   static const String check = 'assets/icon/Vector.png';

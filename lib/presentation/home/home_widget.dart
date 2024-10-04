@@ -326,10 +326,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
                 Row(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
                       radius: 35,
                       backgroundImage: NetworkImage(
-                        'https://www.example.com/profile_picture.jpg', // Replace with your image URL
+                        '${sharedPrefs?.getString(AppStrings.userImage)}', // Replace with your image URL
                       ),
                     ),
                     const SizedBox(

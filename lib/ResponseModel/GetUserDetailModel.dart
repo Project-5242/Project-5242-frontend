@@ -1,16 +1,14 @@
-class CommonAuthModel {
-  dynamic status;
+class GetUserDetailModel {
+  int? status;
   String? message;
   Data? data;
-  String? token;
 
-  CommonAuthModel({this.status, this.message, this.data, this.token});
+  GetUserDetailModel({this.status, this.message, this.data});
 
-  CommonAuthModel.fromJson(Map<String, dynamic> json) {
+  GetUserDetailModel.fromJson(Map<String, dynamic> json) {
     status = json["status"];
     message = json["message"];
     data = json["data"] == null ? null : Data.fromJson(json["data"]);
-    token = json["token"];
   }
 
   Map<String, dynamic> toJson() {
@@ -20,16 +18,32 @@ class CommonAuthModel {
     if (data != null) {
       _data["data"] = data?.toJson();
     }
-    _data["token"] = token;
     return _data;
   }
 }
 
 class Data {
+  User? user;
+
+  Data({this.user});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    user = json["user"] == null ? null : User.fromJson(json["user"]);
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    if (user != null) {
+      _data["user"] = user?.toJson();
+    }
+    return _data;
+  }
+}
+
+class User {
   String? id;
   String? fullName;
   String? email;
-  String? password;
   String? mobileNumber;
   dynamic location;
   String? profilePhoto;
@@ -37,20 +51,19 @@ class Data {
   bool? isProvider;
   bool? isActive;
   String? fcmToken;
-  String? category;
+  List<dynamic>? categories;
   List<dynamic>? providerDetails;
   List<SavedProvider>? savedProvider;
   dynamic otp;
   dynamic otpExpire;
   String? createdAt;
   String? updatedAt;
-  dynamic v;
+  int? v;
 
-  Data(
+  User(
       {this.id,
       this.fullName,
       this.email,
-      this.password,
       this.mobileNumber,
       this.location,
       this.profilePhoto,
@@ -58,7 +71,7 @@ class Data {
       this.isProvider,
       this.isActive,
       this.fcmToken,
-      this.category,
+      this.categories,
       this.providerDetails,
       this.savedProvider,
       this.otp,
@@ -67,11 +80,10 @@ class Data {
       this.updatedAt,
       this.v});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     id = json["_id"];
     fullName = json["fullName"];
     email = json["email"];
-    password = json["password"];
     mobileNumber = json["mobileNumber"];
     location = json["location"];
     profilePhoto = json["profilePhoto"];
@@ -79,14 +91,13 @@ class Data {
     isProvider = json["isProvider"];
     isActive = json["isActive"];
     fcmToken = json["fcmToken"];
-    category = json["category"];
+    categories = json["categories"] ?? [];
     providerDetails = json["providerDetails"] ?? [];
     savedProvider = json["savedProvider"] == null
         ? null
         : (json["savedProvider"] as List)
             .map((e) => SavedProvider.fromJson(e))
             .toList();
-
     otp = json["otp"];
     otpExpire = json["otpExpire"];
     createdAt = json["createdAt"];
@@ -99,7 +110,6 @@ class Data {
     _data["_id"] = id;
     _data["fullName"] = fullName;
     _data["email"] = email;
-    _data["password"] = password;
     _data["mobileNumber"] = mobileNumber;
     _data["location"] = location;
     _data["profilePhoto"] = profilePhoto;
@@ -107,12 +117,14 @@ class Data {
     _data["isProvider"] = isProvider;
     _data["isActive"] = isActive;
     _data["fcmToken"] = fcmToken;
-    _data["category"] = category;
+    if (categories != null) {
+      _data["categories"] = categories;
+    }
     if (providerDetails != null) {
       _data["providerDetails"] = providerDetails;
     }
     if (savedProvider != null) {
-      _data["savedProvider"] = savedProvider;
+      _data["savedProvider"] = savedProvider?.map((e) => e.toJson()).toList();
     }
     _data["otp"] = otp;
     _data["otpExpire"] = otpExpire;

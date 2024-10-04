@@ -9,6 +9,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
+  final bool readOnly;
   const CustomTextFormField(
       {super.key,
       this.title,
@@ -16,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
       this.validator,
       this.controller,
       this.obscureText = false,
+      this.readOnly = false,
       this.prefixIcon,
       this.suffixIcon});
 
@@ -35,6 +37,8 @@ class CustomTextFormField extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         TextFormField(
+          readOnly: readOnly,
+          controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText ?? "",

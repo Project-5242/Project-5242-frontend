@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_project/ResponseModel/CategoriesResponseModel.dart';
+import 'package:flutter_project/ResponseModel/GetUserDetailModel.dart';
 import 'package:flutter_project/ResponseModel/commonAuthModel.dart';
 import 'package:flutter_project/base/Remote/api_config.dart';
 import 'package:flutter_project/base/Remote/remote_service.dart';
@@ -28,6 +29,8 @@ class SignUpProvider extends ChangeNotifier {
     _otpValue = value;
     notifyListeners();
   }
+
+  CommonAuthModel commonAuthModel = CommonAuthModel();
 
   Future<void> signUpApi({
     required BuildContext context,
@@ -59,6 +62,7 @@ class SignUpProvider extends ChangeNotifier {
 
       if (context.mounted) {
         if (commonAuthResponse.status == 201) {
+          commonAuthModel = commonAuthResponse;
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => OtpScreen(
@@ -168,6 +172,7 @@ class SignUpProvider extends ChangeNotifier {
           CommonAuthModel.fromJson(jsonDecode(data.body));
       if (context.mounted) {
         if (commonAuthResponse.status == 200) {
+          commonAuthModel = commonAuthResponse;
           sharedPrefs?.setString(
               AppStrings.token, commonAuthResponse.token ?? "");
           sharedPrefs?.setBool(AppStrings.isLogin, true);
@@ -211,17 +216,17 @@ class SignUpProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  final ImagePicker _picker = ImagePicker();
-
-  XFile? selectedImage;
+  File? selectedImage;
+  String? profileImageUpdate;
 
   Future<void> pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
-
     if (pickedFile != null) {
-      image = File(pickedFile.path);
-      // profileImageUpdate = pickedFile.path;
+      selectedImage = File(pickedFile.path);
+      profileImageUpdate = pickedFile.path;
+      callUpdateProfileApi(context: Routes.navigatorKey.currentContext!);
+      notifyListeners();
     }
   }
 
@@ -250,6 +255,7 @@ class SignUpProvider extends ChangeNotifier {
           CommonAuthModel.fromJson(jsonDecode(data.body));
       if (context.mounted) {
         if (commonAuthResponse.status == 201) {
+          commonAuthModel = commonAuthResponse;
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => OtpScreen(
@@ -302,6 +308,7 @@ class SignUpProvider extends ChangeNotifier {
           CommonAuthModel.fromJson(jsonDecode(data.body));
       if (context.mounted) {
         if (commonAuthResponse.status == "success") {
+          commonAuthModel = commonAuthResponse;
           showSnackBar(
             context: context,
             message: commonAuthResponse.message,
@@ -358,6 +365,7 @@ class SignUpProvider extends ChangeNotifier {
 
       if (context.mounted) {
         if (commonAuthResponse.status == "200") {
+          commonAuthModel = commonAuthResponse;
           sharedPrefs?.setString(
               AppStrings.token, commonAuthResponse.token ?? "");
           sharedPrefs?.setString(
@@ -435,6 +443,7 @@ class SignUpProvider extends ChangeNotifier {
           CommonAuthModel.fromJson(jsonDecode(data.body));
       if (context.mounted) {
         if (commonAuthResponse.status == "success") {
+          commonAuthModel = commonAuthResponse;
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => OtpScreen(
@@ -487,6 +496,7 @@ class SignUpProvider extends ChangeNotifier {
           CommonAuthModel.fromJson(jsonDecode(data.body));
       if (context.mounted) {
         if (commonAuthResponse.status == "success") {
+          commonAuthModel = commonAuthResponse;
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (context) => NewPasswordScreen(
@@ -566,6 +576,7 @@ class SignUpProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Todo Logout
   Future<void> callLogout({
     required BuildContext context,
   }) async {
@@ -580,4 +591,83 @@ class SignUpProvider extends ChangeNotifier {
         context: context, message: 'Logged out successfully', isSuccess: true);
     notifyListeners();
   }
+
+  // Todo Get User Details
+
+  GetUserDetailModel getUserDetailModel = GetUserDetailModel();
+
+  Future<void> callGetUserDetailsApi({
+    required BuildContext context,
+  }) async {
+    try {
+      final data = await RemoteService().callGetApi(url: qGetUserDetail);
+      if (data == null) {
+        return;
+      }
+      final getUserResponse =
+          GetUserDetailModel.fromJson(jsonDecode(data.body));
+      if (context.mounted) {
+        if (getUserResponse.status == 200) {
+          getUserDetailModel = getUserResponse;
+          sharedPrefs?.setString(AppStrings.userImage,
+              getUserResponse.data?.user?.profilePhoto ?? "");
+          sharedPrefs?.setString(
+              AppStrings.userName, getUserResponse.data?.user?.fullName ?? "");
+          sharedPrefs?.setString(AppStrings.userMobile,
+              getUserResponse.data?.user?.mobileNumber ?? "");
+          sharedPrefs?.setString(
+              AppStrings.userEmail, getUserResponse.data?.user?.email ?? "");
+          notifyListeners();
+          showSnackBar(
+            context: context,
+            message: getUserResponse.message,
+            isSuccess: true,
+          );
+        } else {
+          showSnackBar(
+            context: context,
+            message: getUserResponse.message,
+            isSuccess: false,
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(
+          context: context,
+          message: 'An error occurred: $e',
+          isSuccess: false,
+        );
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<void> callUpdateProfileApi({required BuildContext context}) async {
+    final data = await RemoteService().callMultipartApi(
+      url: qUpdateProfilePic,
+      fileParamName: "profileImage",
+      file: selectedImage,
+      requestBody: {},
+    );
+    if (data == null) {
+      return;
+    }
+    final response = GetUserDetailModel.fromJson(jsonDecode(data.body));
+    if (context.mounted) {
+      if (response.status == 200) {
+        showSnackBar(
+            context: Routes.navigatorKey.currentContext,
+            isSuccess: true,
+            message: response.message);
+      } else {
+        showSnackBar(
+            context: Routes.navigatorKey.currentContext,
+            isSuccess: false,
+            message: response.message);
+      }
+    }
+  }
+
+  notifyListeners();
 }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/base/helpers/textwidget.dart';
@@ -160,8 +158,6 @@ void openImagePickerBottomSheet(BuildContext context) {
     },
   );
 }
-
-File? image;
 
 DateTime? currentBackPressTime;
 
