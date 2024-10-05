@@ -8,13 +8,11 @@ on:
       - main
       - master
       - develop
-
 name: "Build & Release"
-
 jobs:
-  build_windows:
-    name: Build on Windows
-    runs-on: windows-latest
+  build:
+    name: Build & Release
+    runs-on: window-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -35,41 +33,17 @@ jobs:
           ln -s ../Runner.app
           cd ..
           zip -r app.ipa Payload
-
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.Token }}
+          token: ${{ secrets.TOKEN }}
 
-  build_macos:
-    name: Build on macOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '12'
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          architecture: x64
 
-      - run: flutter build apk --release --split-per-abi
-      - run: |
-          flutter build ios --no-codesign
-          cd build/ios/iphoneos
-          mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
 
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.Token }}
+
+
+
+# push to master, main, develop
+# pull request on main master
