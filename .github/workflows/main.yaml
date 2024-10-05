@@ -8,42 +8,107 @@ on:
       - main
       - master
       - develop
+
 name: "Build & Release"
+
 jobs:
-  build:
-    name: Build & Release
-    runs-on: window
+  build_android:
+    name: Build Android APK
+    runs-on: ubuntu-latest  # Use Ubuntu for Android builds
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '12'
+
+      # Set up Flutter environment
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           architecture: x64
 
+      # Cache pub dependencies
+      - name: Cache Flutter Pub Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      # Build Android APK
       - run: flutter build apk --release --split-per-abi
+
+      # Upload the APKs as artifacts
+      - name: Upload APK to Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.Token }}
+
+  build_ios:
+    name: Build iOS IPA
+    runs-on: macos-latest  # macOS is required for iOS builds
+    steps:
+      - uses: actions/checkout@v3
+
+      # Set up Flutter environment
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+
+      # Cache pub dependencies
+      - name: Cache Flutter Pub Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      # Build iOS IPA (without codesigning)
       - run: |
           flutter build ios --no-codesign
           cd build/ios/iphoneos
           mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
+          mv Runner.app Payload/
           zip -r app.ipa Payload
-      - name: Push to Releases
+
+      # Upload the IPA as an artifact
+      - name: Upload IPA to Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+          artifacts: "build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.Token }}
 
+  build_windows:
+    name: Build Windows App
+    runs-on: windows-latest  # Use Windows for desktop builds
+    steps:
+      - uses: actions/checkout@v3
 
+      # Set up Flutter environment
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
 
+      # Cache pub dependencies
+      - name: Cache Flutter Pub Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
 
+      # Build Windows App
+      - run: flutter build windows --release
 
-
-# push to master, main, develop
-# pull request on main master
+      # Upload the Windows app as an artifact
+      - name: Upload Windows Build to Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/windows/runner/Release/*.exe"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.Token }}

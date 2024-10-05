@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/helpers/helper.dart';
+import 'package:flutter_project/presentation/Chat%20With%20Help/AllChatScreen.dart';
 import 'package:flutter_project/presentation/home/home_widget.dart';
-import 'package:flutter_project/presentation/message/chat_message_desktop.dart';
 import 'package:flutter_project/presentation/profile/profile_view.dart';
 import 'package:flutter_project/presentation/savedItems/savedItem_screen.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,7 +42,7 @@ class BottomNavBarProviderState extends State<BottomNavBarProvider> {
           : const SaveditemScreen(),
       widget.whereComeTo == "provider"
           ? Container(color: Colors.yellow)
-          : const MessageChatScreen1(),
+          : const AllChatScreen(),
       widget.whereComeTo == "provider"
           ? Container(color: Colors.green)
           : const ProfileView(),

@@ -81,45 +81,6 @@ class _SplashViewState extends State<SplashView> {
     );
   }
 
-  /* Future<void> startSplashScreenTimer() async {
-    timer = Timer(
-      const Duration(seconds: 3),
-      () async {
-        final response = ResponsiveCheck(context);
-        if (context.mounted) {
-          if (sharedPrefs?.getBool(AppStrings.isLogin) == true) {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => const BottomNavBarProvider(
-                          whereComeTo: "provider",
-                        )),
-                (route) => false);
-          } else if (sharedPrefs?.getBool(AppStrings.isSliderComplete) ==
-              true) {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => const SelectRoleScreen(),
-                ),
-                (route) => false);
-          } else {
-            response.isMobile
-                ? Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => const OnboardingScreen(),
-                    ),
-                    (route) => false)
-                : Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => const SelectRoleScreen(),
-                    ),
-                    (route) => false);
-          }
-        }
-      },
-    );
-    // getDeviceToken();
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

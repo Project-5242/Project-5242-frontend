@@ -3,8 +3,6 @@ import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/auth/forget_password.dart';
 import 'package:flutter_project/presentation/auth/sign_up.dart';
 import 'package:flutter_project/presentation/home/dashboard.dart';
-import 'package:flutter_project/presentation/message/chat.dart';
-import 'package:flutter_project/presentation/message/messages.dart';
 import 'package:flutter_project/presentation/provider/dasboard/dashboard_1_page.dart';
 import 'package:flutter_project/presentation/provider/dasboard/provider_menu_page.dart';
 import 'package:flutter_project/presentation/provider/dasboard/saved_node.dart';
@@ -84,12 +82,6 @@ class RouteGenerator {
       // Provider
       case Routes.selectCategoryView:
         widgetScreen = const SelectCategoryView();
-      case Routes.chatscreen:
-        widgetScreen = const ChatScreen();
-        break;
-      case Routes.messages:
-        widgetScreen = const MessageScreen();
-        break;
       case Routes.allnotes:
         widgetScreen = const NotesWidget();
       case Routes.createProfile:

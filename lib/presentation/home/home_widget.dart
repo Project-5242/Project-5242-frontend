@@ -403,29 +403,46 @@ class _HomeWidgetState extends State<HomeWidget> {
                     itemCount: value.categoriesList.length,
                     itemBuilder: (context, index) {
                       var catData = value.categoriesList[index];
-                      return Container(
-                        margin: const EdgeInsets.only(
-                            left: 10, right: 10, top: 5, bottom: 5),
-                        padding: const EdgeInsets.only(left: 15, right: 15),
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color: AppColors.category_bg,
-                          borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.white.withOpacity(0.2),
-                              blurRadius: 5.0,
+
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            value.selectedCategoryIndex = index;
+                          });
+
+                          context.read<DetailsProvider>().callDetailsApi(
+                              context: context, categoryId: catData.id);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              left: 10, right: 10, top: 5, bottom: 5),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: AppColors.category_bg,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.white.withOpacity(0.2),
+                                blurRadius: 5.0,
+                              ),
+                            ],
+                            border: value.selectedCategoryIndex == index
+                                ? Border.all(
+                                    color: AppColors.greyLight,
+                                    width: 2.0,
+                                  )
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${catData.categoryName?.capitalized}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w600),
                             ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            "${catData.categoryName?.capitalized}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: AppColors.white,
-                                fontWeight: FontWeight.w600),
                           ),
                         ),
                       );

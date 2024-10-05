@@ -14,6 +14,7 @@ class TextWidget extends StatelessWidget {
   final TextDecoration? decoration;
   final int? maxLines;
   final double? height;
+  final bool? softWrap;
   final List<Shadow>? shadows;
   const TextWidget(
       {super.key,
@@ -24,6 +25,7 @@ class TextWidget extends StatelessWidget {
       this.fontSize,
       this.overflow,
       this.fontWeight,
+      this.softWrap,
       this.decoration,
       this.maxLines,
       this.height,
@@ -36,6 +38,7 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      softWrap: softWrap,
       textAlign: textAlign,
       maxLines: maxLines,
       style: TextStyle(

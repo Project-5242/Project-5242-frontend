@@ -1,42 +1,40 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_project/ResponseModel/ProviderDetailsModel.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_project/ResponseModel/AllChatUserListModel.dart';
 import 'package:flutter_project/base/Remote/api_config.dart';
 import 'package:flutter_project/base/Remote/remote_service.dart';
 import 'package:flutter_project/base/helpers/helper.dart';
 
-class DetailsProvider extends ChangeNotifier {
-  List<ProviderDetailsList> providerList = [];
-  Future<void> callDetailsApi({
+class MessageProvider with ChangeNotifier {
+  // Todo Api Call
+
+  List<AllChatList> allChatList = [];
+
+  Future<void> callAllChatListApi({
     required BuildContext context,
-    String? categoryId,
   }) async {
     try {
-      String apiUrl = qUserProviderDetails;
-      if (categoryId != null && categoryId.isNotEmpty) {
-        apiUrl = '$apiUrl/category/$categoryId';
-      }
-      final data = await RemoteService().callGetApi(url: apiUrl);
+      final data = await RemoteService().callGetApi(url: qAllChatList);
       if (data == null) {
         return;
       }
-      final providerDetailsResponse =
-          ProviderDetailsModel.fromJson(jsonDecode(data.body));
+      final allChatResponse =
+          AllChatUserListModel.fromJson(jsonDecode(data.body));
       if (context.mounted) {
-        if (providerDetailsResponse.status == 200) {
-          providerList = providerDetailsResponse.data ?? [];
+        if (allChatResponse.status == 'success') {
+          allChatList = allChatResponse.data ?? [];
           notifyListeners();
 
           showSnackBar(
             context: context,
-            message: providerDetailsResponse.message,
+            message: allChatResponse.message,
             isSuccess: true,
           );
         } else {
           showSnackBar(
             context: context,
-            message: providerDetailsResponse.message,
+            message: allChatResponse.message,
             isSuccess: false,
           );
         }

@@ -32,6 +32,8 @@ class SignUpProvider extends ChangeNotifier {
 
   CommonAuthModel commonAuthModel = CommonAuthModel();
 
+  // Todo Sign Up Api
+
   Future<void> signUpApi({
     required BuildContext context,
     required String fullName,
@@ -107,6 +109,7 @@ class SignUpProvider extends ChangeNotifier {
   List<CategoriesList> categoriesList = [];
   int currentPage = 1;
   int totalPages = 1;
+  int? selectedCategoryIndex;
 
   Future<void> allCategoryApi({required BuildContext context}) async {
     try {
@@ -361,7 +364,7 @@ class SignUpProvider extends ChangeNotifier {
       final commonAuthResponse =
           CommonAuthModel.fromJson(jsonDecode(data.body));
 
-      print("Response Body: ${data.body}"); // Log response body
+      print("Response Body: ${data.body}");
 
       if (context.mounted) {
         if (commonAuthResponse.status == "200") {
@@ -667,7 +670,6 @@ class SignUpProvider extends ChangeNotifier {
             message: response.message);
       }
     }
+    notifyListeners();
   }
-
-  notifyListeners();
 }
