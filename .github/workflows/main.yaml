@@ -20,7 +20,14 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '12'
+          java-version: '17'  # Changed to a supported version
+          java-package: jdk
+          check-latest: false
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+          overwrite-settings: true
+
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -51,7 +58,14 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '12'
+          java-version: '17'  # Changed to a supported version
+          java-package: jdk
+          check-latest: false
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+          overwrite-settings: true
+
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
