@@ -42,7 +42,7 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.Token }}
+          token: ${{ secrets.TOKEN }}
 
   build_ios:
     name: Build iOS IPA
@@ -79,7 +79,7 @@ jobs:
         with:
           artifacts: "build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.Token }}
+          token: ${{ secrets.TOKEN }}
 
   build_windows:
     name: Build Windows App
@@ -106,9 +106,11 @@ jobs:
       - run: flutter build windows --release
 
       # Upload the Windows app as an artifact
-      - name: Upload Windows Build to Release
+      - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/windows/runner/Release/*.exe"
+          artifacts: "build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa"
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.Token }}
+          token: ${{ secrets.TOKEN }}  # Correct token reference
+          replacesArtifacts: true
+
