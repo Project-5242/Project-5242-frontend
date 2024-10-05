@@ -106,11 +106,9 @@ jobs:
       - run: flutter build windows --release
 
       # Upload the Windows app as an artifact
-      - name: Push to Releases
+      - name: Upload Windows to Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa"
+          artifacts: "build/windows/runner/Release/*.exe"  # Adjust this path as necessary
           tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.TOKEN }}  # Correct token reference
-          replacesArtifacts: true
-
+          token: ${{ secrets.TOKEN }}  # Your TOKEN secret
