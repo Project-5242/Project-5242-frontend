@@ -1,5 +1,5 @@
 class AllChatUserListModel {
-  String? status;
+  int? status;
   String? message;
   List<AllChatList>? data;
 

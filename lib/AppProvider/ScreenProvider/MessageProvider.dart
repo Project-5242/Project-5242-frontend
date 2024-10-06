@@ -22,7 +22,7 @@ class MessageProvider with ChangeNotifier {
       final allChatResponse =
           AllChatUserListModel.fromJson(jsonDecode(data.body));
       if (context.mounted) {
-        if (allChatResponse.status == 'success') {
+        if (allChatResponse.status == 200) {
           allChatList = allChatResponse.data ?? [];
           notifyListeners();
 

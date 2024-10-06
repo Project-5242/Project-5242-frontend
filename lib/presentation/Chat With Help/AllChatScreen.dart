@@ -89,7 +89,6 @@ class AllChatScreenState extends State<AllChatScreen>
             itemBuilder: (context, index) {
               final message = provider.allChatList[index];
 
-              // Handle the case where lastMessage is null
               final lastMessageText =
                   message.lastMessage?.text ?? "No message yet";
               final lastMessageTimestamp = message.lastMessage?.timestamp ?? "";
@@ -111,10 +110,13 @@ class AllChatScreenState extends State<AllChatScreen>
               );
             },
           )
-        : TextWidget(
-            text: "No Chat List Found!",
-            fontSize: 24,
-            color: AppColors.grey,
+        : Center(
+            child: TextWidget(
+              textAlign: TextAlign.center,
+              text: "No Chat List Found!",
+              fontSize: 24,
+              color: AppColors.grey,
+            ),
           );
   }
 }

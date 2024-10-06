@@ -55,7 +55,7 @@ void showSnackBar({
         )),
       ],
     ),
-    backgroundColor: isSuccess ? AppColors.textGrey : AppColors.red,
+    backgroundColor: isSuccess ? AppColors.green : AppColors.red,
   );
   ScaffoldMessenger.of(context!).showSnackBar(snackBar);
 }
