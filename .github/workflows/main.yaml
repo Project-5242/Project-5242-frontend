@@ -13,7 +13,7 @@ name: "Build & Release"
 
 jobs:
   build_macos:
-    name: Build on macOS
+    name: Build & Release
     runs-on: macos-latest
     steps:
       - name: Checkout repository
