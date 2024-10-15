@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
-import 'package:flutter_project/presentation/provider/edit_update/edit_profile1.dart';
-import 'package:flutter_project/res/assets_res.dart';
+import 'package:flutter_project/presentation/home/BottomNavBarProvider.dart';
 
-import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
-
-import '../../widgets/app_button.dart';
 import '../../widgets/custom_button.dart';
-import 'ctreate_profile3.dart';
 
 class CreateProfile4 extends StatelessWidget {
   const CreateProfile4({super.key});
@@ -31,25 +26,37 @@ class CreateProfile4 extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.305,
+              height: MediaQuery.of(context).size.height * 0.2,
             ),
             Image.asset(
+              height: 150,
               AssetsRes.check,
               fit: BoxFit.contain,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.053,
             ),
-            Text(
-              AppStrings.profileCreated,
-              style: context.customFont(
-                  'Open Sans', 24.0, FontWeight.w700, AppColors.themeColor),
+            Center(
+              child: Text(
+                AppStrings.profileCreated,
+                style: context.customFont(
+                    'Open Sans', 24.0, FontWeight.w700, AppColors.themeColor),
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.037,
             ),
             CustomButton(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => const BottomNavBarProvider(
+                      whereComeTo: "provider",
+                    ),
+                  ),
+                  (route) => false,
+                );
+              },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
               text: AppStrings.done,
@@ -61,7 +68,14 @@ class CreateProfile4 extends StatelessWidget {
               color: AppColors.white,
               color1: AppColors.themeColor,
               onTap: () {
-                Navigator.pushNamed(context, Routes.editProfile1);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => const BottomNavBarProvider(
+                      whereComeTo: "provider",
+                    ),
+                  ),
+                  (route) => false,
+                );
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
@@ -73,7 +87,16 @@ class CreateProfile4 extends StatelessWidget {
             CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => const BottomNavBarProvider(
+                      whereComeTo: "provider",
+                    ),
+                  ),
+                  (route) => false,
+                );
+              },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
               text: AppStrings.preview,
@@ -99,7 +122,7 @@ _deskTopView(BuildContext context) {
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.25),
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
                 blurRadius: 20,
                 spreadRadius: 0,
               ),

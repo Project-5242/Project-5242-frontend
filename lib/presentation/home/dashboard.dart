@@ -13,7 +13,7 @@ import 'home_widget.dart';
 
 class DashbaordWidget extends StatefulWidget {
   final int? currentIndex;
-  DashbaordWidget({super.key, this.currentIndex});
+  const DashbaordWidget({super.key, this.currentIndex});
 
   @override
   _DashbaordWidgetState createState() => _DashbaordWidgetState();

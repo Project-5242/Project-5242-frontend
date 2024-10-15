@@ -4,8 +4,11 @@ import 'package:flutter_project/base/helpers/helper.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
+import 'package:flutter_project/presentation/widgets/app_text_field_widget.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class EditProfileView extends StatefulWidget {
   const EditProfileView({super.key});
@@ -20,6 +23,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
+  bool _obsecureText = true;
   @override
   void initState() {
     super.initState();
@@ -129,6 +133,17 @@ class _EditProfileViewState extends State<EditProfileView> {
                     Navigator.pop(context);
                   },
                 ),
+                actions: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.share,
+                      color: AppColors.black,
+                    ),
+                    onPressed: () {
+                      Share.share("App is under development");
+                    },
+                  ),
+                ],
                 centerTitle: true,
                 title: Text(
                   AppStrings.editProfile,
@@ -153,7 +168,17 @@ class _EditProfileViewState extends State<EditProfileView> {
                           backgroundColor: AppColors.darkBlue,
                           title: "Change Picture",
                           onPressed: () {
-                            openImagePickerBottomSheet(context);
+                            openImagePickerBottomSheet(
+                              context: context,
+                              onTapCamera: () {
+                                profileValue.pickImage(ImageSource.camera);
+                                Navigator.of(context).pop();
+                              },
+                              onTapGallery: () {
+                                profileValue.pickImage(ImageSource.gallery);
+                                Navigator.of(context).pop();
+                              },
+                            );
                           },
                         ),
                         SizedBox(height: height * 0.04),
@@ -198,16 +223,23 @@ class _EditProfileViewState extends State<EditProfileView> {
                           },
                         ),
                         SizedBox(height: height * 0.03),
-                        CustomTextFormField(
+                        /* CustomTextFormField(
                           controller: passwordController,
                           title: "Password",
                           hintText: "Enter Your Password",
+                          password: _obsecureText,
                           suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _obsecureText = !_obsecureText;
+                              });
+                            },
                             icon: Icon(
-                              Icons.visibility_off,
-                              color: AppColors.black,
-                            ),
-                            onPressed: () {},
+                                _obsecureText
+                                    ? CupertinoIcons.eye_slash
+                                    : CupertinoIcons.eye,
+                                size: 24.0,
+                                color: AppColors.themeColor),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -218,7 +250,38 @@ class _EditProfileViewState extends State<EditProfileView> {
                             }
                             return null;
                           },
+                        ),*/
+                        AppTextFieldWidget(
+                          controller: passwordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            } else if (value.length < 6) {
+                              return 'Password must be at least 6 characters.';
+                            }
+                            return null;
+                          },
+                          password: _obsecureText,
+                          suffix: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _obsecureText = !_obsecureText;
+                              });
+                            },
+                            icon: Icon(
+                                _obsecureText
+                                    ? Icons.visibility_off_sharp
+                                    : Icons.visibility_sharp,
+                                size: 24.0,
+                                color: AppColors.black),
+                          ),
+                          title: AppStrings.password,
+                          borderSideColor:
+                              const Color(0xff858585).withOpacity(0.3),
+                          hint: 'Enter Your Password',
+                          fillColor: AppColors.textFill,
                         ),
+                        // SizedBox(
                         // SizedBox(height: height * 0.05),
 
                         // SizedBox(height: height * 0.19),

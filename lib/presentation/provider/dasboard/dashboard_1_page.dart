@@ -3,6 +3,7 @@ import 'package:flutter_project/base/extensions/text_style_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
+import 'package:flutter_project/presentation/provider/dasboard/provider_menu_page.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:gap/gap.dart';
 
@@ -33,7 +34,10 @@ class Dashboard1Page extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.menuView);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProviderMenuPage()));
                   },
                   child: Image.asset(
                     AssetsRes.MENU_ICON,
@@ -48,11 +52,6 @@ class Dashboard1Page extends StatelessWidget {
                       fontWeight: FontWeight.bold, color: Colors.black),
                 ),
               ],
-            ),
-            Image.asset(
-              AssetsRes.ARROW,
-              height: 25,
-              width: 25,
             ),
           ],
         ),
@@ -82,7 +81,7 @@ class Dashboard1Page extends StatelessWidget {
                           style: context.titleMedium
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
-                        Gap(6),
+                        const Gap(6),
                         Text(
                           "1058",
                           style: context.titleLarge.copyWith(
@@ -234,7 +233,7 @@ class Dashboard1Page extends StatelessWidget {
                                       style: context.titleMedium.copyWith(
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Gap(6),
+                                    const Gap(6),
                                     Text(
                                       "1058",
                                       style: context.titleLarge.copyWith(

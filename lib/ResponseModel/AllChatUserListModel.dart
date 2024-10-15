@@ -1,5 +1,5 @@
 class AllChatUserListModel {
-  int? status;
+  dynamic status;
   String? message;
   List<AllChatList>? data;
 

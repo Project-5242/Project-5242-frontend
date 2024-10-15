@@ -24,6 +24,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     Future.delayed(Duration.zero, () {
       context.read<SignUpProvider>().init();
       context.read<DetailsProvider>().callDetailsApi(context: context);
+      context.read<SignUpProvider>().callGetUserDetailsApi(context: context);
       setupScrollListener(
         scrollController: context.read<SignUpProvider>().scrollController,
         currentPage: context.read<SignUpProvider>().currentPage,
@@ -247,7 +248,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           color: AppColors.black),
                                     ),
                                   ),
-                                  const Icon(Icons.favorite_border),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: detailData.isSaved == true
+                                        ? const Icon(Icons.favorite,
+                                            color: Colors.red)
+                                        : const Icon(
+                                            Icons.favorite_border,
+                                          ),
+                                  )
                                 ],
                               ),
                               const SizedBox(height: 5),

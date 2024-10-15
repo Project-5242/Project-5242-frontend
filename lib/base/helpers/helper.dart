@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/base/helpers/textwidget.dart';
-import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 showLoaderDialog(BuildContext context) {
   AlertDialog alert = AlertDialog(
@@ -86,7 +85,10 @@ void setupScrollListener({
   });
 }
 
-void openImagePickerBottomSheet(BuildContext context) {
+void openImagePickerBottomSheet(
+    {required BuildContext context,
+    required void Function() onTapCamera,
+    required void Function() onTapGallery}) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -118,12 +120,7 @@ void openImagePickerBottomSheet(BuildContext context) {
                   ListTile(
                     leading: const Icon(Icons.photo_library),
                     title: const Text('Choose from Gallery'),
-                    onTap: () {
-                      context
-                          .read<SignUpProvider>()
-                          .pickImage(ImageSource.gallery);
-                      Navigator.pop(context); // Close the bottom sheet
-                    },
+                    onTap: onTapGallery,
                     trailing: Icon(
                       Icons.arrow_forward_ios_sharp,
                       color: AppColors.grey,
@@ -136,19 +133,13 @@ void openImagePickerBottomSheet(BuildContext context) {
                   ),
                   const SizedBox(height: 5),
                   ListTile(
-                    trailing: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      color: AppColors.grey,
-                    ),
-                    leading: const Icon(Icons.camera_alt),
-                    title: const Text('Take a Photo'),
-                    onTap: () {
-                      context
-                          .read<SignUpProvider>()
-                          .pickImage(ImageSource.camera);
-                      Navigator.pop(context); // Close the bottom sheet
-                    },
-                  ),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios_sharp,
+                        color: AppColors.grey,
+                      ),
+                      leading: const Icon(Icons.camera_alt),
+                      title: const Text('Take a Photo'),
+                      onTap: onTapCamera),
                 ],
               ),
             ),
@@ -279,4 +270,28 @@ void showLogoutDialog({
       );
     },
   );
+}
+
+String formatTimeOfDay(TimeOfDay time) {
+  final hours = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
+  final period = time.period == DayPeriod.am ? "AM" : "PM";
+  return "$hours:00$period"; // Assuming you don't need to handle minutes
+}
+
+Future<void> pickImage(ImageSource source) async {
+  final picker = ImagePicker();
+  final pickedFile = await picker.pickImage(source: source);
+  if (pickedFile != null) {}
+}
+
+String formatDateTimeToIST(String utcDateTime) {
+  DateTime parsedDateTime = DateTime.parse(utcDateTime);
+
+  DateTime istDateTime =
+      parsedDateTime.toUtc().add(Duration(hours: 5, minutes: 30));
+
+  String formattedDateTime =
+      DateFormat('dd MMM yyyy, hh:mm a').format(istDateTime);
+
+  return formattedDateTime;
 }

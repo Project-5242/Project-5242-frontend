@@ -66,8 +66,7 @@ class SelectRoleScreenState extends State<SelectRoleScreen> {
               onChanged: (String? value) {
                 setState(() {
                   _selectedRole = value!;
-                  print(
-                      'Selected role: $_selectedRole, is Provider: ${_selectedRole == 'provider'}');
+                  log('Selected role: $_selectedRole, is Provider: ${_selectedRole == 'provider'}');
                 });
               },
             ),
@@ -102,27 +101,32 @@ class SelectRoleScreenState extends State<SelectRoleScreen> {
                 ),
               ),
               onPressed: () {
-                /*Navigator.pushNamed(
-                  context,
-                  Routes.modeSelectionScreen,
-                  arguments: {"userType": _selectedRole},
-                );*/
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ModeSelectionScreen(
-                      type: _selectedRole,
+                if (_selectedRole.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Please select a role to proceed."),
+                      backgroundColor: Colors.red,
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ModeSelectionScreen(
+                        type: _selectedRole,
+                      ),
+                    ),
+                  );
+                }
               },
               child: Text(
                 AppStrings.proceed,
                 style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.white),
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),

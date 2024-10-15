@@ -13,7 +13,7 @@ class AppStrings {
   static const String email = 'Email';
   static const String enterPassword = 'Enter Your Password';
   static const String password = 'Password';
-  static const String forgetPassword = 'Forget Password?';
+  static const String forgetPassword = 'Forget Password';
   static const String donthaveAccount = 'Don’t have an account? ';
   static const String alreadyhaveAccount = 'Already have an account? ';
   static const String signUp = 'Sign up';

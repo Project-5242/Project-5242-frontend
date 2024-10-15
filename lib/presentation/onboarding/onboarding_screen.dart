@@ -57,7 +57,7 @@ class OnboardingScreen extends StatelessWidget {
                           ),
                         )
                       : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
                               style: TextButton.styleFrom(
@@ -89,7 +89,7 @@ class OnboardingScreen extends StatelessWidget {
                                     height: 8,
                                     width:
                                         onboardingProvider.currentPage == index
-                                            ? 30
+                                            ? 10
                                             : 10,
                                     decoration: BoxDecoration(
                                       color: onboardingProvider.currentPage ==
@@ -141,12 +141,12 @@ class OnboardingScreen extends StatelessWidget {
           context: context,
           title: AppStrings.onboardtitle,
           description: AppStrings.onboardSubText,
-          img: AssetsRes.ONBOARDING_IMG3),
+          img: AssetsRes.ONBOARDING_IMG1),
       _onboardingComp(
           context: context,
           title: AppStrings.onboardtitle,
           description: AppStrings.onboardSubText,
-          img: AssetsRes.ONBOARDING_IMG3),
+          img: AssetsRes.ONBOARDING_IMG2),
       _onboardingComp(
           context: context,
           title: AppStrings.onboardtitle,
@@ -164,10 +164,9 @@ Widget _onboardingComp({
 }) {
   return Column(
     children: [
+      const SizedBox(height: 50),
       Image.asset(img),
-      const SizedBox(
-        height: 57,
-      ),
+      const SizedBox(height: 20),
       Text(
         title,
         style: const TextStyle(

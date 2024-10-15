@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/AppProvider/ScreenProvider/DetailsProvider.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/presentation/savedItems/components/saved_item_comp.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class SaveditemScreen extends StatefulWidget {
   const SaveditemScreen({super.key});
@@ -14,6 +16,15 @@ class SaveditemScreen extends StatefulWidget {
 }
 
 class _SaveditemScreenState extends State<SaveditemScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.delayed(Duration.zero, () {
+      context.read<DetailsProvider>().callAllSaveNodeListApi(context: context);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final response = ResponsiveCheck(context);

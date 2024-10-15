@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
 import 'package:flutter_project/presentation/provider/select_category_view.dart';
@@ -59,6 +60,10 @@ class _SignUpState extends State<SignUp> {
                       height: MediaQuery.of(context).size.height * 0.020,
                     ),
                     AppTextFieldWidget(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r"[a-zA-Z\s]")),
+                      ],
                       controller: fullnameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -144,22 +149,36 @@ class _SignUpState extends State<SignUp> {
                     AppTextFieldWidget(
                       inputType: TextInputType.phone,
                       controller: mobileController,
+                      inputFormatters: [
+                        FilteringTextInputFormatter
+                            .digitsOnly, // Allow only digits
+                        LengthLimitingTextInputFormatter(
+                            14), // Limit to a maximum of 14 characters
+                      ],
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your mobile number';
-                        } else if (!RegExp(r"^[0-9]{10}$").hasMatch(value)) {
-                          return "Enter a valid 10\ndigit phone number";
+                        } else if (!RegExp(r"^[0-9]{10,14}$").hasMatch(value)) {
+                          return "Enter a valid phone number (10 to 14 digits)";
                         }
                         return null;
+                      },
+                      onChanged: (value) {
+                        // Show warning if length exceeds 14 digits
+                        if (value.length > 14) {
+                          showWarning(
+                              context, "Phone number cannot exceed 14 digits");
+                        }
                       },
                       title: AppStrings.mobilenumber,
                       borderSideColor: AppColors.grey,
                       hint: AppStrings.enteryourMobileNumber,
                       hintStyle: context.customFont(
-                          'Open Sans',
-                          isDesktop ? 20.0 : 18.0,
-                          FontWeight.w400,
-                          AppColors.grey),
+                        'Open Sans',
+                        isDesktop ? 20.0 : 18.0,
+                        FontWeight.w400,
+                        AppColors.grey,
+                      ),
                       fillColor: AppColors.textFill,
                     ),
                     SizedBox(
@@ -236,5 +255,15 @@ class _SignUpState extends State<SignUp> {
         );
       }));
     });
+  }
+
+  void showWarning(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 }

@@ -1,18 +1,14 @@
-class ProviderDetailsModel {
-  int? status;
+class CreateNodeModel {
+  dynamic status;
   String? message;
-  List<ProviderDetailsList>? data;
+  Data? data;
 
-  ProviderDetailsModel({this.status, this.message, this.data});
+  CreateNodeModel({this.status, this.message, this.data});
 
-  ProviderDetailsModel.fromJson(Map<String, dynamic> json) {
+  CreateNodeModel.fromJson(Map<String, dynamic> json) {
     status = json["status"];
     message = json["message"];
-    data = json["data"] == null
-        ? null
-        : (json["data"] as List)
-            .map((e) => ProviderDetailsList.fromJson(e))
-            .toList();
+    data = json["data"] == null ? null : Data.fromJson(json["data"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -20,13 +16,39 @@ class ProviderDetailsModel {
     _data["status"] = status;
     _data["message"] = message;
     if (data != null) {
-      _data["data"] = data?.map((e) => e.toJson()).toList();
+      _data["data"] = data?.toJson();
     }
     return _data;
   }
 }
 
-class ProviderDetailsList {
+class Data {
+  Provider? provider;
+  ProviderDetails? providerDetails;
+
+  Data({this.provider, this.providerDetails});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    provider =
+        json["provider"] == null ? null : Provider.fromJson(json["provider"]);
+    providerDetails = json["providerDetails"] == null
+        ? null
+        : ProviderDetails.fromJson(json["providerDetails"]);
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    if (provider != null) {
+      _data["provider"] = provider?.toJson();
+    }
+    if (providerDetails != null) {
+      _data["providerDetails"] = providerDetails?.toJson();
+    }
+    return _data;
+  }
+}
+
+class ProviderDetails {
   String? id;
   ProviderId? providerId;
   List<Nodes>? nodes;
@@ -34,19 +56,17 @@ class ProviderDetailsList {
   String? createdAt;
   String? updatedAt;
   int? v;
-  bool? isSaved;
 
-  ProviderDetailsList(
+  ProviderDetails(
       {this.id,
       this.providerId,
       this.nodes,
       this.totalView,
       this.createdAt,
-      this.isSaved,
       this.updatedAt,
       this.v});
 
-  ProviderDetailsList.fromJson(Map<String, dynamic> json) {
+  ProviderDetails.fromJson(Map<String, dynamic> json) {
     id = json["_id"];
     providerId = json["providerId"] == null
         ? null
@@ -57,7 +77,6 @@ class ProviderDetailsList {
     totalView = json["totalView"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
-    isSaved = json["isSaved"];
     v = json["__v"];
   }
 
@@ -74,7 +93,6 @@ class ProviderDetailsList {
     _data["createdAt"] = createdAt;
     _data["updatedAt"] = updatedAt;
     _data["__v"] = v;
-    _data["isSaved"] = isSaved;
     return _data;
   }
 }
@@ -84,7 +102,7 @@ class Nodes {
   String? addWorkHour;
   String? title;
   String? addDescription;
-  List<String>? images;
+  List<dynamic>? images;
   String? location;
   double? longitude;
   double? latitude;
@@ -110,7 +128,7 @@ class Nodes {
     addWorkHour = json["addWorkHour"];
     title = json["title"];
     addDescription = json["addDescription"];
-    images = json["images"] == null ? null : List<String>.from(json["images"]);
+    images = json["images"] ?? [];
     location = json["location"];
     longitude = json["longitude"];
     latitude = json["latitude"];
@@ -145,15 +163,13 @@ class Nodes {
 class ProviderId {
   String? id;
   String? fullName;
-  String? email;
   String? profilePhoto;
 
-  ProviderId({this.id, this.fullName, this.email, this.profilePhoto});
+  ProviderId({this.id, this.fullName, this.profilePhoto});
 
   ProviderId.fromJson(Map<String, dynamic> json) {
     id = json["_id"];
     fullName = json["fullName"];
-    email = json["email"];
     profilePhoto = json["profilePhoto"];
   }
 
@@ -161,8 +177,26 @@ class ProviderId {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["_id"] = id;
     _data["fullName"] = fullName;
-    _data["email"] = email;
     _data["profilePhoto"] = profilePhoto;
+    return _data;
+  }
+}
+
+class Provider {
+  String? name;
+  String? photo;
+
+  Provider({this.name, this.photo});
+
+  Provider.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+    photo = json["photo"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["name"] = name;
+    _data["photo"] = photo;
     return _data;
   }
 }

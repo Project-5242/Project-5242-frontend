@@ -19,12 +19,12 @@ class ModeSelectionScreen extends StatelessWidget {
                     context: context,
                     title: AppStrings.user,
                     description: AppStrings.providerSubText,
-                    img: AssetsRes.ONBOARDING_IMG3)
+                    img: AssetsRes.userImage)
                 : _onboardingComp(
                     context: context,
                     title: AppStrings.provider,
                     description: AppStrings.providerSubText,
-                    img: AssetsRes.ONBOARDING_IMG3),
+                    img: AssetsRes.providerImage),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.white,

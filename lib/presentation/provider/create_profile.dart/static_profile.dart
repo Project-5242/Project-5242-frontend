@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../data/constants/app_string.dart';
-import '../../../data/constants/responsive_view.dart';
+import 'package:flutter_project/data/constants/app_string.dart';
 
 class StaticProfileLayout extends StatefulWidget {
   final Widget Function() middleContentBuilder;
@@ -106,8 +103,8 @@ class _StaticProfileLayoutState extends State<StaticProfileLayout> {
       ),
     );
   }
-}       
-        
+}
+
 //         appBar: AppBar(
 //           automaticallyImplyLeading: false,
 //           title: const Text(

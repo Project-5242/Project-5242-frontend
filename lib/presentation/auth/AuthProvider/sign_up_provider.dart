@@ -179,24 +179,34 @@ class SignUpProvider extends ChangeNotifier {
           sharedPrefs?.setString(
               AppStrings.token, commonAuthResponse.token ?? "");
           sharedPrefs?.setBool(AppStrings.isLogin, true);
-          roleType == "provider"
-              ? Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => const BottomNavBarProvider(
-                      whereComeTo: "provider",
-                    ),
-                  ),
-                  (route) => false,
-                )
-              : Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => const BottomNavBarProvider(),
-                  ),
-                  (route) => false,
-                );
+
+          sharedPrefs?.setBool(AppStrings.isProvider,
+              commonAuthResponse.data?.isProvider ?? false);
+
+          final isProvider = commonAuthResponse.data?.isProvider ?? false;
+
+          // Navigate based on role type or isProvider flag
+          if (roleType == "provider" || isProvider) {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => const BottomNavBarProvider(
+                  whereComeTo: "provider",
+                ),
+              ),
+              (route) => false,
+            );
+          } else {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => const BottomNavBarProvider(),
+              ),
+              (route) => false,
+            );
+          }
+
           showSnackBar(
             context: context,
-            message: commonAuthResponse.message,
+            message: "Logged in successfully",
             isSuccess: true,
           );
         } else {
@@ -539,7 +549,7 @@ class SignUpProvider extends ChangeNotifier {
   }) async {
     try {
       final data =
-          await RemoteService().callPostApi(url: qRestPassword, jsonData: {
+          await RemoteService().callPutApi(url: qRestPassword, jsonData: {
         "email": email,
         "newPassword": password,
       });
@@ -585,6 +595,9 @@ class SignUpProvider extends ChangeNotifier {
   }) async {
     sharedPrefs?.remove(AppStrings.token);
     sharedPrefs?.remove(AppStrings.fullName);
+    sharedPrefs?.remove(AppStrings.email);
+    sharedPrefs?.remove(AppStrings.mobilenumber);
+    sharedPrefs?.remove(AppStrings.userImage);
     sharedPrefs?.setBool(AppStrings.isLogin, false);
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SelectRoleScreen()),
@@ -621,11 +634,6 @@ class SignUpProvider extends ChangeNotifier {
           sharedPrefs?.setString(
               AppStrings.userEmail, getUserResponse.data?.user?.email ?? "");
           notifyListeners();
-          showSnackBar(
-            context: context,
-            message: getUserResponse.message,
-            isSuccess: true,
-          );
         } else {
           showSnackBar(
             context: context,

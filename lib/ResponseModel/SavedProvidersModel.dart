@@ -1,18 +1,16 @@
-class SavedProvidersModel {
+class SaveNodeListModel {
   int? status;
   String? message;
-  List<SaveProviderList>? data;
+  List<AllSaveNode>? data;
 
-  SavedProvidersModel({this.status, this.message, this.data});
+  SaveNodeListModel({this.status, this.message, this.data});
 
-  SavedProvidersModel.fromJson(Map<String, dynamic> json) {
+  SaveNodeListModel.fromJson(Map<String, dynamic> json) {
     status = json["status"];
     message = json["message"];
     data = json["data"] == null
         ? null
-        : (json["data"] as List)
-            .map((e) => SaveProviderList.fromJson(e))
-            .toList();
+        : (json["data"] as List).map((e) => AllSaveNode.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -26,50 +24,106 @@ class SavedProvidersModel {
   }
 }
 
-class SaveProviderList {
-  ProviderId? providerId;
-  dynamic providerDetailsId;
-  String? id;
+class AllSaveNode {
+  String? providerId;
+  String? fullName;
+  String? email;
+  String? profilePhoto;
+  List<Nodes>? nodes;
+  bool? isSaved;
 
-  SaveProviderList({this.providerId, this.providerDetailsId, this.id});
+  AllSaveNode(
+      {this.providerId,
+      this.fullName,
+      this.email,
+      this.profilePhoto,
+      this.nodes,
+      this.isSaved});
 
-  SaveProviderList.fromJson(Map<String, dynamic> json) {
-    providerId = json["providerId"] == null
+  AllSaveNode.fromJson(Map<String, dynamic> json) {
+    providerId = json["providerId"];
+    fullName = json["fullName"];
+    email = json["email"];
+    profilePhoto = json["profilePhoto"];
+    nodes = json["nodes"] == null
         ? null
-        : ProviderId.fromJson(json["providerId"]);
-    providerDetailsId = json["providerDetailsId"];
-    id = json["_id"];
+        : (json["nodes"] as List).map((e) => Nodes.fromJson(e)).toList();
+    isSaved = json["isSaved"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
-    if (providerId != null) {
-      _data["providerId"] = providerId?.toJson();
+    _data["providerId"] = providerId;
+    _data["fullName"] = fullName;
+    _data["email"] = email;
+    _data["profilePhoto"] = profilePhoto;
+    if (nodes != null) {
+      _data["nodes"] = nodes?.map((e) => e.toJson()).toList();
     }
-    _data["providerDetailsId"] = providerDetailsId;
-    _data["_id"] = id;
+    _data["isSaved"] = isSaved;
     return _data;
   }
 }
 
-class ProviderId {
+class Nodes {
+  String? addWorkHour;
+  String? title;
+  String? addDescription;
+  List<String>? images;
+  String? location;
+  double? longitude;
+  double? latitude;
+  List<String>? categoryId;
   String? id;
-  String? fullName;
-  String? profilePhoto;
+  String? nodeId;
+  String? createdAt;
 
-  ProviderId({this.id, this.fullName, this.profilePhoto});
+  Nodes(
+      {this.addWorkHour,
+      this.title,
+      this.addDescription,
+      this.images,
+      this.location,
+      this.longitude,
+      this.latitude,
+      this.categoryId,
+      this.id,
+      this.nodeId,
+      this.createdAt});
 
-  ProviderId.fromJson(Map<String, dynamic> json) {
+  Nodes.fromJson(Map<String, dynamic> json) {
+    addWorkHour = json["addWorkHour"];
+    title = json["title"];
+    addDescription = json["addDescription"];
+    images = json["images"] == null ? null : List<String>.from(json["images"]);
+    location = json["location"];
+    longitude = json["longitude"];
+    latitude = json["latitude"];
+    categoryId = json["categoryId"] == null
+        ? null
+        : List<String>.from(json["categoryId"]);
     id = json["_id"];
-    fullName = json["fullName"];
-    profilePhoto = json["profilePhoto"];
+    nodeId = json["nodeId"];
+    createdAt = json["createdAt"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["addWorkHour"] = addWorkHour;
+    _data["title"] = title;
+    _data["addDescription"] = addDescription;
+    if (images != null) {
+      _data["images"] = images;
+    }
+    _data["location"] = location;
+    _data["longitude"] = longitude;
+    _data["latitude"] = latitude;
+    if (categoryId != null) {
+      _data["categoryId"] = categoryId;
+    }
     _data["_id"] = id;
-    _data["fullName"] = fullName;
-    _data["profilePhoto"] = profilePhoto;
+    _data["nodeId"] = nodeId;
+    _data["createdAt"] = createdAt;
     return _data;
   }
 }

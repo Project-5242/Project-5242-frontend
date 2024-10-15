@@ -226,6 +226,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       ),
                     ),
                   ] else ...[
+                    const SizedBox(height: 30.0),
+                    Center(
+                      child: Text(
+                        AppStrings.changePassword,
+                        style: context.customFont('Open Sans', 32.0,
+                            FontWeight.w700, AppColors.themeColor),
+                      ),
+                    ),
+                    const SizedBox(height: 15.0),
                     Image.asset(
                       AssetsRes.PASSWORD3,
                       fit: BoxFit.contain,

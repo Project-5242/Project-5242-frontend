@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/AppProvider/ScreenProvider/MessageProvider.dart';
+import 'package:flutter_project/ResponseModel/AllChatUserListModel.dart';
 import 'package:flutter_project/base/helpers/textwidget.dart';
-import 'package:flutter_project/presentation/Chat%20With%20Help/widget/ChatMessagesModel.dart';
+import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/presentation/Chat%20With%20Help/widget/chatListView.dart';
-import 'package:flutter_project/presentation/Chat%20With%20Help/widget/global_members.dart';
+import 'package:provider/provider.dart';
 
 class ChatWithHelpScreen extends StatefulWidget {
-  const ChatWithHelpScreen({super.key});
+  final AllChatList? message;
+  const ChatWithHelpScreen({super.key, this.message});
 
   @override
   State<ChatWithHelpScreen> createState() => _ChatWithHelpScreenState();
@@ -13,24 +16,16 @@ class ChatWithHelpScreen extends StatefulWidget {
 
 class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
   TextEditingController textEditingController = TextEditingController();
-  late String senderMessage, receiverMessage;
   ScrollController scrollController = ScrollController();
-
-  final List<String> channelMessages = [];
-  bool isLogin = false;
 
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> scrollAnimation() async {
-    return await Future.delayed(
-        const Duration(milliseconds: 100),
-        () => scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.linear));
+    Future.delayed(Duration.zero, () {
+      context.read<MessageProvider>().callAllMessageApi(
+          context: context,
+          conversationsId: widget.message?.conversationId ?? '');
+    });
   }
 
   @override
@@ -38,6 +33,7 @@ class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             GestureDetector(
@@ -48,14 +44,14 @@ class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Icon(
                   Icons.arrow_back,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            const TextWidget(
-              text: "Message",
-              color: Colors.white,
+            const SizedBox(width: 30),
+            TextWidget(
+              text: widget.message?.receiver?.fullName ?? "",
+              color: AppColors.blue,
             ),
           ],
         ),
@@ -94,22 +90,7 @@ class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          messageList.add(
-                              MessageData(textEditingController.text, true));
-                          textEditingController.clear();
-                          scrollAnimation();
-                        });
-                      },
-                      onLongPress: () {
-                        setState(() {
-                          messageList.add(
-                              MessageData(textEditingController.text, false));
-                          textEditingController.clear();
-                          scrollAnimation();
-                        });
-                      },
+                      onTap: () {},
                       child: const Padding(
                         padding: EdgeInsets.only(bottom: 8, right: 8),
                         child: CircleAvatar(

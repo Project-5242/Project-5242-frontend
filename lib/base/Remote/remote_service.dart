@@ -235,7 +235,7 @@ class RemoteService {
     required String url,
     required Map<String, String> requestBody,
     File? file,
-    List<File>? selectedImages,
+    List<File>? selectedFile,
     String? fileParamName,
     String? requestName,
   }) async {
@@ -263,8 +263,8 @@ class RemoteService {
           filename: file.path.split("/").last));
     }
 
-    if (fileParamName != null && selectedImages != null) {
-      for (var a in selectedImages) {
+    if (fileParamName != null && selectedFile != null) {
+      for (var a in selectedFile) {
         request.files.add(http.MultipartFile(
             fileParamName, a.readAsBytes().asStream(), a.lengthSync(),
             filename: a.path.split("/").last));

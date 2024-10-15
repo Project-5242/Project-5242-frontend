@@ -167,15 +167,28 @@ class _OtpScreenState extends State<OtpScreen> {
                                       cursorColor: AppColors.blue,
                                       enableActiveFill: true,
                                       onCompleted: (v) {
-                                        widget.whereComeTo == "signup"
-                                            ? otpValue.verifyOtpApi(
-                                                context: context,
-                                                email: widget.email.toString(),
-                                                otp: otpController.text.trim())
-                                            : otpValue.callForgotVerifyOtpApi(
+                                        // Check if OTP field is empty or less than required digits
+                                        if (otpController.text.isEmpty ||
+                                            otpController.text.length < 4) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content: Text(
+                                                    'Please Enter an OTP')),
+                                          );
+                                        } else {
+                                          if (widget.whereComeTo == "signup") {
+                                            otpValue.verifyOtpApi(
                                                 context: context,
                                                 email: widget.email.toString(),
                                                 otp: otpController.text.trim());
+                                          } else {
+                                            otpValue.callForgotVerifyOtpApi(
+                                                context: context,
+                                                email: widget.email.toString(),
+                                                otp: otpController.text.trim());
+                                          }
+                                        }
                                       },
                                       onChanged: (value) {},
                                       beforeTextPaste: (text) {
@@ -200,10 +213,13 @@ class _OtpScreenState extends State<OtpScreen> {
                                         dialogeBox(
                                             context: context,
                                             onPressed: () {
-                                              otpValue.callResendOtpApi(
-                                                  context: context,
-                                                  email: widget.email ?? "");
-                                              Navigator.of(context).pop();
+                                              otpValue
+                                                  .callResendOtpApi(
+                                                      context: context,
+                                                      email: widget.email ?? "")
+                                                  .then((v) {
+                                                Navigator.of(context).pop();
+                                              });
                                             });
                                       }),
                                   SizedBox(
@@ -212,21 +228,37 @@ class _OtpScreenState extends State<OtpScreen> {
                                   ),
                                   CustomButton(
                                     onTap: () {
-                                      widget.whereComeTo == "signup"
-                                          ? otpValue.verifyOtpApi(
+                                      // Check if OTP field is empty or less than required digits
+                                      if (otpController.text.isEmpty ||
+                                          otpController.text.length < 4) {
+                                        // Show a message to the user
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content:
+                                                  Text('Please Enter an OTP')),
+                                        );
+                                      } else {
+                                        // Proceed with the API call
+                                        if (widget.whereComeTo == "signup") {
+                                          otpValue.verifyOtpApi(
                                               context: context,
                                               email: widget.email.toString(),
-                                              otp:
-                                                  otpController.text.toString())
-                                          : otpValue.callForgotVerifyOtpApi(
+                                              otp: otpController.text
+                                                  .toString());
+                                        } else {
+                                          otpValue.callForgotVerifyOtpApi(
                                               context: context,
                                               email: widget.email.toString(),
-                                              otp: otpController.text.trim());
+                                              otp: otpController.text
+                                                  .toString());
+                                        }
+                                      }
                                     },
                                     height: MediaQuery.of(context).size.height *
-                                        0.085,
+                                        0.060,
                                     width: MediaQuery.of(context).size.width *
-                                        0.200,
+                                        0.275,
                                     text: AppStrings.verify,
                                   ),
                                 ],
@@ -323,15 +355,27 @@ class _OtpScreenState extends State<OtpScreen> {
                           cursorColor: AppColors.blue,
                           enableActiveFill: true,
                           onCompleted: (v) {
-                            widget.whereComeTo == "signup"
-                                ? otpValue.verifyOtpApi(
-                                    context: context,
-                                    email: widget.email.toString(),
-                                    otp: otpController.text.trim())
-                                : otpValue.callForgotVerifyOtpApi(
+                            // Check if OTP field is empty or less than required digits
+                            if (otpController.text.isEmpty ||
+                                otpController.text.length < 4) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Please Enter an OTP')),
+                              );
+                            } else {
+                              // Proceed with the API call
+                              if (widget.whereComeTo == "signup") {
+                                otpValue.verifyOtpApi(
                                     context: context,
                                     email: widget.email.toString(),
                                     otp: otpController.text.trim());
+                              } else {
+                                otpValue.callForgotVerifyOtpApi(
+                                    context: context,
+                                    email: widget.email.toString(),
+                                    otp: otpController.text.trim());
+                              }
+                            }
                           },
                           onChanged: (value) {},
                           beforeTextPaste: (text) {
@@ -367,16 +411,27 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     CustomButton(
                       onTap: () {
-                        if (widget.whereComeTo == "signup") {
-                          otpValue.verifyOtpApi(
-                              context: context,
-                              email: widget.email.toString(),
-                              otp: otpController.text.toString());
+                        // Check if OTP field is empty or less than required digits
+                        if (otpController.text.isEmpty ||
+                            otpController.text.length < 4) {
+                          // Show a message to the user
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Please Enter an OTP')),
+                          );
                         } else {
-                          otpValue.callForgotVerifyOtpApi(
-                              context: context,
-                              email: widget.email.toString(),
-                              otp: otpController.text.toString());
+                          // Proceed with the API call
+                          if (widget.whereComeTo == "signup") {
+                            otpValue.verifyOtpApi(
+                                context: context,
+                                email: widget.email.toString(),
+                                otp: otpController.text.toString());
+                          } else {
+                            otpValue.callForgotVerifyOtpApi(
+                                context: context,
+                                email: widget.email.toString(),
+                                otp: otpController.text.toString());
+                          }
                         }
                       },
                       height: MediaQuery.of(context).size.height * 0.060,
@@ -403,7 +458,7 @@ class _OtpScreenState extends State<OtpScreen> {
           content: const Text(AppStrings.otpCodeSent),
           actions: <Widget>[
             TextButton(
-                child: const Text(AppStrings.resend), onPressed: onPressed),
+                onPressed: onPressed, child: const Text(AppStrings.resend)),
           ],
         );
       },

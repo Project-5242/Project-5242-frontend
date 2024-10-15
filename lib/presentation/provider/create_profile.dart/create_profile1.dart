@@ -1,10 +1,16 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project/AppProvider/ScreenProvider/CreateNodeProvider.dart';
+import 'package:flutter_project/ResponseModel/CategoriesResponseModel.dart';
 import 'package:flutter_project/base/extensions/text_style_extensions.dart';
+import 'package:flutter_project/base/helpers/textwidget.dart';
 import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
+import 'package:flutter_project/presentation/provider/create_profile.dart/ctreate_profile3.dart';
 import 'package:flutter_project/presentation/provider/create_profile.dart/static_profile.dart';
 import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../base/helpers/helper.dart';
@@ -29,13 +35,13 @@ class _CreateProfile1State extends State<CreateProfile1> {
 
   final formKey = GlobalKey<FormState>();
 
-  // void _nextStep() {
-  //   if (currentIndex < context.read<SignUpProvider>().totalSteps - 1) {
-  //     setState(() {
-  //       currentIndex++;
-  //     });
-  //   }
-  // }
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      context.read<SignUpProvider>().allCategoryApi(context: context);
+    });
+    super.initState();
+  }
 
   void _previousStep() {
     if (currentIndex > 0) {
@@ -57,7 +63,8 @@ class _CreateProfile1State extends State<CreateProfile1> {
   }
 
   _mobileView(BuildContext context) {
-    return Consumer<SignUpProvider>(builder: (context, value, child) {
+    return Consumer2<CreateNodeProvider, SignUpProvider>(
+        builder: (context, createValue, signUpValue, child) {
       return StaticProfileLayout(
         currentIndex: 0,
         totalSteps: 3,
@@ -89,11 +96,10 @@ class _CreateProfile1State extends State<CreateProfile1> {
                 controller: hoursController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'This field cant be empty';
+                    return 'This field cannot be empty';
                   }
                   return null;
                 },
-                //title: AppStrings.email,
                 borderSideColor: AppColors.greyLight,
                 hint: AppStrings.addWorkHours,
                 hintStyle: context.customFont(
@@ -103,6 +109,54 @@ class _CreateProfile1State extends State<CreateProfile1> {
                   AppColors.grey,
                 ),
                 fillColor: AppColors.textFill,
+                onTap: () async {
+                  await createValue.pickWorkHours(context);
+                  hoursController.text = createValue.hours;
+                },
+                readOnly: true,
+              ),
+              const SizedBox(height: 30),
+              DropdownButtonFormField(
+                borderRadius: BorderRadius.circular(12.0),
+                value: createValue.selectedValue,
+                onChanged: (newValue) {
+                  setState(() {
+                    createValue.selectedValue = newValue;
+                    log("selectedValue------>${createValue.selectedValue}");
+                  });
+                },
+                items:
+                    signUpValue.categoriesList.map((CategoriesList category) {
+                  return DropdownMenuItem<String>(
+                    value: category.id,
+                    child: Text(
+                      category.categoryName ?? '',
+                      style: context.customFont(
+                        'Open Sans',
+                        18.0,
+                        FontWeight.w400,
+                        AppColors.black,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: AppColors.textFill,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.greyLight),
+                  ),
+                  hintText: "Select option",
+                  hintStyle: context.customFont(
+                    'Open Sans',
+                    18.0,
+                    FontWeight.w400,
+                    AppColors.grey,
+                  ),
+                ),
+                onTap: () async {
+                  await signUpValue.allCategoryApi(context: context);
+                },
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.010,
@@ -151,31 +205,101 @@ class _CreateProfile1State extends State<CreateProfile1> {
                 height: MediaQuery.of(context).size.height * 0.020,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.400,
-                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height *
+                    0.4, // Increased height for grid
                 decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: AppColors.grey, width: 1.0)),
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      openImagePickerBottomSheet(context);
-                    },
-                    child: value.selectedImage != null
-                        ? Image.file(
-                            File(value.selectedImage!.path),
-                            fit: BoxFit.cover,
-                          )
-                        : Center(
-                            child: Text(
-                              AppStrings.addImages,
-                              style: context.customFont('Open Sans', 20.0,
-                                  FontWeight.w400, AppColors.grey),
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(color: AppColors.grey, width: 1.0),
+                ),
+                child: createValue.selectedImages.isNotEmpty
+                    ? GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3, // Show 3 images per row
+                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 10.0,
+                          childAspectRatio: 1.0,
+                        ),
+                        itemCount: createValue.selectedImages.length +
+                            1, // Add 1 for Add Image button
+                        itemBuilder: (context, index) {
+                          if (index == createValue.selectedImages.length) {
+                            // Add Image button
+                            return GestureDetector(
+                              onTap: () {
+                                openImagePickerBottomSheet(
+                                  context: context,
+                                  onTapCamera: () {
+                                    createValue.pickImage(ImageSource.camera);
+                                    Navigator.of(context).pop();
+                                  },
+                                  onTapGallery: () {
+                                    createValue.pickImage(ImageSource.gallery);
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: AppColors.greyLight,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                      color: AppColors.grey, width: 1.0),
+                                ),
+                                child: Center(
+                                  child: TextWidget(
+                                    textAlign: TextAlign.center,
+                                    text: "Add Images\n+",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Image.file(
+                              File(createValue.selectedImages![index].path),
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: MediaQuery.of(context).size.height * 0.15,
+                            ),
+                          );
+                        },
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          openImagePickerBottomSheet(
+                            context: context,
+                            onTapCamera: () {
+                              createValue.pickImage(ImageSource.camera);
+                              Navigator.of(context).pop();
+                            },
+                            onTapGallery: () {
+                              createValue.pickImage(ImageSource.gallery);
+                              Navigator.of(context).pop();
+                            },
+                          );
+                        },
+                        child: Center(
+                          child: Text(
+                            AppStrings.addImages,
+                            style: context.customFont(
+                              'Open Sans',
+                              20.0,
+                              FontWeight.w400,
+                              AppColors.grey,
                             ),
                           ),
-                  ),
-                ),
+                        ),
+                      ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,
@@ -186,7 +310,14 @@ class _CreateProfile1State extends State<CreateProfile1> {
               CustomButton(
                 onTap: () {
                   if (formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, Routes.createProfile2);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CreateProfile3(
+                          title: titleController.text.trim(),
+                          description: titleController.text.trim(),
+                        ),
+                      ),
+                    );
                   }
                 },
                 height: MediaQuery.of(context).size.height * 0.060,
@@ -205,7 +336,8 @@ class _CreateProfile1State extends State<CreateProfile1> {
 
   _deskTopView(BuildContext context) {
     final responsive = ResponsiveCheck(context);
-    return Consumer<SignUpProvider>(builder: (context, value, child) {
+    return Consumer2<CreateNodeProvider, SignUpProvider>(
+        builder: (context, createValue, value, child) {
       return Scaffold(
         body: Center(
           child: Container(
@@ -290,15 +422,13 @@ class _CreateProfile1State extends State<CreateProfile1> {
                       children: [
                         Flexible(
                           child: AppTextFieldWidget(
-                            textAlign: TextAlign.center,
                             controller: hoursController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'This field cant be empty';
+                                return 'This field cannot be empty';
                               }
                               return null;
                             },
-                            //title: AppStrings.email,
                             borderSideColor: AppColors.greyLight,
                             hint: AppStrings.addWorkHours,
                             hintStyle: context.customFont(
@@ -308,6 +438,11 @@ class _CreateProfile1State extends State<CreateProfile1> {
                               AppColors.grey,
                             ),
                             fillColor: AppColors.textFill,
+                            onTap: () async {
+                              await createValue.pickWorkHours(context);
+                              hoursController.text = createValue.hours;
+                            },
+                            readOnly: true,
                           ),
                         ),
                         SizedBox(
@@ -337,56 +472,152 @@ class _CreateProfile1State extends State<CreateProfile1> {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: AppTextFieldWidget(
-                            textAlign: TextAlign.center,
-                            controller: titleController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'This field cant be empty';
-                              }
-                              return null;
-                            },
-                            //title: AppStrings.email,
-                            borderSideColor: AppColors.greyLight,
-                            hint: AppStrings.title,
-                            hintStyle: context.customFont(
+                    const SizedBox(height: 30),
+                    DropdownButtonFormField(
+                      borderRadius: BorderRadius.circular(12.0),
+                      value: createValue.selectedValue,
+                      onChanged: (newValue) {
+                        setState(() {
+                          createValue.selectedValue = newValue;
+                          log("selectedValue------>${createValue.selectedValue}");
+                        });
+                      },
+                      items:
+                          value.categoriesList.map((CategoriesList category) {
+                        return DropdownMenuItem<String>(
+                          value: category.id,
+                          child: Text(
+                            category.categoryName ?? '',
+                            style: context.customFont(
                               'Open Sans',
                               18.0,
                               FontWeight.w400,
-                              AppColors.grey,
+                              AppColors.black,
                             ),
-                            fillColor: AppColors.textFill,
                           ),
+                        );
+                      }).toList(),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.textFill,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.greyLight),
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.028,
+                        hintText: "Select option",
+                        hintStyle: context.customFont(
+                          'Open Sans',
+                          18.0,
+                          FontWeight.w400,
+                          AppColors.grey,
                         ),
-                        Flexible(
-                          child: AppTextFieldWidget(
-                            textAlign: TextAlign.center,
-                            controller: descController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'This field cant be empty';
-                              }
-                              return null;
-                            },
-                            //title: AppStrings.email,
-                            borderSideColor: AppColors.greyLight,
-                            hint: AppStrings.addImages,
-                            hintStyle: context.customFont(
-                              'Open Sans',
-                              18.0,
-                              FontWeight.w400,
-                              AppColors.grey,
+                      ),
+                      onTap: () async {
+                        await value.allCategoryApi(context: context);
+                      },
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height *
+                          0.4, // Increased height for grid
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(color: AppColors.grey, width: 1.0),
+                      ),
+                      child: createValue.selectedImages.isNotEmpty
+                          ? GridView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3, // Show 3 images per row
+                                crossAxisSpacing: 10.0,
+                                mainAxisSpacing: 10.0,
+                                childAspectRatio: 1.0,
+                              ),
+                              itemCount: createValue.selectedImages.length +
+                                  1, // Add 1 for Add Image button
+                              itemBuilder: (context, index) {
+                                if (index ==
+                                    createValue.selectedImages.length) {
+                                  // Add Image button
+                                  return GestureDetector(
+                                    onTap: () {
+                                      openImagePickerBottomSheet(
+                                        context: context,
+                                        onTapCamera: () {
+                                          createValue
+                                              .pickImage(ImageSource.camera);
+                                          Navigator.of(context).pop();
+                                        },
+                                        onTapGallery: () {
+                                          createValue
+                                              .pickImage(ImageSource.gallery);
+                                          Navigator.of(context).pop();
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.greyLight,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        border: Border.all(
+                                            color: AppColors.grey, width: 1.0),
+                                      ),
+                                      child: Center(
+                                        child: TextWidget(
+                                          textAlign: TextAlign.center,
+                                          text: "Add Images\n+",
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Image.file(
+                                    File(createValue
+                                        .selectedImages![index].path),
+                                    fit: BoxFit.cover,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.3,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.15,
+                                  ),
+                                );
+                              },
+                            )
+                          : GestureDetector(
+                              onTap: () {
+                                openImagePickerBottomSheet(
+                                  context: context,
+                                  onTapCamera: () {
+                                    createValue.pickImage(ImageSource.camera);
+                                    Navigator.of(context).pop();
+                                  },
+                                  onTapGallery: () {
+                                    createValue.pickImage(ImageSource.gallery);
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              },
+                              child: Center(
+                                child: Text(
+                                  AppStrings.addImages,
+                                  style: context.customFont(
+                                    'Open Sans',
+                                    20.0,
+                                    FontWeight.w400,
+                                    AppColors.grey,
+                                  ),
+                                ),
+                              ),
                             ),
-                            fillColor: AppColors.textFill,
-                          ),
-                        ),
-                      ],
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.070,

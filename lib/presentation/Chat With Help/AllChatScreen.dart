@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_project/AppProvider/ScreenProvider/MessageProvider.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/base/helpers/helper.dart';
 import 'package:flutter_project/base/helpers/textwidget.dart';
+import 'package:flutter_project/presentation/Chat%20With%20Help/chatWithHelpScreen.dart';
 import 'package:provider/provider.dart'; // Import the provider here
 
 class AllChatScreen extends StatefulWidget {
@@ -30,6 +34,7 @@ class AllChatScreenState extends State<AllChatScreen>
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -37,48 +42,14 @@ class AllChatScreenState extends State<AllChatScreen>
           'Messages',
           style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
-        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications, color: Colors.black),
             onPressed: () {},
           ),
         ],
-        bottom: TabBar(
-          isScrollable: false,
-          indicatorPadding: EdgeInsets.zero,
-          controller: _tabController,
-          indicatorColor: Colors.teal,
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          labelPadding:
-              const EdgeInsets.symmetric(horizontal: 40.0), // Add padding here
-          tabs: const [
-            Tab(
-              child: Text(
-                'All',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            Tab(
-              child: Text(
-                'Favorite',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ],
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          buildMessageList(provider: messageProvider),
-          buildMessageList(provider: messageProvider),
-        ],
-      ),
+      body: buildMessageList(provider: messageProvider),
     );
   }
 
@@ -88,24 +59,45 @@ class AllChatScreenState extends State<AllChatScreen>
             itemCount: provider.allChatList.length,
             itemBuilder: (context, index) {
               final message = provider.allChatList[index];
-
               final lastMessageText =
                   message.lastMessage?.text ?? "No message yet";
               final lastMessageTimestamp = message.lastMessage?.timestamp ?? "";
-
-              return ListTile(
-                leading: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: message.receiver?.profilePhoto != null &&
-                          message.receiver?.profilePhoto == ""
-                      ? NetworkImage(message.receiver?.profilePhoto ?? "")
-                      : const AssetImage(AssetsRes.noProfile) as ImageProvider,
-                ),
-                title: Text(message.receiver?.fullName ?? 'Unknown User'),
-                subtitle: Text(lastMessageText),
-                trailing: Text(
-                  lastMessageTimestamp,
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+              log("message-------->$lastMessageTimestamp");
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ChatWithHelpScreen(
+                        message: message,
+                      ),
+                    ),
+                  );
+                },
+                child: ListTile(
+                  leading: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.grey)),
+                    child: message.receiver?.profilePhoto != null &&
+                            message.receiver?.profilePhoto != ""
+                        ? Image.network(
+                            message.receiver?.profilePhoto ?? "",
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(AssetsRes.noProfile, fit: BoxFit.cover),
+                  ),
+                  title: Text(message.receiver?.fullName ?? 'Unknown User'),
+                  subtitle: Text(
+                    lastMessageText,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  trailing: Text(
+                    formatDateTimeToIST(lastMessageTimestamp),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
                 ),
               );
             },

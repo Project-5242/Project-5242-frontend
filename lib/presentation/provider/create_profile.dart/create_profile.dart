@@ -5,7 +5,6 @@ import '../../../base/extensions/text_style_extensions.dart';
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
 import '../../../data/constants/responsive_view.dart';
-import '../../../routes/routes.dart';
 import '../../widgets/custom_button.dart';
 
 class CreateProfile extends StatelessWidget {
@@ -42,8 +41,12 @@ class CreateProfile extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.335,
                 ),
                 CustomButton(
-                  onTap: () =>
-                      Navigator.pushNamed(context, Routes.createProfile1),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreateProfile1(),
+                    ),
+                  ),
                   height: MediaQuery.of(context).size.height * 0.060,
                   width: MediaQuery.of(context).size.width,
                   text: AppStrings.continueText,

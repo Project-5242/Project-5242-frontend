@@ -42,6 +42,10 @@ class AssetsRes {
   static const String LOCATION_ICON = 'assets/svg_icons/locationIcon.svg';
   static const String LIKE_ICON = 'assets/svg_icons/likeIcon.svg';
   static const String ONBOARDING_IMG3 = 'assets/icon/onboardingImg3.png';
+  static const String ONBOARDING_IMG2 = 'assets/icon/onboardingImg2.png';
+  static const String ONBOARDING_IMG1 = 'assets/icon/onboardingImg1.png';
+  static const String providerImage = 'assets/icon/providerImage.png';
+  static const String userImage = 'assets/icon/userImage.png';
   static const String NOTIFICATION_ICON =
       'assets/svg_icons/notificationIcon.svg';
   // SVG File

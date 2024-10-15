@@ -41,10 +41,10 @@ class BottomNavBarProviderState extends State<BottomNavBarProvider> {
           ? Container(color: Colors.blue)
           : const SaveditemScreen(),
       widget.whereComeTo == "provider"
-          ? Container(color: Colors.yellow)
+          ? const AllChatScreen()
           : const AllChatScreen(),
       widget.whereComeTo == "provider"
-          ? Container(color: Colors.green)
+          ? const ProfileView()
           : const ProfileView(),
     ];
 

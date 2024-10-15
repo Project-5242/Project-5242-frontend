@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project/AppProvider/ScreenProvider/addressProvider.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/main.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_project/presentation/home/BottomNavBarProvider.dart';
 import 'package:flutter_project/presentation/onboarding/onboarding_screen.dart';
 import 'package:flutter_project/presentation/onboarding/select_role_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 import '../../res/assets_res.dart';
 
@@ -25,6 +27,7 @@ class _SplashViewState extends State<SplashView> {
 
     Future.delayed(const Duration(seconds: 3), () async {
       await startSplashScreenTimer();
+      context.read<AddressProvider>().getGeoLocationPosition();
     });
   }
 

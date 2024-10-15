@@ -6,6 +6,8 @@ import 'package:flutter_project/base/Remote/api_config.dart';
 import 'package:flutter_project/base/Remote/remote_service.dart';
 import 'package:flutter_project/base/helpers/helper.dart';
 
+import '../../ResponseModel/SavedProvidersModel.dart';
+
 class DetailsProvider extends ChangeNotifier {
   List<ProviderDetailsList> providerList = [];
   Future<void> callDetailsApi({
@@ -37,6 +39,48 @@ class DetailsProvider extends ChangeNotifier {
           showSnackBar(
             context: context,
             message: providerDetailsResponse.message,
+            isSuccess: false,
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(
+          context: context,
+          message: 'An error occurred: $e',
+          isSuccess: false,
+        );
+      }
+    }
+    notifyListeners();
+  }
+
+  // Todo Save Node Api
+
+  List<AllSaveNode> saveNodeData = [];
+
+  Future<void> callAllSaveNodeListApi({
+    required BuildContext context,
+  }) async {
+    try {
+      final data = await RemoteService().callGetApi(url: qSaveNodeList);
+      if (data == null) {
+        return;
+      }
+      final saveResponse = SaveNodeListModel.fromJson(jsonDecode(data.body));
+      if (context.mounted) {
+        if (saveResponse.status == 200) {
+          saveNodeData = saveResponse.data ?? [];
+          notifyListeners();
+          showSnackBar(
+            context: context,
+            message: saveResponse.message,
+            isSuccess: true,
+          );
+        } else {
+          showSnackBar(
+            context: context,
+            message: saveResponse.message,
             isSuccess: false,
           );
         }
