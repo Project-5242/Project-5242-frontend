@@ -31,15 +31,6 @@ class _SaveditemScreenState extends State<SaveditemScreen> {
     return Scaffold(
         appBar: response.isMobile
             ? AppBar(
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 21.0,
-                      color: Colors.black,
-                    )),
                 title: Text(
                   AppStrings.savedItems,
                   style: TextStyle(
@@ -56,15 +47,6 @@ class _SaveditemScreenState extends State<SaveditemScreen> {
                 ],
               )
             : AppBar(
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      size: 24,
-                      color: Colors.black,
-                    )),
                 title: Text(
                   AppStrings.savedItems,
                   style: TextStyle(

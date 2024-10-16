@@ -680,4 +680,119 @@ class SignUpProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  // Todo Change Password Api
+
+  Future<void> callChangePasswordApi({
+    required BuildContext context,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      final data = await RemoteService().callPostApi(
+          url: qChangePassword,
+          jsonData: {"oldPassword": oldPassword, "newPassword": newPassword});
+      if (data == null) {
+        return;
+      }
+      final Map<String, dynamic> response = jsonDecode(data.body);
+      final dynamic status = response['status'];
+      final String message = response['message'];
+      if (context.mounted) {
+        if (status == 200) {
+          notifyListeners();
+          Navigator.of(context).pop();
+          showSnackBar(
+            context: context,
+            message: message,
+            isSuccess: true,
+          );
+        } else {
+          showSnackBar(
+            context: context,
+            message: message,
+            isSuccess: false,
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(
+          context: context,
+          message: 'An error occurred: $e',
+          isSuccess: false,
+        );
+      }
+    }
+    notifyListeners();
+  }
+
+  // Todo Update Profile
+
+  Future<void> callUpdateProfileDetailApi({
+    required BuildContext context,
+    required String phone,
+    required String fullName,
+  }) async {
+    try {
+      final data = await RemoteService().callPutApi(
+        url: qUpdateProfile,
+        jsonData: {
+          "mobileNumber": phone,
+          "fullName": fullName,
+        },
+      );
+
+      if (data == null) {
+        showSnackBar(
+          context: context,
+          message: 'Email is not verified. Please verify your email.',
+          isSuccess: false,
+        );
+        return;
+      }
+
+      final commonAuthResponse =
+          CommonAuthModel.fromJson(jsonDecode(data.body));
+
+      print("Response Body: ${data.body}");
+
+      if (context.mounted) {
+        if (commonAuthResponse.status == 200) {
+          commonAuthModel = commonAuthResponse;
+          sharedPrefs?.setString(
+              AppStrings.userName, commonAuthResponse.data?.fullName ?? "");
+          sharedPrefs?.setString(
+              AppStrings.userEmail, commonAuthResponse.data?.email ?? "");
+          sharedPrefs?.setString(AppStrings.userMobile,
+              commonAuthResponse.data?.mobileNumber ?? "");
+
+          Navigator.of(context).pop();
+
+          showSnackBar(
+            context: context,
+            message: commonAuthResponse.message,
+            isSuccess: true,
+          );
+        } else {
+          // Handle error or specific error messages
+          showSnackBar(
+            context: context,
+            message: commonAuthResponse.message ?? 'Unexpected error occurred.',
+            isSuccess: false,
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(
+          context: context,
+          message: 'An error occurred: $e',
+          isSuccess: false,
+        );
+      }
+    } finally {
+      notifyListeners();
+    }
+  }
 }

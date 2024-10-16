@@ -6,11 +6,14 @@ import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/base/helpers/helper.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
-import 'package:flutter_project/main.dart';
+import 'package:flutter_project/presentation/ChangePasswordPage.dart';
 import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
 import 'package:flutter_project/presentation/settings/setting_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_text_from_field.dart';
 import 'package:provider/provider.dart';
+
+import '../../main.dart';
+import '../ContentPage/contentPage.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -350,7 +353,6 @@ class _ProfileViewState extends State<ProfileView> {
                             builder: (context) => const EditProfileView(),
                           ),
                         );
-                        // Navigator.pushNamed(context, Routes.editProfileView);
                       },
                     )
                   else if (Theme.of(context).platform == TargetPlatform.android)
@@ -369,13 +371,56 @@ class _ProfileViewState extends State<ProfileView> {
                     padding: const EdgeInsets.symmetric(horizontal: 27),
                     child: Column(
                       children: [
-                        _customListTile(title: "Notification", onTap: () {}),
-                        _customListTile(title: "Setting", onTap: () {}),
                         _customListTile(
-                            title: "Privacy & Policy", onTap: () {}),
+                            title: "Notification",
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const NotificationView(),
+                                ),
+                              );
+                            }),
                         _customListTile(
-                            title: "Terms & Conditions", onTap: () {}),
-                        _customListTile(title: "Change Password", onTap: () {}),
+                            title: "Setting",
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SettingView(),
+                                ),
+                              );
+                            }),
+                        _customListTile(
+                            title: "Privacy & Policy",
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const ContentPage(
+                                      name: "Privacy & Policy"),
+                                ),
+                              );
+                            }),
+                        _customListTile(
+                            title: "Terms & Conditions",
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const ContentPage(
+                                      name: "Terms & Conditions"),
+                                ),
+                              );
+                            }),
+                        _customListTile(
+                          title: "Change Password",
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const ChangePasswordPage(),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),

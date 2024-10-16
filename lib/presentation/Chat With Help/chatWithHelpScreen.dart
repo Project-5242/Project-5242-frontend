@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/AppProvider/ScreenProvider/MessageProvider.dart';
-import 'package:flutter_project/ResponseModel/AllChatUserListModel.dart';
+import 'package:flutter_project/ResponseModel/AllChatUserListModel.dart'; // Import your model
 import 'package:flutter_project/base/helpers/textwidget.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/presentation/Chat%20With%20Help/widget/chatListView.dart';
 import 'package:provider/provider.dart';
+
+import '../../ResponseModel/AllMessageModel.dart';
 
 class ChatWithHelpScreen extends StatefulWidget {
   final AllChatList? message;
@@ -17,14 +19,24 @@ class ChatWithHelpScreen extends StatefulWidget {
 class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
   TextEditingController textEditingController = TextEditingController();
   ScrollController scrollController = ScrollController();
+  List<Messages> messages = []; // Store the messages here
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      context.read<MessageProvider>().callAllMessageApi(
-          context: context,
-          conversationsId: widget.message?.conversationId ?? '');
+    Future.delayed(Duration.zero, () async {
+      final response = await context.read<MessageProvider>().callAllMessageApi(
+            context: context,
+            conversationsId: widget.message?.conversationId ?? '',
+          );
+
+      if (response != null &&
+          response.status == "success" &&
+          response.data?.messages != null) {
+        setState(() {
+          messages = response.data!.messages!; // Update messages
+        });
+      }
     });
   }
 
@@ -60,7 +72,12 @@ class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(child: ChatListView(scrollController: scrollController)),
+            Expanded(
+              child: ChatListView(
+                scrollController: scrollController,
+                messages: messages, // Pass messages to ChatListView
+              ),
+            ),
             Container(
               height: 75,
               color: Colors.white,
@@ -81,8 +98,8 @@ class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
                         minLines: 1,
                         keyboardType: TextInputType.multiline,
                         controller: textEditingController,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 8),
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 8),
                           border: InputBorder.none,
                           focusColor: Colors.white,
                           hintText: 'Write your message',
@@ -90,7 +107,14 @@ class _ChatWithHelpScreenState extends State<ChatWithHelpScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        String messageText = textEditingController.text.trim();
+                        if (messageText.isNotEmpty) {
+                          // Add send message logic here
+                          textEditingController
+                              .clear(); // Clear the input field
+                        }
+                      },
                       child: const Padding(
                         padding: EdgeInsets.only(bottom: 8, right: 8),
                         child: CircleAvatar(

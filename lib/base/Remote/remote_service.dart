@@ -16,20 +16,18 @@ import 'app_exceptions.dart';
 class RemoteService {
   Future<String?> getAuthToken() async {
     String? token = sharedPrefs?.getString(AppStrings.token);
-    if (token == '') {
-      return null;
-    } else {
-      return token;
-    }
+    return token == '' ? null : token;
   }
 
   Future<String?> getOsType() async {
     String? os = sharedPrefs?.getString(AppStrings.deviceOs);
-    if (os == '') {
-      return null;
-    } else {
-      return os;
-    }
+    return os == '' ? null : os;
+  }
+
+  String prettyJson(String json) {
+    var encoder = const JsonEncoder.withIndent('  ');
+    var decoded = jsonDecode(json);
+    return encoder.convert(decoded);
   }
 
   Future<http.Response?> callGetApi({
@@ -55,9 +53,10 @@ class RemoteService {
       final response =
           await http.get(Uri.parse('$BASE_URL$url'), headers: header);
       hideLoader(Routes.navigatorKey.currentContext!);
-
+      String prettyResponse = prettyJson(response.body);
       log('API Response Status Code: ${response.statusCode}');
-      log('API Response Body: ${response.body.toString()}');
+      log('API Response Body (Normal JSON): ${response.body}');
+      log('API Response Body (Pretty JSON): $prettyResponse');
 
       if (response.statusCode == 401) {
         sharedPrefs?.clear();
@@ -106,14 +105,16 @@ class RemoteService {
       log('HTTP Method: POST');
       log('API URL: $apiUrl');
       log('Headers: $headers');
-      log('Request Body: $requestBody');
+      log('Request Body (Normal JSON): $requestBody');
+      log('Request Body (Pretty JSON): ${prettyJson(requestBody)}');
 
       final response = await http.post(Uri.parse(apiUrl),
           headers: headers, body: requestBody);
       hideLoader(Routes.navigatorKey.currentContext!);
 
       log('API Response Status Code: ${response.statusCode}');
-      log('API Response Body: ${response.body.toString()}');
+      log('API Response Body (Normal JSON): ${response.body}');
+      log('API Response Body (Pretty JSON): ${prettyJson(response.body)}');
 
       if (response.statusCode == 401) {
         sharedPrefs?.clear();
@@ -160,14 +161,16 @@ class RemoteService {
       log('HTTP Method: PUT');
       log('API URL: $apiUrl');
       log('Headers: $headers');
-      log('Request Body: $requestBody');
+      log('Request Body (Normal JSON): $requestBody');
+      log('Request Body (Pretty JSON): ${prettyJson(requestBody)}');
 
       final response = await http.put(Uri.parse(apiUrl),
           headers: headers, body: requestBody);
       hideLoader(Routes.navigatorKey.currentContext!);
 
       log('API Response Status Code: ${response.statusCode}');
-      log('API Response Body: ${response.body.toString()}');
+      log('API Response Body (Normal JSON): ${response.body}');
+      log('API Response Body (Pretty JSON): ${prettyJson(response.body)}');
 
       if (response.statusCode == 401) {
         sharedPrefs?.clear();
@@ -211,7 +214,8 @@ class RemoteService {
       hideLoader(Routes.navigatorKey.currentContext!);
 
       log('API Response Status Code: ${response.statusCode}');
-      log('API Response Body: ${response.body.toString()}');
+      log('API Response Body (Normal JSON): ${response.body}');
+      log('API Response Body (Pretty JSON): ${prettyJson(response.body)}');
 
       if (response.statusCode == 401) {
         sharedPrefs?.clear();
@@ -240,90 +244,86 @@ class RemoteService {
     String? requestName,
   }) async {
     showLoaderDialog(Routes.navigatorKey.currentContext!);
-
-    http.Response? responseJson;
-    var authToken = await getAuthToken();
-    var osType = await getOsType();
-    var request =
-        http.MultipartRequest(requestName ?? 'POST', Uri.parse(BASE_URL + url));
-    request.headers.addAll(<String, String>{
-      'Content-Type': 'multipart/form-data',
-      'device_type': osType ?? 'mobile',
-      'Authorization': authToken ?? "",
-    });
+    var headers = await _setHeaders();
 
     // Log the HTTP method and other details
-    log('HTTP Method: ${request.method}');
-    log('API URL: ${request.url}');
-    log('Headers: ${request.headers}');
+    log('HTTP Method: MULTIPART');
+    log('API URL: $BASE_URL$url');
+    log('Headers: $headers');
+    log('Request Body (Normal JSON): $requestBody');
+    log('Request Body (Pretty JSON): ${prettyJson(jsonEncode(requestBody))}');
 
-    if (fileParamName != null && file != null) {
-      request.files.add(http.MultipartFile(
-          fileParamName, file.readAsBytes().asStream(), file.lengthSync(),
-          filename: file.path.split("/").last));
+    var request = http.MultipartRequest('POST', Uri.parse('$BASE_URL$url'));
+    request.headers.addAll(headers);
+    request.fields.addAll(requestBody);
+    if (file != null) {
+      var stream = http.ByteStream(file.openRead());
+      var length = await file.length();
+      var multipartFile = http.MultipartFile(fileParamName!, stream, length,
+          filename: file.path.split('/').last);
+      request.files.add(multipartFile);
     }
-
-    if (fileParamName != null && selectedFile != null) {
-      for (var a in selectedFile) {
-        request.files.add(http.MultipartFile(
-            fileParamName, a.readAsBytes().asStream(), a.lengthSync(),
-            filename: a.path.split("/").last));
+    if (selectedFile != null) {
+      for (var selected in selectedFile) {
+        var stream = http.ByteStream(selected.openRead());
+        var length = await selected.length();
+        var multipartFile = http.MultipartFile(fileParamName!, stream, length,
+            filename: selected.path.split('/').last);
+        request.files.add(multipartFile);
       }
     }
-    request.fields.addAll(requestBody);
 
-    log('Request Body Fields: $requestBody');
+    var response = await request.send();
+    hideLoader(Routes.navigatorKey.currentContext!);
+    var responseBody = await http.Response.fromStream(response);
 
-    try {
-      final response = await http.Response.fromStream(await request.send());
-      hideLoader(Routes.navigatorKey.currentContext!);
+    log('API Response Status Code: ${responseBody.statusCode}');
+    log('API Response Body (Normal JSON): ${responseBody.body}');
+    log('API Response Body (Pretty JSON): ${prettyJson(responseBody.body)}');
 
-      log('API Response Status Code: ${response.statusCode}');
-      log('API Response Body: ${response.body.toString()}');
+    if (responseBody.statusCode == 401) {
+      sharedPrefs?.clear();
+      Navigator.of(Routes.navigatorKey.currentContext!).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginView()),
+          (Route<dynamic> route) => false);
+    }
+    return _returnResponse(responseBody);
+  }
 
-      responseJson = _returnResponse(response);
-    } on SocketException catch (exception) {
+  // Utility method for setting headers
+  Future<Map<String, String>> _setHeaders() async {
+    var authToken = await getAuthToken();
+    var osType = await getOsType();
+    return {
+      'Content-Type': 'application/json',
+      'device_type': osType ?? 'mobile',
+      'Authorization': authToken ?? '',
+    };
+  }
+
+  // Error handling
+  void _handleException(e) {
+    if (e is NoInternetException) {
       showSnackBar(
           context: Routes.navigatorKey.currentContext,
           isSuccess: false,
-          message: exception.message.toString());
-    } catch (e) {
-      _handleException(e);
-    }
-    return responseJson;
-  }
-
-  // Helper method to handle exceptions
-  void _handleException(dynamic e) {
-    log('Exception: $e');
-
-    try {
-      final exceptionData = jsonDecode(e.toString());
-      if (exceptionData["message"] == "Invalid auth token") {
-        showSnackBar(
-            context: Routes.navigatorKey.currentContext,
-            isSuccess: false,
-            message: "Logged out!");
-        sharedPrefs?.clear();
-        Navigator.of(Routes.navigatorKey.currentContext!).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => LoginView()),
-            (Route<dynamic> route) => false);
-      }
-    } catch (jsonError) {
-      log('JSON Decode Error: $jsonError');
-      // Handle other types of exceptions if necessary
+          message: e.toString());
+    } else {
+      showSnackBar(
+          context: Routes.navigatorKey.currentContext,
+          isSuccess: false,
+          message: 'Something went wrong. Please try again later.');
     }
   }
 
-  dynamic _returnResponse(http.Response response) {
-    print(response.statusCode);
+  // Response handling
+  _returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
-        return response;
       case 201:
         return response;
       case 400:
-        return response;
+        throw BadRequestException(response.body.toString());
       case 401:
       case 403:
         throw UnauthorisedException(response.body.toString());
@@ -334,10 +334,9 @@ class RemoteService {
       case 409:
         return response;
       case 500:
-        throw FetchDataException(response.body.toString());
       default:
         throw FetchDataException(
-            'Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
+            'Error occurred while communicating with the server: ${response.statusCode}');
     }
   }
 }

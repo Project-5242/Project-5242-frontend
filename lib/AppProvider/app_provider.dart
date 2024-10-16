@@ -5,6 +5,7 @@ import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+import 'ScreenProvider/ContentProvider.dart';
 import 'ScreenProvider/OnboardingProvider.dart';
 import 'ScreenProvider/addressProvider.dart';
 
@@ -15,6 +16,7 @@ class AppProvider {
     ChangeNotifierProvider(create: (_) => CreateNodeProvider()),
     ChangeNotifierProvider(create: (_) => OnboardingProvider()),
     ChangeNotifierProvider(create: (_) => DetailsProvider()),
+    ChangeNotifierProvider(create: (_) => ContentProvider()),
     ChangeNotifierProvider(create: (_) => MessageProvider()),
   ];
 }

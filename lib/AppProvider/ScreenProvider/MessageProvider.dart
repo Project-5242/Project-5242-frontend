@@ -57,18 +57,21 @@ class MessageProvider with ChangeNotifier {
 
   List<Messages> allMessages = [];
 
-  Future<void> callAllMessageApi({
+  Future<AllMessageModel?> callAllMessageApi({
     required BuildContext context,
     required String conversationsId,
   }) async {
     try {
       final data = await RemoteService()
           .callGetApi(url: "$qAllConversations/$conversationsId");
+
       if (data == null) {
-        return;
+        return null; // Return null if there's no data
       }
+
       final allMessageResponse =
           AllMessageModel.fromJson(jsonDecode(data.body));
+
       if (context.mounted) {
         if (allMessageResponse.status == "success" ||
             allMessageResponse.status == 200) {
@@ -80,12 +83,14 @@ class MessageProvider with ChangeNotifier {
             message: allMessageResponse.message,
             isSuccess: true,
           );
+          return allMessageResponse;
         } else {
           showSnackBar(
             context: context,
             message: allMessageResponse.message,
             isSuccess: false,
           );
+          return null;
         }
       }
     } catch (e) {
@@ -97,6 +102,6 @@ class MessageProvider with ChangeNotifier {
         );
       }
     }
-    notifyListeners();
+    return null; // Return null if an error occurs
   }
 }

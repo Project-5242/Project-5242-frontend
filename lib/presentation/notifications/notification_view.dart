@@ -48,9 +48,14 @@ class _NotificationViewState extends State<NotificationView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(AssetsRes.ARROWBACK_SVG),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SvgPicture.asset(AssetsRes.ARROWBACK_SVG),
+          ),
         ),
         centerTitle: true,
         title: Text(

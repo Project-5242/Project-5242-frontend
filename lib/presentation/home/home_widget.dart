@@ -250,14 +250,29 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      detailProvider
-                                          .callFavouriteNodeApi(
-                                              context: context,
-                                              providerId: detailData.id ?? "")
-                                          .then((v) {
-                                        detailProvider.callDetailsApi(
-                                            context: context);
-                                      });
+                                      if (detailData.isSaved == true) {
+                                        detailProvider
+                                            .callRemoveFavouriteNodeApi(
+                                                context: context,
+                                                providerId:
+                                                    detailData.providerId?.id ??
+                                                        "")
+                                            .then((v) {
+                                          detailProvider.callDetailsApi(
+                                              context: context);
+                                        });
+                                      } else {
+                                        detailProvider
+                                            .callFavouriteNodeApi(
+                                                context: context,
+                                                providerId:
+                                                    detailData.providerId?.id ??
+                                                        "")
+                                            .then((v) {
+                                          detailProvider.callDetailsApi(
+                                              context: context);
+                                        });
+                                      }
                                     },
                                     icon: detailData.isSaved == true
                                         ? const Icon(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 
+import '../ContentPage/contentPage.dart';
 import 'components/custom_listview.dart';
 
 class SettingView extends StatefulWidget {
@@ -21,9 +22,14 @@ class _SettingViewState extends State<SettingView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(AssetsRes.ARROWBACK_SVG),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SvgPicture.asset(AssetsRes.ARROWBACK_SVG),
+          ),
         ),
         centerTitle: true,
         title: Text(
@@ -156,13 +162,25 @@ class _SettingViewState extends State<SettingView> {
         const SizedBox(height: 10),
         CustomListView(
           title: AppStrings.privacyPolicy,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    const ContentPage(name: "Privacy & Policy"),
+              ),
+            );
+          },
         ),
         _lineview(),
         CustomListView(
           title: AppStrings.termsandConditions,
           onPressed: () {
-            debugPrint(AppStrings.termsandConditions);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    const ContentPage(name: "Terms & Conditions"),
+              ),
+            );
           },
         ),
         _lineview(),
