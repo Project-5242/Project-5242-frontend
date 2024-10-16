@@ -28,3 +28,4 @@ String qFavouriteNodeApi = 'dashboard/saveProvider';
 String qProviderDetailsById = 'providerDetails/provider';
 String qRemoveProviderId = 'dashboard/savedProvider';
 String qInfoApi = 'info';
+String qSendMessageApi = 'message/messages';

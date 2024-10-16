@@ -9,7 +9,11 @@ import 'package:flutter_project/base/helpers/helper.dart';
 
 class MessageProvider with ChangeNotifier {
   // Todo Api Call
+  bool _isLoadingMessages = false;
+  bool _isLoadingSendMessage = false;
 
+  bool get isLoadingMessages => _isLoadingMessages;
+  bool get isLoadingSendMessage => _isLoadingSendMessage;
   List<AllChatList> allChatList = [];
 
   Future<void> callAllChatListApi({
@@ -56,17 +60,17 @@ class MessageProvider with ChangeNotifier {
   // Todo All Message Api
 
   List<Messages> allMessages = [];
-
   Future<AllMessageModel?> callAllMessageApi({
     required BuildContext context,
     required String conversationsId,
   }) async {
     try {
+      // Assuming the loader was shown before this line, remove any related code.
       final data = await RemoteService()
           .callGetApi(url: "$qAllConversations/$conversationsId");
 
       if (data == null) {
-        return null; // Return null if there's no data
+        return null;
       }
 
       final allMessageResponse =
@@ -76,7 +80,6 @@ class MessageProvider with ChangeNotifier {
         if (allMessageResponse.status == "success" ||
             allMessageResponse.status == 200) {
           allMessages = allMessageResponse.data?.messages ?? [];
-
           notifyListeners();
           showSnackBar(
             context: context,
@@ -102,6 +105,57 @@ class MessageProvider with ChangeNotifier {
         );
       }
     }
-    return null; // Return null if an error occurs
+    return null;
+  }
+
+// Todo Message Send API
+  Future<void> callSendMessageApi({
+    required BuildContext context,
+    required String receiverId,
+    required String messageSend,
+  }) async {
+    try {
+      // Call the API to send the message
+      final data = await RemoteService().callPostApi(
+        url: qSendMessageApi,
+        jsonData: {"receiverId": receiverId, "text": messageSend},
+      );
+
+      // Check if data is null
+      if (data == null) {
+        return;
+      }
+
+      // Decode the response
+      final Map<String, dynamic> response = jsonDecode(data.body);
+      final dynamic status = response['status'];
+      final String message = response['message'];
+
+      if (context.mounted) {
+        if (status == "success" || status == 200) {
+          showSnackBar(
+            context: context,
+            message: message,
+            isSuccess: true,
+          );
+        } else {
+          // Show error message if the status is not success
+          showSnackBar(
+            context: context,
+            message: message,
+            isSuccess: false,
+          );
+        }
+      }
+    } catch (e) {
+      // Handle exceptions
+      if (context.mounted) {
+        showSnackBar(
+          context: context,
+          message: 'An error occurred: $e',
+          isSuccess: false,
+        );
+      }
+    }
   }
 }

@@ -52,6 +52,7 @@ class Messages {
   Receiver? receiver;
   String? conversationId;
   bool? seen;
+  bool? sentByUser;
   String? timestamp;
   String? createdAt;
   String? updatedAt;
@@ -62,6 +63,7 @@ class Messages {
       this.text,
       this.user,
       this.receiver,
+      this.sentByUser,
       this.conversationId,
       this.seen,
       this.timestamp,
@@ -77,6 +79,7 @@ class Messages {
         json["receiver"] == null ? null : Receiver.fromJson(json["receiver"]);
     conversationId = json["conversationId"];
     seen = json["seen"];
+    sentByUser = json["sentByUser"];
     timestamp = json["timestamp"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
@@ -87,6 +90,7 @@ class Messages {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["_id"] = id;
     _data["text"] = text;
+    _data["sentByUser"] = sentByUser;
     if (user != null) {
       _data["user"] = user?.toJson();
     }
