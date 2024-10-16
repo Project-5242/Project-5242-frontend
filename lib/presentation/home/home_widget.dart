@@ -199,30 +199,30 @@ class _HomeWidgetState extends State<HomeWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                            height: 120,
-                            width: 120,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.white.withOpacity(0.2),
-                                  blurRadius: 5.0,
-                                ),
-                              ],
-                            ),
-                            child: Image.network(
-                              fit: BoxFit.fill,
-                              (detailData.nodes != null &&
-                                      detailData.nodes!.isNotEmpty &&
-                                      detailData.nodes!.first.images != null &&
-                                      detailData
-                                          .nodes!.first.images!.isNotEmpty)
-                                  ? detailData.nodes!.first.images!.first
-                                  : 'https://www.example.com/default_image.jpg',
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image.asset('assets/images/img.png');
-                              },
-                            )),
+                          height: 120,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.white.withOpacity(0.2),
+                                blurRadius: 5.0,
+                              ),
+                            ],
+                          ),
+                          child: Image.network(
+                            fit: BoxFit.fill,
+                            (detailData.nodes != null &&
+                                    detailData.nodes!.isNotEmpty &&
+                                    detailData.nodes!.first.images != null &&
+                                    detailData.nodes!.first.images!.isNotEmpty)
+                                ? detailData.nodes!.first.images!.first
+                                : 'https://www.example.com/default_image.jpg',
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/images/img.png');
+                            },
+                          ),
+                        ),
                         const SizedBox(
                           width: 12,
                         ),
@@ -249,10 +249,21 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      detailProvider
+                                          .callFavouriteNodeApi(
+                                              context: context,
+                                              providerId: detailData.id ?? "")
+                                          .then((v) {
+                                        detailProvider.callDetailsApi(
+                                            context: context);
+                                      });
+                                    },
                                     icon: detailData.isSaved == true
-                                        ? const Icon(Icons.favorite,
-                                            color: Colors.red)
+                                        ? const Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          )
                                         : const Icon(
                                             Icons.favorite_border,
                                           ),

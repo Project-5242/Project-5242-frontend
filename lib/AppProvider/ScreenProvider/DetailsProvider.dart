@@ -96,4 +96,48 @@ class DetailsProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  // Todo Add Add Favourite Node
+
+  Future<void> callFavouriteNodeApi({
+    required BuildContext context,
+    required String providerId,
+  }) async {
+    try {
+      final data = await RemoteService().callPostApi(
+          url: qFavouriteNodeApi, jsonData: {"providerId": providerId});
+      if (data == null) {
+        return;
+      }
+      final Map<String, dynamic> response = jsonDecode(data.body);
+      final dynamic status = response['status'];
+      final String message = response['message'];
+      if (context.mounted) {
+        if (status == 200) {
+          notifyListeners();
+          callDetailsApi(context: context);
+          showSnackBar(
+            context: context,
+            message: message,
+            isSuccess: true,
+          );
+        } else {
+          showSnackBar(
+            context: context,
+            message: message,
+            isSuccess: false,
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(
+          context: context,
+          message: 'An error occurred: $e',
+          isSuccess: false,
+        );
+      }
+    }
+    notifyListeners();
+  }
 }

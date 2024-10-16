@@ -22,3 +22,4 @@ String qDashboardSaveProvider = 'dashboard/savedProviders';
 String qAllChatList = 'message/user/chats';
 String qAllConversations = 'message/conversations';
 String qSaveNodeList = 'dashboard/saveProvideList';
+String qFavouriteNodeApi = 'dashboard/saveProvider';
