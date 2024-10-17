@@ -93,8 +93,10 @@ class _SavedItemCompState extends State<SavedItemComp>
                       padding: const EdgeInsets.fromLTRB(7, 10, 0, 15),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        image: data.nodes?.first.images?.first != null &&
-                                data.nodes!.first.images!.isNotEmpty
+                        image: (data.nodes != null &&
+                                data.nodes!.isNotEmpty &&
+                                data.nodes!.first.images != null &&
+                                data.nodes!.first.images!.isNotEmpty)
                             ? DecorationImage(
                                 scale: 2,
                                 image: NetworkImage(
@@ -104,8 +106,7 @@ class _SavedItemCompState extends State<SavedItemComp>
                               )
                             : const DecorationImage(
                                 scale: 2,
-                                image: AssetImage(
-                                    'assets/images/default_image.png'),
+                                image: AssetImage('assets/images/img.png'),
                                 fit: BoxFit.cover,
                               ),
                       ),
@@ -119,7 +120,10 @@ class _SavedItemCompState extends State<SavedItemComp>
                                 padding: const EdgeInsets.all(8),
                                 onSelected: (value) {
                                   if (value == 1) {
-                                  } else if (value == 2) {}
+                                    // Handle view profile action
+                                  } else if (value == 2) {
+                                    // Handle remove profile action
+                                  }
                                 },
                                 itemBuilder: (context) => [
                                   PopupMenuItem<int>(

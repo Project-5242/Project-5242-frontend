@@ -8,6 +8,8 @@ import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../notifications/notification_view.dart';
+
 class SaveditemScreen extends StatefulWidget {
   const SaveditemScreen({super.key});
 
@@ -40,7 +42,15 @@ class _SaveditemScreenState extends State<SaveditemScreen> {
                 ),
                 centerTitle: true,
                 actions: [
-                  SvgPicture.asset(AssetsRes.NOTIFICATION_ICON),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const NotificationView(),
+                          ),
+                        );
+                      },
+                      child: SvgPicture.asset(AssetsRes.NOTIFICATION_ICON)),
                   const SizedBox(
                     width: 32,
                   )

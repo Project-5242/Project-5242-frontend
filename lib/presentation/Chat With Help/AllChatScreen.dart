@@ -45,7 +45,13 @@ class AllChatScreenState extends State<AllChatScreen>
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const NotificationView(),
+                ),
+              );
+            },
           ),
         ],
       ),

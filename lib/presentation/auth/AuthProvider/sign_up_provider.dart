@@ -359,6 +359,7 @@ class SignUpProvider extends ChangeNotifier {
         jsonData: {
           "email": email,
           "password": password,
+          "fcmToken": sharedPrefs?.getString(AppStrings.fcmToken) ?? "",
         },
       );
 

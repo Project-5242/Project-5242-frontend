@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/ResponseModel/ProviderDetailsModel.dart';
+import 'package:flutter_project/base/extensions/string_extensions.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
+import '../../AppProvider/ScreenProvider/DetailsProvider.dart';
 import '../../data/constants/app_colors.dart';
 import '../../data/constants/responsive_view.dart';
 import '../../res/assets_res.dart';
@@ -30,6 +33,18 @@ class _NotesWidgetState extends State<NotesWidget> {
       validator: (value) {
         return null;
       },
+      onFieldSubmitted: (v) {
+        if (v.isEmpty) {
+          context.read<DetailsProvider>().callDetailsApi(
+                context: context,
+              );
+        } else {
+          context.read<DetailsProvider>().callDetailsApi(
+                context: context,
+                searchQuery: v,
+              );
+        }
+      },
       decoration: InputDecoration(
         hintText: 'Search',
         hintStyle: TextStyle(
@@ -46,7 +61,6 @@ class _NotesWidgetState extends State<NotesWidget> {
             height: 18.0,
           ),
         ),
-        // contentPadding: const EdgeInsets.symmetric(horizontal: 5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
@@ -73,173 +87,264 @@ class _NotesWidgetState extends State<NotesWidget> {
   }
 
   Widget nodeListWidget() {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 1.45,
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: widget.providerList?.length,
-        itemBuilder: (context, index) {
-          var detailData = widget.providerList?[index];
-          return Container(
-              margin: const EdgeInsets.only(top: 0, bottom: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-              decoration: BoxDecoration(
-                color: AppColors.node_bg.withOpacity(.4),
-                borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.white.withOpacity(0.2),
-                    blurRadius: 5.0,
-                  ),
-                ],
+    return Consumer<DetailsProvider>(builder: (context, detailProvider, child) {
+      return Column(
+        children: [
+          Row(
+            children: [
+              CustomTextView(
+                "All Node",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.black),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.white.withOpacity(0.2),
-                            blurRadius: 5.0,
-                          ),
-                        ],
+              const Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => NotesWidget(
+                        providerList: detailProvider.providerList,
                       ),
-                      child: Image.network(
-                        fit: BoxFit.fill,
-                        (detailData?.nodes != null &&
-                                detailData!.nodes!.isNotEmpty &&
-                                detailData.nodes!.first.images != null &&
-                                detailData.nodes!.first.images!.isNotEmpty)
-                            ? detailData.nodes!.first.images!.first
-                            : 'https://www.example.com/default_image.jpg',
-                        errorBuilder: (context, error, stackTrace) {
-                          return Image.asset('assets/images/img.png');
-                        },
-                      )),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Expanded(
-                    child: Column(
+                    ),
+                  );
+                },
+                child: CustomTextView(
+                  "See All",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.text_colour),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: detailProvider.providerList.length,
+              itemBuilder: (context, index) {
+                var detailData = detailProvider.providerList[index];
+                return Container(
+                    margin: const EdgeInsets.only(top: 0, bottom: 30),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: AppColors.node_bg.withOpacity(.4),
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.white.withOpacity(0.2),
+                          blurRadius: 5.0,
+                        ),
+                      ],
+                    ),
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 8,
+                        Container(
+                          height: 120,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.white.withOpacity(0.2),
+                                blurRadius: 5.0,
+                              ),
+                            ],
+                          ),
+                          child: Image.network(
+                            fit: BoxFit.fill,
+                            (detailData.nodes != null &&
+                                    detailData.nodes!.isNotEmpty &&
+                                    detailData.nodes!.first.images != null &&
+                                    detailData.nodes!.first.images!.isNotEmpty)
+                                ? detailData.nodes!.first.images!.first
+                                : 'https://www.example.com/default_image.jpg',
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/images/img.png');
+                            },
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: CustomTextView(
-                                detailData?.providerId?.fullName ?? "Unknown",
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: CustomTextView(
+                                      detailData.providerId?.fullName
+                                              ?.capitalized ??
+                                          "Unknown",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.black),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      if (detailData.isSaved == true) {
+                                        detailProvider
+                                            .callRemoveFavouriteNodeApi(
+                                                context: context,
+                                                providerId:
+                                                    detailData.providerId?.id ??
+                                                        "")
+                                            .then((v) {
+                                          detailProvider.callDetailsApi(
+                                              context: context);
+                                        });
+                                      } else {
+                                        detailProvider
+                                            .callFavouriteNodeApi(
+                                                context: context,
+                                                providerId:
+                                                    detailData.providerId?.id ??
+                                                        "")
+                                            .then((v) {
+                                          detailProvider.callDetailsApi(
+                                              context: context);
+                                        });
+                                      }
+                                    },
+                                    icon: detailData.isSaved == true
+                                        ? const Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          )
+                                        : const Icon(
+                                            Icons.favorite_border,
+                                          ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              CustomTextView(
+                                "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.title?.capitalized : "No title available"}",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.black),
                               ),
-                            ),
-                            const Icon(Icons.favorite_border),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        CustomTextView(
-                          "${(detailData?.nodes != null && detailData!.nodes!.isNotEmpty) ? detailData.nodes!.first.title : "No title available"}",
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black),
-                        ),
-                        const SizedBox(height: 2),
-                        CustomTextView(
-                          "${(detailData?.nodes != null && detailData!.nodes!.isNotEmpty) ? detailData.nodes!.first.addDescription : "No description available"}",
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.text_colour),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            CustomTextView(
-                              "Exp 10 yrs",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.black),
-                            ),
-                            Expanded(
-                              child: Row(
+                              const SizedBox(height: 2),
+                              CustomTextView(
+                                "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.addDescription?.capitalized : "No description available"}",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.text_colour),
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  const Icon(Icons.location_on_outlined),
-                                  const SizedBox(width: 5),
+                                  CustomTextView(
+                                    "Exp 10 yrs",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.black),
+                                  ),
                                   Expanded(
-                                    child: CustomTextView(
-                                      "${(detailData?.nodes != null && detailData!.nodes!.isNotEmpty) ? detailData.nodes!.first.location : "No Location available"}",
-                                      style: TextStyle(
-                                          overflow: TextOverflow.ellipsis,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.black),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.location_on_outlined),
+                                        const SizedBox(width: 5),
+                                        Expanded(
+                                          child: CustomTextView(
+                                            "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.location?.capitalized : "No Location available"}",
+                                            style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.black),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        )
                       ],
-                    ),
-                  )
-                ],
-              ));
-        },
-      ),
-    );
+                    ));
+              },
+            ),
+          ),
+        ],
+      );
+    });
   }
 
   _mobileView(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              size: 21.0,
-              color: Colors.black,
-            )),
-        title: Text(
-          "All Notes",
-          style: TextStyle(
-              color: AppColors.background_theme,
-              fontSize: 26,
-              fontWeight: FontWeight.w700),
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: AppColors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-          child: Column(
-            children: [
-              searchWidget(),
-              const SizedBox(
-                height: 10,
-              ),
-              nodeListWidget(),
-            ],
+    return Consumer<DetailsProvider>(
+      builder: (context, detailsProvider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  size: 21.0,
+                  color: Colors.black,
+                )),
+            title: Text(
+              "All Notes",
+              style: TextStyle(
+                  color: AppColors.background_theme,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w700),
+            ),
+            centerTitle: true,
           ),
-        ),
-      ),
+          backgroundColor: AppColors.white,
+          body: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+              child: Column(
+                children: [
+                  searchWidget(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  detailsProvider.hasNoData
+                      ? Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "No Data Available",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.text_colour,
+                            ),
+                          ),
+                        )
+                      : nodeListWidget(),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

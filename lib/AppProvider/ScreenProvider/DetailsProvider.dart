@@ -10,49 +10,51 @@ import '../../ResponseModel/SavedProvidersModel.dart';
 
 class DetailsProvider extends ChangeNotifier {
   List<ProviderDetailsList> providerList = [];
+  bool hasNoData = false; // New flag for "No Data" status
+
   Future<void> callDetailsApi({
     required BuildContext context,
     String? categoryId,
+    String? searchQuery,
   }) async {
     try {
       String apiUrl = qUserProviderDetails;
+
       if (categoryId != null && categoryId.isNotEmpty) {
         apiUrl = '$apiUrl/category/$categoryId';
       }
+
+      if (searchQuery != null && searchQuery.isNotEmpty) {
+        apiUrl = '$apiUrl/query?q=$searchQuery';
+      }
+
       final data = await RemoteService().callGetApi(url: apiUrl);
       if (data == null) {
+        hasNoData = true;
+        notifyListeners();
         return;
       }
+
       final providerDetailsResponse =
           ProviderDetailsModel.fromJson(jsonDecode(data.body));
-      if (context.mounted) {
-        if (providerDetailsResponse.status == 200) {
-          providerList = providerDetailsResponse.data ?? [];
-          notifyListeners();
 
-          showSnackBar(
-            context: context,
-            message: providerDetailsResponse.message,
-            isSuccess: true,
-          );
-        } else {
-          showSnackBar(
-            context: context,
-            message: providerDetailsResponse.message,
-            isSuccess: false,
-          );
-        }
+      if (!context.mounted) return;
+
+      if (providerDetailsResponse.status == 200) {
+        providerList = providerDetailsResponse.data ?? [];
+        hasNoData = providerList.isEmpty; // Set "no data" if the list is empty
+        notifyListeners();
+      } else if (providerDetailsResponse.status == 404) {
+        hasNoData = true; // Set "no data" if status is 404
+        notifyListeners();
+      } else {
+        hasNoData = true;
+        notifyListeners();
       }
     } catch (e) {
-      if (context.mounted) {
-        showSnackBar(
-          context: context,
-          message: 'An error occurred: $e',
-          isSuccess: false,
-        );
-      }
+      hasNoData = true;
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   // Todo Save Node Api
@@ -68,16 +70,20 @@ class DetailsProvider extends ChangeNotifier {
         return;
       }
       final saveResponse = SaveNodeListModel.fromJson(jsonDecode(data.body));
-      if (context.mounted) {
-        if (saveResponse.status == 200) {
-          saveNodeData = saveResponse.data ?? [];
-          notifyListeners();
+      if (!context.mounted) return;
+      if (saveResponse.status == 200) {
+        saveNodeData = saveResponse.data ?? [];
+        notifyListeners();
+        if (context.mounted) {
           showSnackBar(
             context: context,
             message: saveResponse.message,
             isSuccess: true,
           );
-        } else {
+        }
+      } else {
+        // Show error SnackBar only if the context is still valid
+        if (context.mounted) {
           showSnackBar(
             context: context,
             message: saveResponse.message,
@@ -94,6 +100,7 @@ class DetailsProvider extends ChangeNotifier {
         );
       }
     }
+
     notifyListeners();
   }
 

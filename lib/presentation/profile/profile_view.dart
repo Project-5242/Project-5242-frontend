@@ -464,7 +464,11 @@ class _ProfileViewState extends State<ProfileView> {
                   IconButton(
                     icon: SvgPicture.asset(AssetsRes.Notification_SVG),
                     onPressed: () {
-                      // Add action
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const NotificationView(),
+                        ),
+                      );
                     },
                   ),
                 ],

@@ -29,3 +29,4 @@ String qProviderDetailsById = 'providerDetails/provider';
 String qRemoveProviderId = 'dashboard/savedProvider';
 String qInfoApi = 'info';
 String qSendMessageApi = 'message/messages';
+String qNotificationList = 'notifications';

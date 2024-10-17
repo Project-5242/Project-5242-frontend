@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/AppProvider/ScreenProvider/addressProvider.dart';
+import 'package:flutter_project/base/Remote/NotificationService.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/main.dart';
@@ -27,6 +30,7 @@ class _SplashViewState extends State<SplashView> {
 
     Future.delayed(const Duration(seconds: 3), () async {
       await startSplashScreenTimer();
+      getDeviceToken();
       context.read<AddressProvider>().getGeoLocationPosition();
     });
   }
@@ -82,6 +86,18 @@ class _SplashViewState extends State<SplashView> {
         }
       },
     );
+  }
+
+  getDeviceToken() async {
+    await NotificationService().registerNotification();
+    await FirebaseMessaging.instance.getToken().then((value) {
+      log("device token is ----> $value");
+      if (value != null) {
+        deviceToken = value;
+        sharedPrefs?.setString(AppStrings.fcmToken, deviceToken);
+        log("my device token is ----> ${sharedPrefs?.getString(AppStrings.fcmToken)}");
+      }
+    });
   }
 
   @override

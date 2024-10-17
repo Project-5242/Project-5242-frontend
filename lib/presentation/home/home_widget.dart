@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/AppProvider/ScreenProvider/DetailsProvider.dart';
 import 'package:flutter_project/base/base.dart';
+import 'package:flutter_project/base/helpers/textwidget.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/main.dart';
 import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
@@ -49,10 +50,22 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 
-  Widget searchWidget() {
+  Widget searchWidget(BuildContext context) {
     return TextFormField(
       validator: (value) {
         return null;
+      },
+      onFieldSubmitted: (v) {
+        if (v.isEmpty) {
+          context.read<DetailsProvider>().callDetailsApi(
+                context: context,
+              );
+        } else {
+          context.read<DetailsProvider>().callDetailsApi(
+                context: context,
+                searchQuery: v,
+              );
+        }
       },
       decoration: InputDecoration(
         hintText: 'Search',
@@ -70,7 +83,6 @@ class _HomeWidgetState extends State<HomeWidget> {
             height: 18.0,
           ),
         ),
-        // contentPadding: const EdgeInsets.symmetric(horizontal: 5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
@@ -94,6 +106,207 @@ class _HomeWidgetState extends State<HomeWidget> {
         ),
       ),
     );
+  }
+
+  Widget _mobileView(BuildContext context) {
+    return Consumer<DetailsProvider>(
+        builder: (context, detailsProvider, child) {
+      return Scaffold(
+        backgroundColor: AppColors.white,
+        body: Container(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 30,
+                      child: sharedPrefs?.getString(AppStrings.userImage) != ""
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.background_theme
+                                      .withOpacity(0.3),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: AppColors.grey)),
+                              height: 60,
+                              width: 60,
+                              child: Image.network(
+                                '${sharedPrefs?.getString(AppStrings.userImage)}',
+                              ),
+                            )
+                          : Container(
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  color: AppColors.background_theme
+                                      .withOpacity(0.3),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: AppColors.grey)),
+                              child: Center(
+                                child: TextWidget(
+                                  text:
+                                      '${sharedPrefs?.getString(AppStrings.userName)?.isNotEmpty == true ? sharedPrefs?.getString(AppStrings.userName)?.substring(0, 1).toUpperCase() : ''}',
+                                ),
+                              ),
+                            ),
+                    ),
+                    const SizedBox(width: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomTextView(
+                          "Hi,Welcome Back,",
+                          style: TextStyle(
+                            color: AppColors.text_colour,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        CustomTextView(
+                          "${sharedPrefs?.getString(AppStrings.userName)}",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const NotificationView(),
+                          ),
+                        );
+                      },
+                      child: SvgPicture.asset(
+                        AssetsRes.ic_notification,
+                        height: 32,
+                        width: 32,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                searchWidget(context),
+                const SizedBox(height: 15),
+                Row(
+                  children: [
+                    CustomTextView(
+                      "Categories",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.black,
+                      ),
+                    ),
+                    const Spacer(),
+                    CustomTextView(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.text_colour,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 50.0,
+                  child: ListView.builder(
+                    controller: context.read<SignUpProvider>().scrollController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount:
+                        context.read<SignUpProvider>().categoriesList.length,
+                    itemBuilder: (context, index) {
+                      var catData =
+                          context.read<SignUpProvider>().categoriesList[index];
+
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            context
+                                .read<SignUpProvider>()
+                                .selectedCategoryIndex = index;
+                          });
+
+                          context.read<DetailsProvider>().callDetailsApi(
+                              context: context, categoryId: catData.id);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                            top: 5,
+                            bottom: 5,
+                          ),
+                          padding: const EdgeInsets.only(
+                            left: 15,
+                            right: 15,
+                          ),
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: AppColors.category_bg,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.white.withOpacity(0.2),
+                                blurRadius: 5.0,
+                              ),
+                            ],
+                            border: context
+                                        .read<SignUpProvider>()
+                                        .selectedCategoryIndex ==
+                                    index
+                                ? Border.all(
+                                    color: AppColors.greyLight,
+                                    width: 2.0,
+                                  )
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${catData.categoryName?.capitalized}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10),
+                detailsProvider.hasNoData
+                    ? Center(
+                        child: Text(
+                          "No Data Available",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.text_colour,
+                          ),
+                        ),
+                      )
+                    : nodeListWidget(),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   Widget categoryListWidget() {
@@ -346,156 +559,6 @@ class _HomeWidgetState extends State<HomeWidget> {
     });
   }
 
-  _mobileView(BuildContext context) {
-    return Consumer<SignUpProvider>(builder: (context, value, child) {
-      return Scaffold(
-        backgroundColor: AppColors.white,
-        body: Container(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 35,
-                      backgroundImage: NetworkImage(
-                        '${sharedPrefs?.getString(AppStrings.userImage)}', // Replace with your image URL
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomTextView(
-                          "Hi,Welcome Back,",
-                          style: TextStyle(
-                              color: AppColors.text_colour,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        CustomTextView(
-                          "${sharedPrefs?.getString(AppStrings.userName)}",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      AssetsRes.ic_notification,
-                      height: 32,
-                      width: 32,
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                searchWidget(),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  children: [
-                    CustomTextView(
-                      "Categories",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.black),
-                    ),
-                    const Spacer(),
-                    CustomTextView(
-                      "See All",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.text_colour),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 50.0,
-                  child: ListView.builder(
-                    controller: value.scrollController,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: value.categoriesList.length,
-                    itemBuilder: (context, index) {
-                      var catData = value.categoriesList[index];
-
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            value.selectedCategoryIndex = index;
-                          });
-
-                          context.read<DetailsProvider>().callDetailsApi(
-                              context: context, categoryId: catData.id);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(
-                              left: 10, right: 10, top: 5, bottom: 5),
-                          padding: const EdgeInsets.only(left: 15, right: 15),
-                          height: 50.0,
-                          decoration: BoxDecoration(
-                            color: AppColors.category_bg,
-                            borderRadius: BorderRadius.circular(8.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.white.withOpacity(0.2),
-                                blurRadius: 5.0,
-                              ),
-                            ],
-                            border: value.selectedCategoryIndex == index
-                                ? Border.all(
-                                    color: AppColors.greyLight,
-                                    width: 2.0,
-                                  )
-                                : null,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "${catData.categoryName?.capitalized}",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                nodeListWidget(),
-              ],
-            ),
-          ),
-        ),
-      );
-    });
-  }
-
   _desktopView(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -579,8 +642,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                   const Spacer(),
                   InkWell(
                     onTap: () {
-                      if (context.mounted)
+                      if (context.mounted) {
                         context.pushNamedAndRemoveUntil(Routes.allnotes);
+                      }
                     },
                     child: CustomTextView(
                       "See All",
