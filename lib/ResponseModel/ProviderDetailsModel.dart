@@ -88,7 +88,7 @@ class Nodes {
   String? location;
   double? longitude;
   double? latitude;
-  List<String>? categoryId;
+  List<CategoryId>? categoryId;
   String? id;
   String? createdAt;
 
@@ -116,7 +116,10 @@ class Nodes {
     latitude = json["latitude"];
     categoryId = json["categoryId"] == null
         ? null
-        : List<String>.from(json["categoryId"]);
+        : (json["categoryId"] as List)
+            .map((e) => CategoryId.fromJson(e))
+            .toList();
+
     id = json["_id"];
     createdAt = json["createdAt"];
   }
@@ -134,7 +137,7 @@ class Nodes {
     _data["longitude"] = longitude;
     _data["latitude"] = latitude;
     if (categoryId != null) {
-      _data["categoryId"] = categoryId;
+      _data["categoryId"] = categoryId?.map((e) => e.toJson()).toList();
     }
     _data["_id"] = id;
     _data["createdAt"] = createdAt;
@@ -163,6 +166,51 @@ class ProviderId {
     _data["fullName"] = fullName;
     _data["email"] = email;
     _data["profilePhoto"] = profilePhoto;
+    return _data;
+  }
+}
+
+class CategoryId {
+  String? id;
+  String? categoryDescription;
+  String? categoryName;
+  String? userId;
+  String? userName;
+  String? createdAt;
+  String? updatedAt;
+  int? v;
+
+  CategoryId(
+      {this.id,
+      this.categoryDescription,
+      this.categoryName,
+      this.userId,
+      this.userName,
+      this.createdAt,
+      this.updatedAt,
+      this.v});
+
+  CategoryId.fromJson(Map<String, dynamic> json) {
+    id = json["_id"];
+    categoryDescription = json["categoryDescription"];
+    categoryName = json["categoryName"];
+    userId = json["userId"];
+    userName = json["userName"];
+    createdAt = json["createdAt"];
+    updatedAt = json["updatedAt"];
+    v = json["__v"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["_id"] = id;
+    _data["categoryDescription"] = categoryDescription;
+    _data["categoryName"] = categoryName;
+    _data["userId"] = userId;
+    _data["userName"] = userName;
+    _data["createdAt"] = createdAt;
+    _data["updatedAt"] = updatedAt;
+    _data["__v"] = v;
     return _data;
   }
 }

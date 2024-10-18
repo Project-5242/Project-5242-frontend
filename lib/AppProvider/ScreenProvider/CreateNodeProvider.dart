@@ -84,7 +84,6 @@ class CreateNodeProvider extends ChangeNotifier {
     }
 
     try {
-      // Call the multipart API with the selected images and request body
       final data = await RemoteService().callMultipartApi(
         url: qCreateNode,
         fileParamName: "images",
@@ -110,25 +109,33 @@ class CreateNodeProvider extends ChangeNotifier {
       print("API Response Body: ${data.body}");
 
       // Parse the response
-      final response = CreateNodeModel.fromJson(jsonDecode(data.body));
+      final decodedData = jsonDecode(data.body);
 
-      // Handle the response
-      if (context.mounted) {
-        if (response.status == 201) {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => CreateProfile4()),
-            (route) => false,
-          );
-          showSnackBar(
-              context: Routes.navigatorKey.currentContext,
-              isSuccess: true,
-              message: response.message);
-        } else {
-          showSnackBar(
-              context: Routes.navigatorKey.currentContext,
-              isSuccess: false,
-              message: response.message);
+      // Check if the response is a list or map
+      if (decodedData is List) {
+        print("Response is a list: $decodedData");
+        // Handle list response if necessary
+      } else if (decodedData is Map<String, dynamic>) {
+        final response = CreateNodeModel.fromJson(decodedData);
+        if (context.mounted) {
+          if (response.status == 201) {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const CreateProfile4()),
+              (route) => false,
+            );
+            showSnackBar(
+                context: Routes.navigatorKey.currentContext,
+                isSuccess: true,
+                message: response.message);
+          } else {
+            showSnackBar(
+                context: Routes.navigatorKey.currentContext,
+                isSuccess: false,
+                message: response.message);
+          }
         }
+      } else {
+        print("Unexpected response format");
       }
     } catch (e) {
       // Log the error if any exception occurs
