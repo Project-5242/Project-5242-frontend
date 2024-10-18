@@ -79,7 +79,7 @@ class SignUpProvider extends ChangeNotifier {
             message: commonAuthResponse.message,
             isSuccess: true,
           );
-        } else {
+        } else if (commonAuthResponse.status == 400) {
           showSnackBar(
             context: context,
             message: commonAuthResponse.message,
@@ -282,7 +282,7 @@ class SignUpProvider extends ChangeNotifier {
             message: commonAuthResponse.message,
             isSuccess: true,
           );
-        } else {
+        } else if (commonAuthResponse.status == 400) {
           showSnackBar(
             context: context,
             message: commonAuthResponse.message,
