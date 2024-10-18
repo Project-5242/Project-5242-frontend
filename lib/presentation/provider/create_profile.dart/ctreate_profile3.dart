@@ -111,13 +111,11 @@ class _CreateProfile3State extends State<CreateProfile3> {
                   MaterialPageRoute(
                       builder: (context) => const AutoCompleteScreen()),
                 );
-
                 if (place != null) {
                   final address = place['address'];
                   final latitude = place['latitude'];
                   final longitude = place['longitude'];
 
-                  // Log the address, latitude, and longitude
                   print("Selected Address: $address");
                   print("Latitude: $latitude");
                   print("Longitude: $longitude");

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_project/ResponseModel/ProviderDetailsByIdModel.dart';
 import 'package:flutter_project/ResponseModel/ProviderDetailsModel.dart';
 import 'package:flutter_project/base/Remote/api_config.dart';
 import 'package:flutter_project/base/Remote/remote_service.dart';
@@ -189,6 +190,54 @@ class DetailsProvider extends ChangeNotifier {
         );
       }
     }
+    notifyListeners();
+  }
+
+  // Todo Provider Details by id Api
+
+  List<ProviderDetailsNodeList> providerDetailsNodeList = [];
+  Future<void> callViewProviderDetailByIdApi({
+    required BuildContext context,
+    required String providerId,
+  }) async {
+    try {
+      final data = await RemoteService()
+          .callGetApi(url: "$qProviderDetailsById/$providerId");
+      if (data == null) {
+        return;
+      }
+      final providerDetailsResponse =
+          ProviderDetailsByIdModel.fromJson(jsonDecode(data.body));
+      if (!context.mounted) return;
+      if (providerDetailsResponse.status == 200) {
+        providerDetailsNodeList = providerDetailsResponse.data ?? [];
+        notifyListeners();
+        if (context.mounted) {
+          showSnackBar(
+            context: context,
+            message: providerDetailsResponse.message,
+            isSuccess: true,
+          );
+        }
+      } else {
+        if (context.mounted) {
+          showSnackBar(
+            context: context,
+            message: providerDetailsResponse.message,
+            isSuccess: false,
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(
+          context: context,
+          message: 'An error occurred: $e',
+          isSuccess: false,
+        );
+      }
+    }
+
     notifyListeners();
   }
 }

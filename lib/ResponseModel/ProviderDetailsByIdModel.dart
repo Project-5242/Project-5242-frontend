@@ -1,17 +1,17 @@
-class ProviderDetailsModel {
-  int? status;
+class ProviderDetailsByIdModel {
+  dynamic status;
   String? message;
-  List<ProviderDetailsList>? data;
+  List<ProviderDetailsNodeList>? data;
 
-  ProviderDetailsModel({this.status, this.message, this.data});
+  ProviderDetailsByIdModel({this.status, this.message, this.data});
 
-  ProviderDetailsModel.fromJson(Map<String, dynamic> json) {
+  ProviderDetailsByIdModel.fromJson(Map<String, dynamic> json) {
     status = json["status"];
     message = json["message"];
     data = json["data"] == null
         ? null
         : (json["data"] as List)
-            .map((e) => ProviderDetailsList.fromJson(e))
+            .map((e) => ProviderDetailsNodeList.fromJson(e))
             .toList();
   }
 
@@ -26,27 +26,25 @@ class ProviderDetailsModel {
   }
 }
 
-class ProviderDetailsList {
+class ProviderDetailsNodeList {
   String? id;
   ProviderId? providerId;
   List<Nodes>? nodes;
-  int? totalView;
+  dynamic totalView;
   String? createdAt;
   String? updatedAt;
-  int? v;
-  bool? isSaved;
+  dynamic v;
 
-  ProviderDetailsList(
+  ProviderDetailsNodeList(
       {this.id,
       this.providerId,
       this.nodes,
       this.totalView,
       this.createdAt,
-      this.isSaved,
       this.updatedAt,
       this.v});
 
-  ProviderDetailsList.fromJson(Map<String, dynamic> json) {
+  ProviderDetailsNodeList.fromJson(Map<String, dynamic> json) {
     id = json["_id"];
     providerId = json["providerId"] == null
         ? null
@@ -57,7 +55,6 @@ class ProviderDetailsList {
     totalView = json["totalView"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
-    isSaved = json["isSaved"];
     v = json["__v"];
   }
 
@@ -74,7 +71,6 @@ class ProviderDetailsList {
     _data["createdAt"] = createdAt;
     _data["updatedAt"] = updatedAt;
     _data["__v"] = v;
-    _data["isSaved"] = isSaved;
     return _data;
   }
 }
@@ -88,7 +84,7 @@ class Nodes {
   String? location;
   double? longitude;
   double? latitude;
-  List<dynamic>? categoryId;
+  List<String>? categoryId;
   String? id;
   String? createdAt;
 

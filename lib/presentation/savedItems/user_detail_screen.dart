@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/AppProvider/ScreenProvider/DetailsProvider.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class UserDetailScreen extends StatefulWidget {
-  const UserDetailScreen({super.key});
+  final String? providerId;
+  const UserDetailScreen({super.key, this.providerId});
 
   @override
   State<UserDetailScreen> createState() => _UserDetailScreenState();
@@ -14,190 +17,206 @@ class UserDetailScreen extends StatefulWidget {
 
 class _UserDetailScreenState extends State<UserDetailScreen> {
   @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      context.read<DetailsProvider>().callViewProviderDetailByIdApi(
+          context: context, providerId: widget.providerId.toString());
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final response = ResponsiveCheck(context);
-    return Scaffold(
-      appBar: response.isMobile
-          ? AppBar(
-              leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    size: 21.0,
-                    color: Colors.black,
-                  )),
-              title: Text(
-                AppStrings.details,
-                style: TextStyle(
-                    color: AppColors.blue,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700),
-              ),
-              centerTitle: true,
-            )
-          : AppBar(
-              leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    size: 24,
-                    color: Colors.black,
-                  )),
-              title: Text(
-                AppStrings.details,
-                style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-      body: response.isMobile || response.isTablet
-          ? ListView(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: response.isTablet ? 100 : 0, vertical: 20),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  color: AppColors.grey,
+    return Consumer<DetailsProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          appBar: response.isMobile
+              ? AppBar(
+                  leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        size: 21.0,
+                        color: Colors.black,
+                      )),
+                  title: Text(
+                    AppStrings.details,
+                    style: TextStyle(
+                        color: AppColors.blue,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  centerTitle: true,
+                )
+              : AppBar(
+                  leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        size: 24,
+                        color: Colors.black,
+                      )),
+                  title: Text(
+                    AppStrings.details,
+                    style: TextStyle(
+                        color: AppColors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 25, horizontal: response.isTablet ? 30 : 20),
+          body: response.isMobile || response.isTablet
+              ? ListView(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: response.isTablet ? 100 : 0,
+                          vertical: 20),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      color: AppColors.grey,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 25,
+                          horizontal: response.isTablet ? 30 : 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Username",
+                                style: TextStyle(
+                                    color: AppColors.black,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SvgPicture.asset(AssetsRes.LIKE_ICON)
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Text(
+                            "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
+                            style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          const SubnodeComp(),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const SubnodeComp()
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(34, 32, 88, 32),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Username",
-                            style: TextStyle(
-                                color: AppColors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          SvgPicture.asset(AssetsRes.LIKE_ICON)
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
-                        style: TextStyle(
-                            color: AppColors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      const SubnodeComp(),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SubnodeComp()
-                    ],
-                  ),
-                )
-              ],
-            )
-          : SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(34, 32, 88, 32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 0,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 48),
-                          height: MediaQuery.of(context).size.height * 0.4,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          decoration: BoxDecoration(
-                            color: AppColors.grey1,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        Column(
+                      Expanded(
+                        flex: 0,
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Username",
-                              style: TextStyle(
-                                  color: AppColors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              "Exp 10 yrs",
-                              style: TextStyle(
-                                  color: AppColors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                            ),
                             Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Text(
-                                "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.\n\nJorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
-                                style: TextStyle(
-                                    color: AppColors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400),
+                              margin: const EdgeInsets.only(right: 48),
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              decoration: BoxDecoration(
+                                color: AppColors.grey1,
+                                borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SvgPicture.asset(
-                                  AssetsRes.LOCATION_ICON,
-                                  color: AppColors.black,
-                                ),
-                                const SizedBox(
-                                  width: 6,
+                                Text(
+                                  "Username",
+                                  style: TextStyle(
+                                      color: AppColors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  "Location",
+                                  "Exp 10 yrs",
                                   style: TextStyle(
                                       color: AppColors.black,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600),
+                                      fontWeight: FontWeight.w400),
                                 ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: Text(
+                                    "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.\n\nJorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
+                                    style: TextStyle(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AssetsRes.LOCATION_ICON,
+                                      color: AppColors.black,
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      "Location",
+                                      style: TextStyle(
+                                          color: AppColors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                )
                               ],
                             )
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  const Expanded(
-                    flex: 0,
-                    child: Row(
-                      children: [
-                        SubnodeComp(),
-                        SizedBox(
-                          width: 122,
                         ),
-                        SubnodeComp(),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      const Expanded(
+                        flex: 0,
+                        child: Row(
+                          children: [
+                            SubnodeComp(),
+                            SizedBox(
+                              width: 122,
+                            ),
+                            SubnodeComp(),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+        );
+      },
     );
   }
 }

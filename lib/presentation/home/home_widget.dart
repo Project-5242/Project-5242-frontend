@@ -6,6 +6,7 @@ import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/main.dart';
 import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.dart';
 import 'package:flutter_project/presentation/home/notes_widget.dart';
+import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../base/helpers/helper.dart';
@@ -126,16 +127,22 @@ class _HomeWidgetState extends State<HomeWidget> {
                       backgroundColor: Colors.white,
                       radius: 30,
                       child: sharedPrefs?.getString(AppStrings.userImage) != ""
-                          ? Container(
-                              decoration: BoxDecoration(
-                                  color: AppColors.background_theme
-                                      .withOpacity(0.3),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: AppColors.grey)),
-                              height: 60,
-                              width: 60,
-                              child: Image.network(
-                                '${sharedPrefs?.getString(AppStrings.userImage)}',
+                          ? CircleAvatar(
+                              radius: 55,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.background_theme
+                                        .withOpacity(0.3),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: AppColors.grey)),
+                                height: 60,
+                                width: 60,
+                                child: ClipOval(
+                                  child: Image.network(
+                                    fit: BoxFit.fill,
+                                    '${sharedPrefs?.getString(AppStrings.userImage)}',
+                                  ),
+                                ),
                               ),
                             )
                           : Container(
@@ -394,163 +401,177 @@ class _HomeWidgetState extends State<HomeWidget> {
               itemCount: detailProvider.providerList.length,
               itemBuilder: (context, index) {
                 var detailData = detailProvider.providerList[index];
-                return Container(
-                    margin: const EdgeInsets.only(top: 0, bottom: 10),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: AppColors.node_bg.withOpacity(.4),
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.white.withOpacity(0.2),
-                          blurRadius: 5.0,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => UserDetailScreen(
+                          providerId: detailData.providerId?.id,
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.white.withOpacity(0.2),
-                                blurRadius: 5.0,
-                              ),
-                            ],
+                      ),
+                    );
+                  },
+                  child: Container(
+                      margin: const EdgeInsets.only(top: 0, bottom: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 2, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: AppColors.node_bg.withOpacity(.4),
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.white.withOpacity(0.2),
+                            blurRadius: 5.0,
                           ),
-                          child: Image.network(
-                            fit: BoxFit.fill,
-                            (detailData.nodes != null &&
-                                    detailData.nodes!.isNotEmpty &&
-                                    detailData.nodes!.first.images != null &&
-                                    detailData.nodes!.first.images!.isNotEmpty)
-                                ? detailData.nodes!.first.images!.first
-                                : 'https://www.example.com/default_image.jpg',
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset('assets/images/img.png');
-                            },
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 120,
+                            width: 120,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.white.withOpacity(0.2),
+                                  blurRadius: 5.0,
+                                ),
+                              ],
+                            ),
+                            child: Image.network(
+                              fit: BoxFit.fill,
+                              (detailData.nodes != null &&
+                                      detailData.nodes!.isNotEmpty &&
+                                      detailData.nodes!.first.images != null &&
+                                      detailData
+                                          .nodes!.first.images!.isNotEmpty)
+                                  ? detailData.nodes!.first.images!.first
+                                  : 'https://www.example.com/default_image.jpg',
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset('assets/images/img.png');
+                              },
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: CustomTextView(
-                                      detailData.providerId?.fullName
-                                              ?.capitalized ??
-                                          "Unknown",
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: CustomTextView(
+                                        detailData.providerId?.fullName
+                                                ?.capitalized ??
+                                            "Unknown",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.black),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        if (detailData.isSaved == true) {
+                                          detailProvider
+                                              .callRemoveFavouriteNodeApi(
+                                                  context: context,
+                                                  providerId: detailData
+                                                          .providerId?.id ??
+                                                      "")
+                                              .then((v) {
+                                            detailProvider.callDetailsApi(
+                                                context: context);
+                                          });
+                                        } else {
+                                          detailProvider
+                                              .callFavouriteNodeApi(
+                                                  context: context,
+                                                  providerId: detailData
+                                                          .providerId?.id ??
+                                                      "")
+                                              .then((v) {
+                                            detailProvider.callDetailsApi(
+                                                context: context);
+                                          });
+                                        }
+                                      },
+                                      icon: detailData.isSaved == true
+                                          ? const Icon(
+                                              Icons.favorite,
+                                              color: Colors.red,
+                                            )
+                                          : const Icon(
+                                              Icons.favorite_border,
+                                            ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                CustomTextView(
+                                  "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.title?.capitalized : "No title available"}",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.black),
+                                ),
+                                const SizedBox(height: 2),
+                                CustomTextView(
+                                  "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.addDescription?.capitalized : "No description available"}",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.text_colour),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CustomTextView(
+                                      "Exp 10 yrs",
                                       style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
                                           color: AppColors.black),
                                     ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      if (detailData.isSaved == true) {
-                                        detailProvider
-                                            .callRemoveFavouriteNodeApi(
-                                                context: context,
-                                                providerId:
-                                                    detailData.providerId?.id ??
-                                                        "")
-                                            .then((v) {
-                                          detailProvider.callDetailsApi(
-                                              context: context);
-                                        });
-                                      } else {
-                                        detailProvider
-                                            .callFavouriteNodeApi(
-                                                context: context,
-                                                providerId:
-                                                    detailData.providerId?.id ??
-                                                        "")
-                                            .then((v) {
-                                          detailProvider.callDetailsApi(
-                                              context: context);
-                                        });
-                                      }
-                                    },
-                                    icon: detailData.isSaved == true
-                                        ? const Icon(
-                                            Icons.favorite,
-                                            color: Colors.red,
-                                          )
-                                        : const Icon(
-                                            Icons.favorite_border,
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          const Icon(
+                                              Icons.location_on_outlined),
+                                          const SizedBox(width: 5),
+                                          Expanded(
+                                            child: CustomTextView(
+                                              "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.location?.capitalized : "No Location available"}",
+                                              style: TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.black),
+                                            ),
                                           ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              CustomTextView(
-                                "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.title?.capitalized : "No title available"}",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.black),
-                              ),
-                              const SizedBox(height: 2),
-                              CustomTextView(
-                                "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.addDescription?.capitalized : "No description available"}",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.text_colour),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  CustomTextView(
-                                    "Exp 10 yrs",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.black),
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        const Icon(Icons.location_on_outlined),
-                                        const SizedBox(width: 5),
-                                        Expanded(
-                                          child: CustomTextView(
-                                            "${(detailData.nodes != null && detailData.nodes!.isNotEmpty) ? detailData.nodes!.first.location?.capitalized : "No Location available"}",
-                                            style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.black),
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ));
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      )),
+                );
               },
             ),
           ),
