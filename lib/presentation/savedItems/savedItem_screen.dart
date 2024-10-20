@@ -31,40 +31,41 @@ class _SaveditemScreenState extends State<SaveditemScreen> {
   Widget build(BuildContext context) {
     final response = ResponsiveCheck(context);
     return Scaffold(
-        appBar: response.isMobile
-            ? AppBar(
-                title: Text(
-                  AppStrings.savedItems,
-                  style: TextStyle(
-                      color: AppColors.blue,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w700),
-                ),
-                centerTitle: true,
-                actions: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const NotificationView(),
-                          ),
-                        );
-                      },
-                      child: SvgPicture.asset(AssetsRes.NOTIFICATION_ICON)),
-                  const SizedBox(
-                    width: 32,
-                  )
-                ],
-              )
-            : AppBar(
-                title: Text(
-                  AppStrings.savedItems,
-                  style: TextStyle(
-                      color: AppColors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600),
-                ),
+      appBar: response.isMobile
+          ? AppBar(
+              title: Text(
+                AppStrings.savedItems,
+                style: TextStyle(
+                    color: AppColors.blue,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w700),
               ),
-        body: const SavedItemComp());
+              centerTitle: true,
+              actions: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const NotificationView(),
+                        ),
+                      );
+                    },
+                    child: SvgPicture.asset(AssetsRes.NOTIFICATION_ICON)),
+                const SizedBox(
+                  width: 32,
+                )
+              ],
+            )
+          : AppBar(
+              title: Text(
+                AppStrings.savedItems,
+                style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+      body: const SavedItemComp(),
+    );
   }
 }

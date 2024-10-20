@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/AppProvider/ScreenProvider/DetailsProvider.dart';
+import 'package:flutter_project/ResponseModel/ProviderDetailsByIdModel.dart'
+    as providerModel;
+import 'package:flutter_project/base/extensions/string_extensions.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/app_string.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
@@ -30,6 +33,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
     final response = ResponsiveCheck(context);
     return Consumer<DetailsProvider>(
       builder: (context, provider, child) {
+        var node1;
         return Scaffold(
           appBar: response.isMobile
               ? AppBar(
@@ -50,24 +54,43 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                         fontWeight: FontWeight.w700),
                   ),
                   centerTitle: true,
+                  /*  actions: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.message,
+                        color: AppColors.grey,
+                      ),
+                    )
+                  ],*/
                 )
               : AppBar(
                   leading: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 24,
-                        color: Colors.black,
-                      )),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      size: 24,
+                      color: Colors.black,
+                    ),
+                  ),
                   title: Text(
                     AppStrings.details,
                     style: TextStyle(
-                        color: AppColors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600),
+                      color: AppColors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
+                  /*actions: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.message,
+                          color: AppColors.grey,
+                        ))
+                  ],*/
                 ),
           body: response.isMobile || response.isTablet
               ? ListView(
@@ -78,7 +101,13 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           vertical: 20),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.3,
-                      color: AppColors.grey,
+                      // color: AppColors.grey,
+                      child: Image.network(
+                        provider.providerDetailsNodeList.first.providerId!
+                            .profilePhoto
+                            .toString(),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -91,13 +120,23 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Username",
+                                provider.providerDetailsNodeList.first
+                                        .providerId?.fullName?.capitalized ??
+                                    "",
                                 style: TextStyle(
                                     color: AppColors.black,
                                     fontSize: 22,
                                     fontWeight: FontWeight.w600),
                               ),
-                              SvgPicture.asset(AssetsRes.LIKE_ICON)
+                              Icon(
+                                provider.providerList.first.isSaved == true
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color:
+                                    provider.providerList.first.isSaved == true
+                                        ? AppColors.red
+                                        : AppColors.black,
+                              ),
                             ],
                           ),
                           const SizedBox(
@@ -113,11 +152,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           const SizedBox(
                             height: 25,
                           ),
-                          const SubnodeComp(),
+                          for (var node
+                              in provider.providerDetailsNodeList.first.nodes!)
+                            SubnodeComp(node: node),
                           const SizedBox(
                             height: 10,
                           ),
-                          const SubnodeComp()
                         ],
                       ),
                     )
@@ -146,7 +186,9 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Username",
+                                  provider.providerDetailsNodeList.first
+                                          .providerId?.fullName ??
+                                      "",
                                   style: TextStyle(
                                       color: AppColors.black,
                                       fontSize: 18,
@@ -200,15 +242,16 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                       const SizedBox(
                         height: 32,
                       ),
-                      const Expanded(
+                      Expanded(
                         flex: 0,
                         child: Row(
                           children: [
-                            SubnodeComp(),
+                            for (var node in provider
+                                .providerDetailsNodeList.first.nodes!)
+                              SubnodeComp(node: node),
                             SizedBox(
                               width: 122,
                             ),
-                            SubnodeComp(),
                           ],
                         ),
                       ),
@@ -221,16 +264,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   }
 }
 
-class SubnodeComp extends StatefulWidget {
-  const SubnodeComp({super.key});
+class SubnodeComp extends StatelessWidget {
+  final providerModel.Nodes
+      node; // or createModel.Nodes depending on your usage
 
-  @override
-  State<SubnodeComp> createState() => _SubnodeCompState();
-}
+  const SubnodeComp({super.key, required this.node});
 
-class _SubnodeCompState extends State<SubnodeComp> {
-  List<String> dataList = ["27", "26", "25", "24", "23", "22", "21"];
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     final response = ResponsiveCheck(context);
@@ -244,121 +283,63 @@ class _SubnodeCompState extends State<SubnodeComp> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Subnode1",
+            "Title : ${node.title}",
             style: TextStyle(
                 color: AppColors.black,
                 fontSize: 18,
                 fontWeight: FontWeight.w600),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
-          Container(
-            constraints: const BoxConstraints(
-              maxHeight: 320,
+          Text(
+            "Description : ${node.addDescription?.capitalized}",
+            style: TextStyle(
+              color: AppColors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
             ),
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(right: 0),
-                    itemCount: dataList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = index; // Update selected index
-                          });
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          constraints:
-                              const BoxConstraints(maxHeight: 65, maxWidth: 18),
-                          margin: const EdgeInsets.only(bottom: 14, right: 20),
-                          decoration: BoxDecoration(
-                            color: _selectedIndex == index
-                                ? AppColors.green
-                                : AppColors.grey3,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Text(
-                            dataList[index],
-                            style: TextStyle(
-                                color: AppColors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Lorem ipsum dolor sit",
-                            style: TextStyle(
-                                color: AppColors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            "Aug 17 to Present",
-                            style: TextStyle(
-                                color: AppColors.grey1,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 22,
-                      ),
-                      Text(
-                        "Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.Jorem ipsum dolor, consectetur adipiscing elit. Nunc v libero et velit interdum, ac  mattis.",
-                        style: TextStyle(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 22,
-                      ),
-                      SizedBox(
-                        height:
-                            response.isMobile || response.isTablet ? 110 : 90,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: 3,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                height: 109,
-                                width: 80,
-                                color: AppColors.grey,
-                              );
-                            }),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+          ),
+          Text(
+            "Working Hr : ${node.addWorkHour}",
+            style: TextStyle(
+              color: AppColors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
             ),
           ),
           const SizedBox(
+            height: 20,
+          ),
+          // Display images if available
+          if (node.images != null && node.images!.isNotEmpty)
+            SizedBox(
+              height: 90,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: node.images!.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    height: 200,
+                    width: 90,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      border: Border.all(
+                        color: AppColors.grey3,
+                      ),
+                    ),
+                    child: Image.network(
+                      node.images![index],
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+              ),
+            ),
+          const SizedBox(
             height: 32,
-          )
+          ),
         ],
       ),
     );

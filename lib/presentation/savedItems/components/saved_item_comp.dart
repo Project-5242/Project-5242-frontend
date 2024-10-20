@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/base/helpers/textwidget.dart';
 import 'package:flutter_project/data/constants/app_colors.dart';
 import 'package:flutter_project/data/constants/responsive_view.dart';
+import 'package:flutter_project/presentation/savedItems/user_detail_screen.dart';
 import 'package:flutter_project/res/assets_res.dart';
-import 'package:flutter_project/routes/routes.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -120,10 +120,7 @@ class _SavedItemCompState extends State<SavedItemComp>
                                 padding: const EdgeInsets.all(8),
                                 onSelected: (value) {
                                   if (value == 1) {
-                                    // Handle view profile action
-                                  } else if (value == 2) {
-                                    // Handle remove profile action
-                                  }
+                                  } else if (value == 2) {}
                                 },
                                 itemBuilder: (context) => [
                                   PopupMenuItem<int>(
@@ -132,8 +129,14 @@ class _SavedItemCompState extends State<SavedItemComp>
                                     child: ElevatedButton(
                                       onPressed: () {
                                         Navigator.pop(context);
-                                        Navigator.pushNamed(
-                                            context, Routes.userDetailScreen);
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserDetailScreen(
+                                              providerId: data.providerId,
+                                            ),
+                                          ),
+                                        );
                                       },
                                       style: ElevatedButton.styleFrom(
                                         minimumSize:
