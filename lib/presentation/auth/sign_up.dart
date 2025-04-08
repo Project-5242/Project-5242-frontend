@@ -15,6 +15,7 @@ class SignUp extends StatefulWidget {
   final String? roleType;
   const SignUp({super.key, this.roleType});
 
+
   @override
   State<SignUp> createState() => _SignUpState();
 }
