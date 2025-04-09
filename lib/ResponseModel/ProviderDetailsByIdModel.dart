@@ -34,6 +34,7 @@ class ProviderDetailsNodeList {
   String? createdAt;
   String? updatedAt;
   dynamic v;
+  bool? isSaved;
 
   ProviderDetailsNodeList(
       {this.id,
@@ -42,7 +43,8 @@ class ProviderDetailsNodeList {
       this.totalView,
       this.createdAt,
       this.updatedAt,
-      this.v});
+      this.v,
+      this.isSaved});
 
   ProviderDetailsNodeList.fromJson(Map<String, dynamic> json) {
     id = json["_id"];
@@ -56,6 +58,7 @@ class ProviderDetailsNodeList {
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
     v = json["__v"];
+    isSaved = json["isSaved"];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +74,7 @@ class ProviderDetailsNodeList {
     _data["createdAt"] = createdAt;
     _data["updatedAt"] = updatedAt;
     _data["__v"] = v;
+    _data["isSaved"] = isSaved;
     return _data;
   }
 }

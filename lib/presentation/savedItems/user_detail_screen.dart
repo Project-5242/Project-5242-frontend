@@ -9,6 +9,7 @@ import 'package:flutter_project/data/constants/responsive_view.dart';
 import 'package:flutter_project/res/assets_res.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UserDetailScreen extends StatefulWidget {
   final String? providerId;
@@ -119,24 +120,79 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                provider.providerDetailsNodeList.first
-                                        .providerId?.fullName?.capitalized ??
-                                    "",
-                                style: TextStyle(
-                                    color: AppColors.black,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600),
+                              if (provider.providerDetailsNodeList.isEmpty)
+                                Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 200,
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                  ),
+                                )
+                              else
+                                Text(
+                                  provider.providerDetailsNodeList.first
+                                          .providerId?.fullName?.capitalized ??
+                                      "",
+                                  style: TextStyle(
+                                      color: AppColors.black,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w600),
                               ),
-                              Icon(
-                                provider.providerList.first.isSaved == true
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color:
-                                    provider.providerList.first.isSaved == true
-                                        ? AppColors.red
-                                        : AppColors.black,
-                              ),
+                              if (provider.providerDetailsNodeList.isEmpty)
+                                Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                )
+                              else
+                                IconButton(
+                                  onPressed: () {
+                                    if (provider.providerDetailsNodeList.isNotEmpty) {
+                                      final providerId = provider.providerDetailsNodeList.first.providerId?.id;
+                                      if (providerId != null) {
+                                        if (provider.providerDetailsNodeList.first.isSaved == true) {
+                                          provider.callRemoveFavouriteNodeApi(
+                                            context: context,
+                                            providerId: providerId,
+                                          ).then((_) {
+                                            setState(() {
+                                              provider.providerDetailsNodeList.first.isSaved = false;
+                                            });
+                                          });
+                                        } else {
+                                          provider.callFavouriteNodeApi(
+                                            context: context,
+                                            providerId: providerId,
+                                          ).then((_) {
+                                            setState(() {
+                                              provider.providerDetailsNodeList.first.isSaved = true;
+                                            });
+                                          });
+                                        }
+                                      }
+                                    }
+                                  },
+                                  icon: Icon(
+                                    provider.providerDetailsNodeList.first.isSaved == true
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                    color: provider.providerDetailsNodeList.first.isSaved == true
+                                      ? Colors.red
+                                      : AppColors.grey,
+                                  ),
+                                )
                             ],
                           ),
                           const SizedBox(

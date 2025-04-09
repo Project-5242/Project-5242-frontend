@@ -78,44 +78,51 @@ class BottomNavBarProviderState extends State<BottomNavBarProvider> {
   }) {
     return InkWell(
       onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          isSelected
-              ? Container(
-                  height: 45,
-                  width: 45,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: AppColors.background_theme,
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.white.withOpacity(0.2),
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                  child: SvgPicture.asset(
-                    icon,
-                    height: 25,
-                    width: 25,
-                    color: AppColors.white,
-                  ),
-                )
-              : Container(
-                  height: 45,
-                  width: 45,
-                  padding: const EdgeInsets.all(10),
-                  color: Colors.transparent,
-                  child: SvgPicture.asset(
-                    icon,
-                    height: 25,
-                    width: 25,
-                    color: AppColors.black,
-                  ),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.background_theme : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: isSelected ? [
+            BoxShadow(
+              color: AppColors.background_theme.withOpacity(0.3),
+              blurRadius: 10,
+              spreadRadius: 2,
+              offset: Offset(0, 3),
+            )
+          ] : [],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              height: isSelected ? 30 : 24,
+              width: isSelected ? 30 : 24,
+              child: SvgPicture.asset(
+                icon,
+                color: isSelected ? AppColors.white : AppColors.black,
+              ),
+            ),
+            SizedBox(height: 4),
+            AnimatedOpacity(
+              duration: Duration(milliseconds: 200),
+              opacity: isSelected ? 1 : 0,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: isSelected ? AppColors.white : AppColors.black,
                 ),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -123,22 +130,34 @@ class BottomNavBarProviderState extends State<BottomNavBarProvider> {
   _mobileView(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
+      
       bottomNavigationBar: Container(
-        height: 65,
+        height: 90,
         key: bottomNavKey,
-        color: AppColors.white,
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.15),
+              blurRadius: 15,
+              spreadRadius: 1,
+              offset: Offset(0, -5),
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Container(
               height: 1,
-              color: AppColors.white,
+              color: Colors.grey.withOpacity(0.2),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 bottomNavItem(
-                  title: "",
+                  title: "Home",
                   icon: AssetsRes.ic_home,
                   isSelected: _currentIndex == 0,
                   onTap: () {
@@ -150,7 +169,7 @@ class BottomNavBarProviderState extends State<BottomNavBarProvider> {
                   },
                 ),
                 bottomNavItem(
-                  title: "",
+                  title: "Saved",
                   icon: AssetsRes.ic_heat,
                   isSelected: _currentIndex == 1,
                   onTap: () {
@@ -162,37 +181,32 @@ class BottomNavBarProviderState extends State<BottomNavBarProvider> {
                   },
                 ),
                 bottomNavItem(
-                    title: "",
-                    icon: AssetsRes.ic_chat,
-                    isSelected: _currentIndex == 2,
-                    onTap: () {
-                      setState(
-                        () {
-                          if (_currentIndex != 2) {
-                            setState(() {
-                              _currentIndex = 2;
-                            });
-                          }
-                        },
-                      );
-                    }),
+                  title: "Chat",
+                  icon: AssetsRes.ic_chat,
+                  isSelected: _currentIndex == 2,
+                  onTap: () {
+                    if (_currentIndex != 2) {
+                      setState(() {
+                        _currentIndex = 2;
+                      });
+                    }
+                  },
+                ),
                 bottomNavItem(
-                    title: "",
-                    icon: AssetsRes.ic_user,
-                    isSelected: _currentIndex == 3,
-                    onTap: () {
-                      setState(
-                        () {
-                          if (_currentIndex != 3) {
-                            setState(() {
-                              _currentIndex = 3;
-                            });
-                          }
-                        },
-                      );
-                    }),
+                  title: "Profile",
+                  icon: AssetsRes.ic_user,
+                  isSelected: _currentIndex == 3,
+                  onTap: () {
+                    if (_currentIndex != 3) {
+                      setState(() {
+                        _currentIndex = 3;
+                      });
+                    }
+                  },
+                ),
               ],
             ),
+            const SizedBox(height: 8),
           ],
         ),
       ),

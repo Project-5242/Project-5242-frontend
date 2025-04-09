@@ -73,6 +73,7 @@ class RemoteService {
       throw NoInternetException('No Internet');
     } catch (e) {
       _handleException(e);
+      return null;
     }
 
     return responseJson;
@@ -130,6 +131,7 @@ class RemoteService {
           message: exception.message.toString());
     } catch (e) {
       _handleException(e);
+      return null;
     }
     return responseJson;
   }
@@ -186,6 +188,7 @@ class RemoteService {
           message: exception.message.toString());
     } catch (e) {
       _handleException(e);
+      return null;
     }
     return responseJson;
   }
@@ -231,6 +234,7 @@ class RemoteService {
           message: exception.message.toString());
     } catch (e) {
       _handleException(e);
+      return null;
     }
     return responseJson;
   }
