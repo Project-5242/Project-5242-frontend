@@ -44,6 +44,7 @@ class AppStrings {
   static const String continueText = 'Continue';
 
   static const String resetPassword = 'Reset Password';
+  static const String isProfileComplete = 'isProfileComplete';
   static const String emaiVerification = 'Email Verification';
   static const String emailVerify = 'Email Verify';
   static const String enter4digitSentEmail =
@@ -92,6 +93,9 @@ class AppStrings {
   static const String pqr = 'Pqr Stu';
   static const String lorem1 = 'Lorem Ipsum1';
   static const String lorem2 = 'Lorem Ipsum2';
+  static const String save = 'Save';
+  static const String multiEntries = 'Multi Entries';
+  static const String addEntry = 'Add Entry';
 
   static const String loremtxt = 'Lorem ipsum dolor sit amet.';
   static const String loctext = 'Lorem ipsum, dolor sit amet';

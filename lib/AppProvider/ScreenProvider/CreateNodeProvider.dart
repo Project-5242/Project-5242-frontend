@@ -15,6 +15,26 @@ class CreateNodeProvider extends ChangeNotifier {
   String? selectedValue;
   List<File> selectedImages = [];
   String hours = "";
+  DateTimeRange? selectedDateRange;
+
+  Future<void> pickWorkDateRange(BuildContext context) async {
+    final DateTimeRange? pickedDateRange = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      initialDateRange: selectedDateRange ?? DateTimeRange(
+        start: DateTime.now(),
+        end: DateTime.now().add(Duration(days: 1)),
+      ),
+    );
+
+    if (pickedDateRange != null) {
+      selectedDateRange = pickedDateRange;
+      hours = '${pickedDateRange.start.day}/${pickedDateRange.start.month}/${pickedDateRange.start.year} - ${pickedDateRange.end.day}/${pickedDateRange.end.month}/${pickedDateRange.end.year}';
+      notifyListeners();
+    }
+  }
+
   void pickImage(ImageSource source) async {
     final List<XFile>? pickedImages = await ImagePicker().pickMultiImage();
     if (pickedImages != null && pickedImages.isNotEmpty) {

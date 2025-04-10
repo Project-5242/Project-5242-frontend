@@ -12,12 +12,14 @@ import 'package:flutter_project/presentation/provider/create_profile.dart/static
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../base/helpers/helper.dart';
 import '../../../data/constants/app_colors.dart';
 import '../../../data/constants/app_string.dart';
 import '../../../data/constants/responsive_view.dart';
 import '../../../routes/routes.dart';
+import '../../../services/location_service.dart';
 import '../../widgets/app_text_field_widget.dart';
 import '../../widgets/custom_button.dart';
 
@@ -32,6 +34,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
   final TextEditingController hoursController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -110,7 +113,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
                 ),
                 fillColor: AppColors.textFill,
                 onTap: () async {
-                  await createValue.pickWorkHours(context);
+                  await createValue.pickWorkDateRange(context);
                   hoursController.text = createValue.hours;
                 },
                 readOnly: true,
@@ -200,6 +203,27 @@ class _CreateProfile1State extends State<CreateProfile1> {
                   AppColors.grey,
                 ),
                 fillColor: AppColors.textFill,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.020,
+              ),
+              CustomButton(
+                onTap: () async {
+                  final locationService = LocationService();
+                  final position = await locationService.getCurrentLocation();
+                  if (position != null) {
+                    locationController.text = 
+                        'Lat: ${position.latitude}, Long: ${position.longitude}';
+                  } else {
+                    locationController.text = 'Location not available';
+                  }
+                  setState(() {});
+                },
+                height: MediaQuery.of(context).size.height * 0.060,
+                width: MediaQuery.of(context).size.width,
+                text: locationController.text.isEmpty 
+                    ? 'Get Current Location' 
+                    : locationController.text,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,
@@ -300,6 +324,27 @@ class _CreateProfile1State extends State<CreateProfile1> {
                           ),
                         ),
                       ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.020,
+              ),
+              CustomButton(
+                onTap: () async {
+                  final locationService = LocationService();
+                  final position = await locationService.getCurrentLocation();
+                  if (position != null) {
+                    locationController.text = 
+                        'Lat: ${position.latitude}, Long: ${position.longitude}';
+                  } else {
+                    locationController.text = 'Location not available';
+                  }
+                  setState(() {});
+                },
+                height: MediaQuery.of(context).size.height * 0.060,
+                width: MediaQuery.of(context).size.width,
+                text: locationController.text.isEmpty 
+                    ? 'Get Current Location' 
+                    : locationController.text,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.020,
@@ -439,7 +484,7 @@ class _CreateProfile1State extends State<CreateProfile1> {
                             ),
                             fillColor: AppColors.textFill,
                             onTap: () async {
-                              await createValue.pickWorkHours(context);
+                              await createValue.pickWorkDateRange(context);
                               hoursController.text = createValue.hours;
                             },
                             readOnly: true,

@@ -6,23 +6,51 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 showLoaderDialog(BuildContext context) {
-  AlertDialog alert = AlertDialog(
-    content: Row(
-      children: [
-        const CircularProgressIndicator(
-          color: AppColors.primary,
-        ),
-        Container(
-            margin: const EdgeInsets.only(left: 7),
-            child: const Text("Loading...")),
-      ],
-    ),
-  );
   showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return alert;
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Lottie.asset(
+                'assets/lottie/loading.json',
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Loading...',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     },
   );
 }

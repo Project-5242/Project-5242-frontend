@@ -6,6 +6,8 @@ import 'package:flutter_project/presentation/auth/AuthProvider/sign_up_provider.
 import 'package:flutter_project/presentation/provider/select_category_view.dart';
 import 'package:flutter_project/presentation/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 import '../../data/constants/app_string.dart';
 import '../widgets/app_rich_text.dart';
@@ -27,8 +29,19 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
-
+  final TextEditingController bioController = TextEditingController();
+  File? _profileImage;
   bool _obsecureText = true;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _profileImage = File(image.path);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Consumer<SignUpProvider>(builder: (context, signUpValue, child) {
@@ -57,6 +70,55 @@ class _SignUpState extends State<SignUp> {
                       : const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                   children: [
+                    Center(
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.textFill,
+                              image: _profileImage != null
+                                  ? DecorationImage(
+                                      image: FileImage(_profileImage!),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null,
+                            ),
+                            child: _profileImage == null
+                                ? Icon(
+                                    Icons.person,
+                                    size: 60,
+                                    color: AppColors.grey,
+                                  )
+                                : null,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.blue,
+                                shape: BoxShape.circle,
+                              ),
+                              child: InkWell(
+                                onTap: _pickImage,
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: AppColors.white,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.020,
                     ),
@@ -183,7 +245,35 @@ class _SignUpState extends State<SignUp> {
                       fillColor: AppColors.textFill,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.075,
+                      height: MediaQuery.of(context).size.height * 0.026,
+                    ),
+                    if (widget.roleType == "provider")
+                      AppTextFieldWidget(
+                        controller: bioController,
+                        maxLines: 3,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your bio';
+                          }
+                          return null;
+                        },
+                        title: "Bio",
+                        borderSideColor: AppColors.grey,
+                        hint: "Tell us about yourself and your services...",
+                        hintStyle: context.customFont(
+                          'Open Sans',
+                          isDesktop ? 20.0 : 18.0,
+                          FontWeight.w400,
+                          AppColors.grey,
+                        ),
+                        fillColor: AppColors.textFill,
+                      ),
+                    if (widget.roleType == "provider")
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.026,
+                      ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
                     ),
                     CustomButton(
                       onTap: () {
@@ -207,6 +297,8 @@ class _SignUpState extends State<SignUp> {
                                           .text
                                           .trim()
                                           .toString(),
+                                      bio: bioController.text.trim().toString(),
+                                      profilePhoto: _profileImage,
                                     ),
                                   ),
                                 )
@@ -218,7 +310,8 @@ class _SignUpState extends State<SignUp> {
                                       passwordController.text.trim().toString(),
                                   email: emailController.text.trim().toString(),
                                   mobileNumber:
-                                      mobileController.text.trim().toString());
+                                      mobileController.text.trim().toString(),
+                                  bio: bioController.text.trim().toString());
                         }
                       },
                       height: isDesktop

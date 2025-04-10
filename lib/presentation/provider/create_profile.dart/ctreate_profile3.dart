@@ -18,12 +18,15 @@ class CreateProfile3 extends StatefulWidget {
   final int? totalSteps;
   final String? title;
   final String? description;
+
+  final bool isEditMode;
   const CreateProfile3(
       {super.key,
       this.currentIndex,
       this.totalSteps,
       this.description,
-      this.title});
+      this.title,
+      this.isEditMode = false});
 
   @override
   State<CreateProfile3> createState() => _CreateProfile3State();
@@ -63,6 +66,7 @@ class _CreateProfile3State extends State<CreateProfile3> {
   _mobileView(BuildContext context) {
     return Consumer<AddressProvider>(
         builder: (context, addressProvider, child) {
+      final isEdit = widget.isEditMode;
       return StaticProfileLayout(
         currentIndex: 2,
         totalSteps: 3,
@@ -89,19 +93,19 @@ class _CreateProfile3State extends State<CreateProfile3> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.113,
             ),
-            CustomButton(
-              color: AppColors.white,
-              color1: AppColors.themeColor,
-              onTap: () {
-                addressProvider.getGeoLocationPosition();
-              },
-              height: MediaQuery.of(context).size.height * 0.060,
-              width: MediaQuery.of(context).size.width,
-              text: AppStrings.allowCurrentloc,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.034,
-            ),
+            // CustomButton(
+            //   color: AppColors.white,
+            //   color1: AppColors.themeColor,
+            //   onTap: () {
+            //     addressProvider.getGeoLocationPosition();
+            //   },
+            //   height: MediaQuery.of(context).size.height * 0.060,
+            //   width: MediaQuery.of(context).size.width,
+            //   text: AppStrings.allowCurrentloc,
+            // ),
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height * 0.034,
+            // ),
             CustomButton(
               color: AppColors.white,
               color1: AppColors.themeColor,
@@ -122,6 +126,7 @@ class _CreateProfile3State extends State<CreateProfile3> {
 
                   addressProvider.setAddressDetails(
                       address, latitude, longitude);
+                  Navigator.pushNamed(context, Routes.createProfile4);
                 }
               },
               height: MediaQuery.of(context).size.height * 0.060,
@@ -133,17 +138,21 @@ class _CreateProfile3State extends State<CreateProfile3> {
             ),
             CustomButton(
               onTap: () {
-                context.read<CreateNodeProvider>().callCreateNodeApi(
-                    context: context,
-                    title: widget.title.toString(),
-                    description: widget.description.toString(),
-                    address: addressProvider.fullAddress,
-                    lat: addressProvider.latitude,
-                    long: addressProvider.longitude);
+                if (widget.isEditMode) {
+                  // Handle edit logic
+                } else {
+                  context.read<CreateNodeProvider>().callCreateNodeApi(
+                      context: context,
+                      title: widget.title.toString(),
+                      description: widget.description.toString(),
+                      address: addressProvider.fullAddress,
+                      lat: addressProvider.latitude,
+                      long: addressProvider.longitude);
+                }
               },
               height: MediaQuery.of(context).size.height * 0.060,
               width: MediaQuery.of(context).size.width,
-              text: AppStrings.next,
+              text: widget.isEditMode ? AppStrings.save : AppStrings.next,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,

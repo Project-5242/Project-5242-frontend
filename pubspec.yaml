@@ -69,6 +69,7 @@ flutter:
     - assets/lottie/no_notification_lottie.json
     - assets/lottie/page_not_found.json
     - assets/lottie/welcome_lottie.json
+    - assets/lottie/loading.json
     - assets/lottie/Logout.json
     - assets/secrets/dotenv.env
     - assets/icon/

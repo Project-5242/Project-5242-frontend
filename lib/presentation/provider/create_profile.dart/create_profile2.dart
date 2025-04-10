@@ -95,29 +95,46 @@ class _CreateProfile2State extends State<CreateProfile2> {
                   AppColors.black1.withOpacity(0.3)),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.010,
+              height: MediaQuery.of(context).size.height * 0.030,
             ),
-            AppTextFieldWidget(
-              controller: hoursController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'This field cant be empty';
+            GestureDetector(
+              onTap: () async {
+                final DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  initialEntryMode: DatePickerEntryMode.calendarOnly,
+                );
+                if (pickedDate != null) {
+                  setState(() {
+                    hoursController.text = '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
+                  });
                 }
-                return null;
               },
-              //title: AppStrings.email,
-              borderSideColor: AppColors.greyLight,
-              hint: AppStrings.addWorkHours,
-              hintStyle: context.customFont(
-                'Open Sans',
-                18.0,
-                FontWeight.w400,
-                AppColors.grey,
+              child: AbsorbPointer(
+                child: AppTextFieldWidget(
+                  controller: hoursController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'This field cant be empty';
+                    }
+                    return null;
+                  },
+                  borderSideColor: AppColors.greyLight,
+                  hint: 'Add work open (dd/mm/yyyy)',
+                  hintStyle: context.customFont(
+                    'Open Sans',
+                    18.0,
+                    FontWeight.w400,
+                    AppColors.grey,
+                  ),
+                  fillColor: AppColors.textFill,
+                ),
               ),
-              fillColor: AppColors.textFill,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.010,
+              height: MediaQuery.of(context).size.height * 0.030,
             ),
             AppTextFieldWidget(
               controller: titleController,
@@ -139,7 +156,7 @@ class _CreateProfile2State extends State<CreateProfile2> {
               fillColor: AppColors.textFill,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.010,
+              height: MediaQuery.of(context).size.height * 0.030,
             ),
             AppTextFieldWidget(
               controller: descController,
@@ -161,7 +178,7 @@ class _CreateProfile2State extends State<CreateProfile2> {
               fillColor: AppColors.textFill,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.020,
+              height: MediaQuery.of(context).size.height * 0.030,
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.400,
@@ -193,7 +210,7 @@ class _CreateProfile2State extends State<CreateProfile2> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.020,
+              height: MediaQuery.of(context).size.height * 0.030,
             ),
             CustomButton(
               color: AppColors.white,
